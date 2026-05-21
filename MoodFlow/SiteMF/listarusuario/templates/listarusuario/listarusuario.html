@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários Cadastrados - MOOD flow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+        <link rel="stylesheet" href="{% static 'listarusuario/css/listarusuario.css' %}">
+
+</head>
+<body>
+
+    <div class="list-container">
+        <div class="list-header">
+            <h2>Usuários Cadastrados</h2>
+            <p>Gerenciamento da comunidade MOOD flow</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Nome Completo</th>
+                        <th>Usuário</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Nascimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Maria Silva</td>
+                        <td>@mariasilva123</td>
+                        <td>maria@exemplo.com</td>
+                        <td>(11) 99999-9999</td>
+                        <td>15/04/1995</td>
+                    </tr>
+                    <tr>
+                        <td>João Pedro Souza</td>
+                        <td>@joaopsouza</td>
+                        <td>joao.pedro@email.com</td>
+                        <td>(21) 98888-7777</td>
+                        <td>22/08/1998</td>
+                    </tr>
+                    <tr>
+                        <td>Ana Clara Mendes</td>
+                        <td>@anamendes_</td>
+                        <td>ana.mendes@exemplo.com</td>
+                        <td>(31) 97777-6666</td>
+                        <td>05/11/2001</td>
+                    </tr>
+                     <tr>
+                        <td>Carlos Eduardo</td>
+                        <td>@carlosedu</td>
+                        <td>carlos.edu@email.com</td>
+                        <td>(41) 96666-5555</td>
+                        <td>30/01/1990</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="actions">
+            <a href="index.html" class="btn-back">Voltar para o Login</a>
+            <a href="registro.html" class="btn-new">Novo Cadastro</a>
+        </div>
+    </div>
+
+</body>
+</html>
