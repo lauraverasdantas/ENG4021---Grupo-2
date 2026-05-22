@@ -1,60 +1,57 @@
+{% extends "SiteMF/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Perfil - MOOD flow</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{% static 'editarperfil/css/editarperfil.css' %}">
-</head>
-<body>
 
+{% block title %}Editar Perfil - MOOD flow{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'editarperfil/css/editarperfil.css' %}">
+{% endblock %}
+
+{% block body_class %}profile-page{% endblock %}
+
+{% block content %}
     <div class="profile-container">
         <div class="profile-header">
+            <div class="profile-photo">
+                {% if profile.image %}
+                    <img src="{{ profile.image.url }}" alt="Foto de {{ request.user.username }}">
+                {% else %}
+                    <span>{{ request.user.username|slice:":1"|upper }}</span>
+                {% endif %}
+            </div>
             <h2>Editar Perfil</h2>
-            <p>Atualize suas informações de contato e segurança</p>
+            <p>Atualize suas informacoes pessoais</p>
         </div>
 
-        <form class="profile-form" action="#" method="POST">
-            
-            <div class="input-group locked">
-                <label for="nome">Nome Completo (Não editável)</label>
-                <input type="text" id="nome" name="nome" value="Maria Silva" readonly>
-            </div>
+        <form class="profile-form" method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            {{ user_form.non_field_errors }}
+            {{ profile_form.non_field_errors }}
 
-            <div class="input-group locked">
-                <label for="usuario">Nome de Usuário (Não editável)</label>
-                <input type="text" id="usuario" name="usuario" value="@mariasilva123" readonly>
+            <div class="form-grid">
+                {% for field in user_form %}
+                    <div class="input-group{% if field.field.disabled %} locked{% endif %}">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
             </div>
 
             <hr class="divider">
 
-            <div class="input-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" value="maria@exemplo.com" required>
-            </div>
-
-            <div class="input-group">
-                <label for="telefone">Telefone</label>
-                <input type="tel" id="telefone" name="telefone" value="(11) 99999-9999" required>
-            </div>
-
-            <div class="input-group">
-                <label for="senha">Nova Senha</label>
-                <input type="password" id="senha" name="senha" placeholder="Digite apenas se quiser alterar">
-            </div>
+            {% for field in profile_form %}
+                <div class="input-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
 
             <div class="actions">
-                <a href="{% url 'login:login' %}" class="btn-cancel">Cancelar</a>
-                <button type="submit" class="btn-save">Salvar Alterações</button>
+                <a href="{% url 'home' %}" class="btn-cancel">Cancelar</a>
+                <button type="submit" class="btn-save">Salvar alteracoes</button>
             </div>
         </form>
     </div>
-
-</body>
-</html>
+{% endblock %}

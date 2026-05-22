@@ -12,7 +12,7 @@ body {
     align-items: center;
     background-color: #B3D4EC; /* Mantendo a cor de fundo do projeto */
     font-family: sans-serif;
-    padding: 20px;
+    padding: 112px 20px 40px;
 }
 
 /* --- Container Principal do Registro --- */
@@ -83,6 +83,14 @@ body {
 
 .input-group input::placeholder {
     color: #bbb;
+}
+
+.errorlist {
+    margin: 2px 0 0;
+    padding: 0;
+    color: #d45d5d;
+    font-size: 0.85rem;
+    list-style: none;
 }
 
 /* --- Botão de Cadastro --- */

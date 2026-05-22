@@ -15,7 +15,7 @@ body {
         repeating-linear-gradient(rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 20px),
         repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 20px);
     font-family: 'Patrick Hand', cursive;
-    padding: 20px; /* Evita colar nas bordas em telas menores */
+    padding: 112px 20px 40px;
 }
 
 /* --- Contentor Principal (Agora com leve efeito translúcido) --- */
@@ -157,6 +157,10 @@ body {
     gap: 12px; 
 }
 
+.input-group {
+    width: 100%;
+}
+
 /* Interação nos Inputs */
 .input-field {
     width: 100%;
@@ -181,6 +185,15 @@ body {
 .input-field::placeholder {
     color: #A6A6A6;
     font-family: 'Patrick Hand', cursive;
+}
+
+.errorlist {
+    margin: 0;
+    padding: 0;
+    color: #d45d5d;
+    font-family: sans-serif;
+    font-size: 0.82rem;
+    list-style: none;
 }
 
 /* --- Links (Esqueci Senha / Criar Conta) --- */
