@@ -1,17 +1,135 @@
-{% extends "SiteMF/base.html" %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOOD flow | Controle o agora</title>
+    <style>
+        /* Variáveis de Cores baseadas na paleta da imagem */
+        :root {
+            --bg-texture: rgba(255, 255, 255, 0.15);
+            --bg-color: #aecce8;      /* Azul claro do fundo */
+            --logo-light: #a3d1ff;    /* Brilho da logo */
+            --logo-base: #7eb6f7;     /* Cor base da logo */
+            --eyes-color: #4b7db8;    /* Azul escuro para olhos e texto */
+            --text-dark: #3a689e;     /* Azul escuro para o título */
+        }
 
-{% block title %}MOOD flow | Controle o agora{% endblock %}
+        /* Reset básico e tipografia */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'SiteMF/css/home.css' %}">
-{% endblock %}
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-color);
+            /* Textura sutil simulando o fundo da imagem */
+            background-size: 15px 15px;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-dark);
+            overflow: hidden;
+        }
 
-{% block body_class %}home-page{% endblock %}
+        /* Container principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 25px;
+            padding: 20px;
+        }
 
-{% block content %}
-    <section class="home-hero" aria-labelledby="home-title">
-        <div class="logo-box" aria-hidden="true">
+        /* ----- Desenho da Logo em CSS ----- */
+        .logo-box {
+            background-color: #92c4f5; /* Quadrado de fundo da logo */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .mascot {
+            width: 180px;
+            height: 180px;
+            /* Gradiente radial para simular o volume da esfera */
+            background: radial-gradient(circle at 40% 30%, var(--logo-light) 0%, var(--logo-base) 80%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.05), 
+                        0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Olhos */
+        .eye {
+            width: 14px;
+            height: 22px;
+            background-color: var(--eyes-color);
+            border-radius: 50%;
+            position: absolute;
+            top: 55%;
+            transform: translateY(-50%);
+        }
+
+        .eye.left {
+            left: 28%;
+        }
+
+        .eye.right {
+            right: 28%;
+        }
+
+        /* Sorriso */
+        .smile {
+            width: 30px;
+            height: 15px;
+            border-bottom: 2px solid var(--eyes-color);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* ----- Textos ----- */
+        .title {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+        }
+
+        .title span {
+            font-weight: 300; /* "flow" com peso menor para contraste */
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            color: var(--eyes-color);
+            opacity: 0.85;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 600px) {
+            .title { font-size: 3rem; }
+            .subtitle { font-size: 1.1rem; }
+            .mascot { width: 140px; height: 140px; }
+            .logo-box { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-box">
             <div class="mascot">
                 <div class="eye left"></div>
                 <div class="eye right"></div>
@@ -19,18 +137,19 @@
             </div>
         </div>
 
-        <div class="home-copy">
-            <h1 id="home-title" class="title">MOOD <span>flow</span></h1>
+        <div>
+            <h1 class="title">MOOD <span>flow</span></h1>
             <p class="subtitle">controle o agora</p>
         </div>
+        
+        <ul>
+            <li><a href="{% url 'login:login' %}">Login</a></li>
+            <li><a href="{% url 'registro:registro' %}">Registro</a></li>
+            <li><a href="{% url 'editarperfil:editar_perfil' %}">Editar Perfil</a></li>
+            <li><a href="{% url 'listarusuario:listarusuario' %}">Listar Usuários</a></li>
+            <li><a href="{% url 'removerusuario:removerusuario' %}">Remover Usuário</a></li>
+            </ul>
+    </div>
 
-        <div class="home-actions">
-            {% if request.user.is_authenticated %}
-                <a href="{% url 'editarperfil:editar_perfil' %}" class="home-button">Editar meu perfil</a>
-            {% else %}
-                <a href="{% url 'registro:registro' %}" class="home-button">Criar conta</a>
-                <a href="{% url 'login:login' %}" class="home-button home-button--secondary">Entrar</a>
-            {% endif %}
-        </div>
-    </section>
-{% endblock %}
+</body>
+</html>
