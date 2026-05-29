@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - MOOD flow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+/* --- Estilos Globais --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #B3D4EC; /* Mantendo a cor de fundo do projeto */
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+/* --- Container Principal do Registro --- */
+.register-container {
+    background-color: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 40px;
+}
+
+/* --- Cabeçalho do Formulário --- */
+.register-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.register-header h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    color: #4A4A4A;
+    margin-bottom: 5px;
+}
+
+.register-header p {
+    color: #888;
+    font-size: 1rem;
+}
+
+/* --- Formulário e Inputs --- */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #A08CD2; /* Cor roxa ao focar no input */
+    background-color: #fff;
+}
+
+.input-group input::placeholder {
+    color: #bbb;
+}
+
+/* --- Botão de Cadastro --- */
+.submit-button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: #A08CD2; /* Botão Roxo */
+    color: white;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.submit-button:hover {
+    background-color: #8b76c4;
+}
+
+.submit-button:active {
+    transform: scale(0.98);
+}
+
+/* --- Link de Voltar para o Login --- */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.login-link a {
+    color: #A08CD2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+</style>
+    
+    <link rel="stylesheet" href="#">
+<style>
+/* ===== Toggle de tema (Sprint 6) ===== */
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:9999;width:46px;height:46px;
+border-radius:50%;border:1px solid rgba(120,120,120,.35);background:rgba(255,255,255,.6);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:1.3rem;cursor:pointer;
+display:flex;align-items:center;justify-content:center;transition:transform .2s ease;}
+.theme-toggle:hover{transform:scale(1.1);}
+/* Modo escuro: inverte a pagina e gira o matiz de volta (mantem azuis azuis) */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg);background:#0e1622;}
+html[data-theme="dark"] .theme-toggle{filter:invert(1) hue-rotate(180deg);}
+html{transition:filter .35s ease;}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema claro/escuro" aria-label="Alternar tema">🌙</button>
+
+    <div class="register-container">
+        <div class="register-header">
+            <h2>Crie sua conta</h2>
+            <p>Junte-se ao MOOD flow</p>
+        </div>
+
+        <form class="register-form" action="#" method="POST">
+            
+            <div class="input-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" name="nome" placeholder="Ex: Maria Silva" required>
+            </div>
+
+            <div class="input-group">
+                <label for="data_nasc">Data de Nascimento</label>
+                <input type="date" id="data_nasc" name="data_nasc" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="maria@exemplo.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+            </div>
+
+            <div class="input-group">
+                <label for="usuario">Nome de Usuário</label>
+                <input type="text" id="usuario" name="usuario" placeholder="mariasilva123" required>
+            </div>
+
+            <div class="input-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" placeholder="Crie uma senha forte" required>
+            </div>
+
+            <button type="submit" class="submit-button">Cadastrar</button>
+            
+            <div class="login-link">
+                Já tem uma conta? <a href="#">Faça login aqui</a>
+            </div>
+        </form>
+    </div>
+
+
+<script>
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
+document.querySelector('.theme-toggle').textContent = t==='dark'?'☀️':'🌙';}
+function toggleTheme(){var a=document.documentElement.getAttribute('data-theme');
+applyTheme(a==='dark'?'light':'dark');}
+applyTheme('light');
+</script>
+
+</body>
+</html>

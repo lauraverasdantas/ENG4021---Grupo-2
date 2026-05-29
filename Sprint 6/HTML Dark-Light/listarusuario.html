@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários Cadastrados - MOOD flow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+/* --- Estilos Globais --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #B3D4EC; /* Cor azul base do projeto */
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+/* --- Container Principal --- */
+.list-container {
+    background-color: white;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 40px;
+}
+
+/* --- Cabeçalho --- */
+.list-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.list-header h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    color: #4A4A4A;
+    margin-bottom: 5px;
+}
+
+.list-header p {
+    color: #888;
+    font-size: 1rem;
+}
+
+/* --- Responsividade da Tabela --- */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto; /* Permite rolar horizontalmente em telas pequenas */
+    margin-bottom: 30px;
+}
+
+/* --- Estilização da Tabela --- */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Garante que a tabela não fique esmagada em telas pequenas */
+}
+
+.users-table th, 
+.users-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.users-table th {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.3rem;
+    color: #A08CD2; /* Roxo do projeto */
+    background-color: #fcfcfc;
+}
+
+.users-table td {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Efeito ao passar o mouse na linha */
+.users-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.users-table td:nth-child(2) {
+    font-weight: bold;
+    color: #4A4A4A;
+}
+
+/* --- Botões de Ação --- */
+.actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-back, 
+.btn-new {
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.2s, transform 0.1s;
+    flex: 1; /* Faz os botões dividirem o espaço */
+    min-width: 200px;
+}
+
+.btn-back {
+    background-color: #f0f0f0;
+    color: #555;
+}
+
+.btn-back:hover {
+    background-color: #e4e4e4;
+}
+
+.btn-new {
+    background-color: #A08CD2; /* Roxo do projeto */
+    color: white;
+}
+
+.btn-new:hover {
+    background-color: #8b76c4;
+}
+
+.btn-back:active, 
+.btn-new:active {
+    transform: scale(0.98);
+}
+</style>
+    
+        <link rel="stylesheet" href="#">
+
+<style>
+/* ===== Toggle de tema (Sprint 6) ===== */
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:9999;width:46px;height:46px;
+border-radius:50%;border:1px solid rgba(120,120,120,.35);background:rgba(255,255,255,.6);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:1.3rem;cursor:pointer;
+display:flex;align-items:center;justify-content:center;transition:transform .2s ease;}
+.theme-toggle:hover{transform:scale(1.1);}
+/* Modo escuro: inverte a pagina e gira o matiz de volta (mantem azuis azuis) */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg);background:#0e1622;}
+html[data-theme="dark"] .theme-toggle{filter:invert(1) hue-rotate(180deg);}
+html{transition:filter .35s ease;}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema claro/escuro" aria-label="Alternar tema">🌙</button>
+
+    <div class="list-container">
+        <div class="list-header">
+            <h2>Usuários Cadastrados</h2>
+            <p>Gerenciamento da comunidade MOOD flow</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Nome Completo</th>
+                        <th>Usuário</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Nascimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Maria Silva</td>
+                        <td>@mariasilva123</td>
+                        <td>maria@exemplo.com</td>
+                        <td>(11) 99999-9999</td>
+                        <td>15/04/1995</td>
+                    </tr>
+                    <tr>
+                        <td>João Pedro Souza</td>
+                        <td>@joaopsouza</td>
+                        <td>joao.pedro@email.com</td>
+                        <td>(21) 98888-7777</td>
+                        <td>22/08/1998</td>
+                    </tr>
+                    <tr>
+                        <td>Ana Clara Mendes</td>
+                        <td>@anamendes_</td>
+                        <td>ana.mendes@exemplo.com</td>
+                        <td>(31) 97777-6666</td>
+                        <td>05/11/2001</td>
+                    </tr>
+                     <tr>
+                        <td>Carlos Eduardo</td>
+                        <td>@carlosedu</td>
+                        <td>carlos.edu@email.com</td>
+                        <td>(41) 96666-5555</td>
+                        <td>30/01/1990</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="actions">
+            <a href="index.html" class="btn-back">Voltar para o Login</a>
+            <a href="registro.html" class="btn-new">Novo Cadastro</a>
+        </div>
+    </div>
+
+
+<script>
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
+document.querySelector('.theme-toggle').textContent = t==='dark'?'☀️':'🌙';}
+function toggleTheme(){var a=document.documentElement.getAttribute('data-theme');
+applyTheme(a==='dark'?'light':'dark');}
+applyTheme('light');
+</script>
+
+</body>
+</html>
