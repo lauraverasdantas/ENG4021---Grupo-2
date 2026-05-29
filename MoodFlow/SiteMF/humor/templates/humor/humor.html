@@ -1,0 +1,357 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracker</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Estilos Globais e Fundo Quadriculado --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #BBD7F3; /* Azul clarinho do fundo */
+            background-image: 
+                repeating-linear-gradient(rgba(255, 255, 255, 0.3) 0px, rgba(255, 255, 255, 0.3) 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0px, rgba(255, 255, 255, 0.3) 1px, transparent 1px, transparent 20px);
+            font-family: 'Patrick Hand', cursive;
+            padding: 20px;
+            color: #669bc0; /* Cor azul do texto */
+        }
+
+        /* --- Container Principal --- */
+        .tracker-container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* --- Títulos Estilo Nuvem --- */
+        .cloud-title {
+            background-color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 2.2rem;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* Pseudo-elementos para dar o efeito de "nuvem" fofinha */
+        .cloud-title::before, .cloud-title::after {
+            content: '';
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .cloud-title::before {
+            width: 60px; height: 60px;
+            top: -20px; left: 30px;
+        }
+
+        .cloud-title::after {
+            width: 80px; height: 80px;
+            top: -30px; right: 30px;
+        }
+
+        /* --- Seção de Humor (Faces) --- */
+        .mood-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mood-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .mood-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .mood-num {
+            font-size: 1.2rem;
+            color: #669bc0;
+        }
+
+        .mood-label {
+            font-size: 1.2rem;
+            color: #669bc0;
+        }
+
+        /* --- Design das Carinhas em CSS Puro --- */
+        .face-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: inset -4px -4px 10px rgba(0,0,0,0.1); /* Sombra interna para volume */
+        }
+
+        /* Olhos Padrão */
+        .eye {
+            width: 5px; height: 5px;
+            background-color: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+        }
+        .eye.left { left: 18px; }
+        .eye.right { right: 18px; }
+
+        /* Bocas Base */
+        .mouth {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 2px solid #333;
+        }
+
+        /* Variações de Cores e Expressões */
+        /* 1. Normal */
+        .c-normal { background-color: #9288e0; }
+        .c-normal .mouth { width: 12px; height: 0; border-top: none; border-left: none; border-right: none; }
+
+        /* 2. Triste */
+        .c-triste { background-color: #5da7dd; }
+        .c-triste .mouth { width: 14px; height: 8px; border-bottom: none; border-radius: 100px 100px 0 0; bottom: 12px; }
+        .c-triste .eye { top: 28px; } /* olhos mais baixos */
+
+        /* 3. Feliz */
+        .c-feliz { background-color: #fbce3b; }
+        .c-feliz .mouth { width: 14px; height: 8px; border-top: none; border-radius: 0 0 100px 100px; }
+
+        /* 4. Esperançoso */
+        .c-esperancoso { background-color: #56c15b; }
+        .c-esperancoso .mouth { width: 10px; height: 6px; border-top: none; border-radius: 0 0 100px 100px; bottom: 16px;}
+
+        /* 5. Raivoso */
+        .c-raivoso { background-color: #ed6e5f; }
+        .c-raivoso .mouth { width: 14px; height: 8px; border-bottom: none; border-radius: 100px 100px 0 0; bottom: 12px;}
+        /* Sobrancelhas raiva */
+        .c-raivoso::before { content:''; position:absolute; width:8px; height:2px; background:#333; top:20px; left:12px; transform:rotate(20deg); }
+        .c-raivoso::after { content:''; position:absolute; width:8px; height:2px; background:#333; top:20px; right:12px; transform:rotate(-20deg); }
+
+        /* 6. Apaixonado */
+        .c-apaixonado { background-color: #f18ca4; }
+        .c-apaixonado .mouth { width: 10px; height: 6px; border-top: none; border-radius: 0 0 100px 100px; }
+
+        /* 7. Preocupado */
+        .c-preocupado { background-color: #7c8d9e; }
+        .c-preocupado .mouth { width: 8px; height: 0; border-top: none; border-left: none; border-right: none; bottom: 14px;}
+        .c-preocupado .eye { top: 22px; }
+
+        /* 8. Ansioso */
+        .c-ansioso { background-color: #e78c46; }
+        .c-ansioso .mouth { width: 14px; height: 0; border-top: none; border-left: none; border-right: none; }
+        .c-ansioso .eye { top: 22px; width: 4px; height: 4px;} /* Olhos menores */
+
+        /* 9. Entediado */
+        .c-entediado { background-color: #cf724b; }
+        .c-entediado .mouth { width: 16px; height: 0; border-top: none; border-left: none; border-right: none; }
+        .c-entediado .eye { width: 6px; height: 2px; border-radius: 0; } /* Olhos semicerrados */
+
+
+        /* --- Seção de Ansiedade (Barra de Progresso) --- */
+        .slider-container {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to right, #8cb4d3, #a5b0b9, #dd8d68);
+            border: 2px solid #8cb4d3; /* Borda azul clara */
+            outline: none;
+            border-radius: 2px;
+        }
+
+        /* O "pino" invisível para poder clicar e arrastar */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 50px;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 1.4rem;
+        }
+
+        .slider-labels .min { color: #669bc0; }
+        .slider-labels .max { color: #e75a3d; } /* Vermelho/Laranja */
+
+        /* --- Seção de Texto (Diário) --- */
+        .textarea-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 20px;
+        }
+
+        .textarea-container label {
+            font-size: 1.5rem;
+            color: #669bc0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Estilo da caixa branca que parece tortinha */
+        textarea {
+            width: 100%;
+            height: 150px;
+            background-color: #fafbfc;
+            border: 2px solid #8cb4d3;
+            border-radius: 2px;
+            padding: 20px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.5rem;
+            color: #333;
+            resize: none;
+            outline: none;
+            /* Efeito de rotação leve para parecer papel colado */
+            transform: rotate(-0.5deg);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.02);
+        }
+
+        textarea:focus {
+            border-color: #669bc0;
+            background-color: white;
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .mood-row {
+                justify-content: center;
+                gap: 15px;
+            }
+            .cloud-title {
+                font-size: 1.8rem;
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tracker-container">
+        
+        <div class="cloud-title">como você está se sentindo ?</div>
+        
+        <div class="mood-row">
+            <div class="mood-item">
+                <span class="mood-num">1</span>
+                <div class="face-circle c-normal"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+                <span class="mood-label">normal</span>
+            </div>
+            
+            <div class="mood-item">
+                <span class="mood-num">2</span>
+                <div class="face-circle c-triste"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+                <span class="mood-label">triste</span>
+            </div>
+
+            <div class="mood-item">
+                <span class="mood-num">3</span>
+                <div class="face-circle c-feliz"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+                <span class="mood-label">feliz</span>
+            </div>
+
+            <div class="mood-item">
+                <span class="mood-num">4</span>
+                <div class="face-circle c-esperancoso"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+                <span class="mood-label">esperançoso</span>
+            </div>
+
+            <div class="mood-item">
+                <span class="mood-num">5</span>
+                <div class="face-circle c-raivoso"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+                <span class="mood-label">raivoso</span>
+            </div>
+
+            <div class="mood-item">
+                <span class="mood-num">6</span>
+                <div class="face-circle c-apaixonado"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+                <span class="mood-label">apaixonado</span>
+            </div>
+
+            <div class="mood-item">
+                <span class="mood-num">7</span>
+                <div class="face-circle c-preocupado"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+                <span class="mood-label">preocupado</span>
+            </div>
+
+            <div class="mood-item">
+                <span class="mood-num">8</span>
+                <div class="face-circle c-ansioso"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+                <span class="mood-label">ansioso</span>
+            </div>
+
+            <div class="mood-item">
+                <span class="mood-num">9</span>
+                <div class="face-circle c-entediado"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+                <span class="mood-label">entediado</span>
+            </div>
+        </div>
+
+        <div class="cloud-title">como está seu nivel de ansiedade ?</div>
+
+        <div class="slider-container">
+            <input type="range" min="1" max="10" value="5" id="anxiety-slider">
+            <div class="slider-labels">
+                <span class="min">1</span>
+                <span class="max">10</span>
+            </div>
+        </div>
+
+        <div class="textarea-container">
+            <label>⇨ Escreva sobre seu dia :</label>
+            <textarea placeholder="Hoje eu me senti..."></textarea>
+        </div>
+
+    </div>
+
+</body>
+</html>

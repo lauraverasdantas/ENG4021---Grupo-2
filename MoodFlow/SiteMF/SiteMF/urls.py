@@ -28,4 +28,6 @@ urlpatterns = [
     path('editarperfil/', include('editarperfil.urls')),
     path('listarusuario/', include('listarusuario.urls')),
     path('removerusuario/', include('removerusuario.urls')),
+    path('humor/', include('humor.urls')),
+    path('calendario/', include('calendario.urls')),
 ]

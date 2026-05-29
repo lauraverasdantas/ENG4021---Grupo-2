@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário - MOOD flow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'calendario/css/calendario.css' %}">
+
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="cloud-title">calendário</div>
+        
+        <select id="month-selector" class="month-selector">
+            <option value="31">Janeiro</option>
+            <option value="28">Fevereiro</option>
+            <option value="31">Março</option>
+            <option value="30">Abril</option>
+            <option value="31">Maio</option>
+            <option value="30">Junho</option>
+            <option value="31">Julho</option>
+            <option value="31">Agosto</option>
+            <option value="30">Setembro</option>
+            <option value="31">Outubro</option>
+            <option value="30">Novembro</option>
+            <option value="31">Dezembro</option>
+        </select>
+    </div>
+
+    <div class="calendar-grid" id="calendar-grid">
+        </div>
+
+    <script>
+        const monthSelector = document.getElementById('month-selector');
+        const calendarGrid = document.getElementById('calendar-grid');
+
+        function renderCalendar(days) {
+            calendarGrid.innerHTML = ''; 
+            
+            for (let i = 1; i <= days; i++) {
+                const dayNumber = i < 10 ? '0' + i : i;
+                
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                
+                dayCard.innerHTML = `
+                    <div class="day-top">${dayNumber}</div>
+                    <div class="day-bottom" id="icon-${i}">+</div>
+                `;
+
+                dayCard.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                    const icon = document.getElementById(`icon-${i}`);
+                    
+                    if (this.classList.contains('selected')) {
+                        icon.innerHTML = '✓';
+                    } else {
+                        icon.innerHTML = '+';
+                    }
+                });
+
+                calendarGrid.appendChild(dayCard);
+            }
+        }
+
+        // Renderiza Janeiro ao carregar a página
+        renderCalendar(31);
+
+        // Atualiza ao mudar o mês
+        monthSelector.addEventListener('change', function() {
+            const daysInMonth = parseInt(this.value);
+            renderCalendar(daysInMonth);
+        });
+    </script>
+
+</body>
+</html>
