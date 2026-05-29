@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <form class="login-form" action="#" method="POST">
+            <form class="login-form" action="{% url 'login:login' %}" method="POST">
                 {% csrf_token %}
                 <input type="text" name="usuario" placeholder="usuario" class="input-field" required>
                 <input type="password" name="senha" placeholder="senha" class="input-field" required>
