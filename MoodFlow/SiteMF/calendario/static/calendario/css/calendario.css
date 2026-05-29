@@ -1,0 +1,169 @@
+/* --- Estilos Globais e Fundo Quadriculado --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #BBD7F3;
+    background-image: 
+        repeating-linear-gradient(rgba(255, 255, 255, 0.3) 0px, rgba(255, 255, 255, 0.3) 1px, transparent 1px, transparent 20px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0px, rgba(255, 255, 255, 0.3) 1px, transparent 1px, transparent 20px);
+    font-family: 'Patrick Hand', cursive;
+    padding: 40px 20px;
+}
+
+/* --- Cabeçalho (Nuvem e Seletor) --- */
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    z-index: 10;
+}
+
+/* Título em formato de nuvem */
+.cloud-title {
+    background-color: #FDFDFD;
+    padding: 15px 50px;
+    border-radius: 50px;
+    font-family: 'Caveat', cursive;
+    font-size: 3.5rem;
+    color: #6BA3CE;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.cloud-title::before, .cloud-title::after {
+    content: '';
+    position: absolute;
+    background-color: #FDFDFD;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.cloud-title::before {
+    width: 70px; height: 70px;
+    top: -20px; left: 40px;
+}
+
+.cloud-title::after {
+    width: 90px; height: 90px;
+    top: -30px; right: 40px;
+}
+
+/* Seletor de Mês */
+.month-selector {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.5rem;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 2px solid #6BA3CE;
+    background-color: white;
+    color: #6BA3CE;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+}
+
+.month-selector:hover {
+    background-color: #f0f6fa;
+}
+
+/* --- Grid do Calendário --- */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    width: 100%;
+    justify-items: center;
+}
+
+/* --- Design do Cartão do Dia --- */
+.day-card {
+    width: 75px;
+    height: 85px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: white;
+}
+
+.day-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 4px 8px 15px rgba(0,0,0,0.12);
+}
+
+/* Parte Azul Superior (com os furos da espiral) */
+.day-top {
+    height: 35%;
+    background-color: #72A5D3;
+    border-radius: 8px 8px 0 0;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 2px 6px;
+    font-size: 1rem;
+    position: relative;
+}
+
+.day-top::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 5px;
+    right: 5px;
+    height: 10px;
+    background-image: radial-gradient(circle, white 3.5px, transparent 4px);
+    background-size: 15px 10px;
+    background-position: center;
+}
+
+/* Parte Branca Inferior */
+.day-bottom {
+    height: 65%;
+    background-color: #F2F4F5;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #C0C0C0;
+    transition: all 0.3s;
+}
+
+/* --- Estado de Dia Selecionado --- */
+.day-card.selected .day-bottom {
+    background-color: #D4E6F1;
+    color: #6BA3CE;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 700px) {
+    .calendar-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 15px;
+    }
+    .cloud-title { font-size: 2.8rem; padding: 15px 30px; }
+    .cloud-title::before, .cloud-title::after { display: none; }
+    .cloud-title { border-radius: 20px; }
+}
+
+@media (max-width: 500px) {
+    .calendar-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

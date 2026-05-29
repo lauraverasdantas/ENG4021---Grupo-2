@@ -1,26 +1,21 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOOD flow | Controle o agora</title>
+    <title>MOOD flow - Inicializando</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Variáveis de Cores baseadas na paleta da imagem */
-        :root {
-            --bg-texture: rgba(255, 255, 255, 0.15);
-            --bg-color: #aecce8;      /* Azul claro do fundo */
-            --logo-light: #a3d1ff;    /* Brilho da logo */
-            --logo-base: #7eb6f7;     /* Cor base da logo */
-            --eyes-color: #4b7db8;    /* Azul escuro para olhos e texto */
-            --text-dark: #3a689e;     /* Azul escuro para o título */
-        }
-
-        /* Reset básico e tipografia */
+        /* --- Estilos Globais --- */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
@@ -28,126 +23,186 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: var(--bg-color);
-            /* Textura sutil simulando o fundo da imagem */
-            background-size: 15px 15px;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text-dark);
+            /* Fundo azul sereno */
+            background: linear-gradient(135deg, #C2DCF2 0%, #9ECAE8 100%);
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
         }
 
-        /* Container principal */
-        .container {
+        /* --- Container Principal --- */
+        .splash-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            gap: 25px;
-            padding: 20px;
+            /* Animação suave ao abrir a página */
+            animation: fadeIn 1.2s ease-out forwards;
         }
 
-        /* ----- Desenho da Logo em CSS ----- */
-        .logo-box {
-            background-color: #92c4f5; /* Quadrado de fundo da logo */
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .mascot {
+        /* --- Caixa de Vidro (Fundo do Avatar) --- */
+        .glass-box {
             width: 180px;
             height: 180px;
-            /* Gradiente radial para simular o volume da esfera */
-            background: radial-gradient(circle at 40% 30%, var(--logo-light) 0%, var(--logo-base) 80%);
+            border-radius: 35px;
+            /* Efeito de Vidro Fosco */
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(42, 90, 140, 0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        /* --- Sombra Dinâmica no Chão --- */
+        .shadow {
+            position: absolute;
+            bottom: 25px;
+            width: 70px;
+            height: 12px;
+            background: rgba(42, 90, 140, 0.2);
+            border-radius: 50%;
+            filter: blur(4px);
+            animation: shadowScale 3.5s ease-in-out infinite;
+        }
+
+        /* --- Esfera 3D --- */
+        .sphere-3d {
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             position: relative;
-            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.05), 
-                        0 10px 15px rgba(0,0,0,0.1);
+            z-index: 2;
+            /* Iluminação e Volume 3D aprimorados */
+            background: radial-gradient(circle at 30% 25%, #EAF4FF 0%, #8EBFED 40%, #5798D6 80%, #326DA6 100%);
+            box-shadow: inset -8px -8px 20px rgba(0, 0, 0, 0.15);
+            /* Flutuação contínua */
+            animation: float 3.5s ease-in-out infinite;
         }
 
-        /* Olhos */
+        /* --- Detalhes do Rosto --- */
         .eye {
-            width: 14px;
-            height: 22px;
-            background-color: var(--eyes-color);
-            border-radius: 50%;
             position: absolute;
-            top: 55%;
-            transform: translateY(-50%);
+            width: 8px;
+            height: 14px;
+            background-color: #264A6E;
+            border-radius: 10px;
+            top: 45px;
+            /* Animação de piscar os olhos */
+            animation: blink 4s infinite;
         }
+        .eye.left { left: 32px; }
+        .eye.right { right: 32px; }
 
-        .eye.left {
-            left: 28%;
-        }
-
-        .eye.right {
-            right: 28%;
-        }
-
-        /* Sorriso */
         .smile {
-            width: 30px;
-            height: 15px;
-            border-bottom: 2px solid var(--eyes-color);
-            border-radius: 50%;
             position: absolute;
-            bottom: 25%;
+            width: 18px;
+            height: 8px;
+            border-bottom: 2.5px solid #264A6E;
+            border-radius: 0 0 20px 20px;
+            bottom: 32px;
             left: 50%;
             transform: translateX(-50%);
         }
 
-        /* ----- Textos ----- */
-        .title {
+        /* --- Anel de Carregamento Fino e Elegante --- */
+        .loader-ring {
+            position: absolute;
+            bottom: -20px;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #326DA6;
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        /* --- Tipografia Fiel --- */
+        .text-container {
+            text-align: center;
+        }
+
+        .brand-title {
             font-size: 4rem;
-            font-weight: 800;
+            color: #264A6E;
+            line-height: 1;
             letter-spacing: -1.5px;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .title span {
-            font-weight: 300; /* "flow" com peso menor para contraste */
-        }
+        .brand-mood { font-weight: 800; }
+        .brand-flow { font-weight: 300; opacity: 0.8; letter-spacing: 0; }
 
-        .subtitle {
-            font-size: 1.4rem;
-            font-weight: 600;
-            letter-spacing: 2px;
+        .brand-subtitle {
+            margin-top: 5px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #5798D6;
             text-transform: lowercase;
-            color: var(--eyes-color);
-            opacity: 0.85;
+            letter-spacing: 2px;
         }
 
-        /* Responsividade para telas menores */
-        @media (max-width: 600px) {
-            .title { font-size: 3rem; }
-            .subtitle { font-size: 1.1rem; }
-            .mascot { width: 140px; height: 140px; }
-            .logo-box { padding: 15px; }
+        /* --- Keyframes das Animações --- */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes shadowScale {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(0.8); opacity: 0.1; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes blink {
+            0%, 94%, 98%, 100% { height: 14px; top: 45px; }
+            96% { height: 2px; top: 51px; } /* Momento que o olho fecha */
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="logo-box">
-            <div class="mascot">
+    <div class="splash-wrapper">
+        
+        <div class="glass-box">
+            <div class="shadow"></div>
+            
+            <div class="sphere-3d">
                 <div class="eye left"></div>
                 <div class="eye right"></div>
                 <div class="smile"></div>
             </div>
         </div>
 
-        <div>
-            <h1 class="title">MOOD <span>flow</span></h1>
-            <p class="subtitle">controle o agora</p>
+        <div class="text-container">
+            <h1 class="brand-title">
+                <span class="brand-mood">MOOD</span>
+                <span class="brand-flow">flow</span>
+            </h1>
+            <p class="brand-subtitle">controle o agora</p>
         </div>
-        
-        <ul>
+         <ul>
             <li><a href="{% url 'login:login' %}">Login</a></li>
             <li><a href="{% url 'registro:registro' %}">Registro</a></li>
             <li><a href="{% url 'editarperfil:editar_perfil' %}">Editar Perfil</a></li>
             <li><a href="{% url 'listarusuario:listarusuario' %}">Listar Usuários</a></li>
             <li><a href="{% url 'removerusuario:removerusuario' %}">Remover Usuário</a></li>
+            <li><a href="{% url 'humor:humor' %}">Humor</a></li>
+            <li><a href="{% url 'calendario:calendario' %}">Calendário</a></li>
             </ul>
     </div>
 
