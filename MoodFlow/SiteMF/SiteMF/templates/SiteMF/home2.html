@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<!-- saved from url=(0098)https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOODflow — controle o agora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="./MOODflow — controle o agora_files/css2" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky:   #b8d0e8;
+      --sky-d: #8aafc9;
+      --sky-l: #d8e9f5;
+      --ink:   #1a2d42;
+      --ink-m: #3a5570;
+      --ink-l: #6a8aa6;
+      --white: #ffffff;
+      --glass: rgba(255,255,255,0.55);
+      --glass-border: rgba(255,255,255,0.75);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(160deg, #c9ddf0 0%, #a8c5de 40%, #bdd4e8 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Subtle noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 420px; height: 420px; background: #8fb8d8; top: -80px; left: -100px; animation-delay: 0s; }
+    .blob-2 { width: 320px; height: 320px; background: #a0cbea; bottom: 50px; right: -80px; animation-delay: -6s; }
+    .blob-3 { width: 200px; height: 200px; background: #c5dff2; bottom: 200px; left: 30%; animation-delay: -12s; }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(20px, 30px) scale(1.05); }
+    }
+
+    /* Page layout */
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px 60px;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(200, 220, 238, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px; font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { font-weight: 300; color: var(--ink-m); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-size: 14px; color: var(--ink-m); text-decoration: none;
+      font-weight: 400; letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink);
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.8; color: var(--white) !important; }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 560px;
+      padding-top: 80px;
+    }
+
+    /* App icon */
+    .icon-wrap {
+      width: 120px; height: 120px;
+      border-radius: 32px;
+      background: linear-gradient(145deg, #c5daf0 0%, #a8c5de 100%);
+      border: 1.5px solid var(--glass-border);
+      box-shadow:
+        0 20px 60px rgba(26,45,66,0.12),
+        0 4px 16px rgba(26,45,66,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 36px;
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    /* 3D face SVG inside icon */
+    .icon-face {
+      width: 80px; height: 80px;
+    }
+
+    /* Eyebrow */
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-l);
+      background: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.65);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    /* Headline */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 7vw, 60px);
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--ink-m);
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--ink-m);
+      font-weight: 300;
+      line-height: 1.65;
+      max-width: 400px;
+      margin-bottom: 40px;
+    }
+
+    /* CTA group */
+    .cta-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 64px;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      transition: transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 4px 20px rgba(26,45,66,0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(26,45,66,0.3);
+    }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-ghost {
+      background: var(--glass);
+      color: var(--ink-m);
+      border: 1px solid rgba(255,255,255,0.7);
+      padding: 13px 28px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 400;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.18s, transform 0.18s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.72); transform: translateY(-1px); }
+
+    /* Feature pills */
+    .features {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 72px;
+    }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.65);
+      backdrop-filter: blur(10px);
+      padding: 10px 18px;
+      border-radius: 100px;
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--ink-m);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .pill:hover { background: rgba(255,255,255,0.7); transform: translateY(-2px); }
+    .pill-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Mockup card */
+    .mockup-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 28px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow:
+        0 24px 64px rgba(26,45,66,0.1),
+        0 4px 16px rgba(26,45,66,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-l);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .card-date {
+      font-size: 12px;
+      color: var(--ink-l);
+      font-weight: 300;
+    }
+
+    /* Mood row */
+    .mood-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .mood-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--ink);
+      font-weight: 400;
+    }
+    .mood-score {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .score-num {
+      font-size: 36px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .score-denom {
+      font-size: 14px;
+      color: var(--ink-l);
+      font-weight: 300;
+      align-self: flex-end;
+      padding-bottom: 4px;
+    }
+
+    /* Bar chart mini */
+    .bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      height: 56px;
+      margin-bottom: 20px;
+    }
+    .bar {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      background: rgba(26,45,66,0.12);
+      position: relative;
+      transition: background 0.2s;
+    }
+    .bar.active { background: var(--ink); }
+    .bar-label {
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      color: var(--ink-l);
+      white-space: nowrap;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .tag {
+      background: rgba(26,45,66,0.08);
+      border-radius: 100px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--ink-m);
+      font-weight: 400;
+    }
+    .tag.accent {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    /* Footer strip */
+    footer {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      padding: 14px;
+      font-size: 12px;
+      color: var(--ink-l);
+    }
+    footer a { color: var(--ink-l); text-decoration: none; }
+    footer a:hover { color: var(--ink-m); }
+
+    /* Entrance animations */
+    .hero > * {
+      animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .hero > *:nth-child(1) { animation-delay: 0.05s; }
+    .hero > *:nth-child(2) { animation-delay: 0.12s; }
+    .hero > *:nth-child(3) { animation-delay: 0.18s; }
+    .hero > *:nth-child(4) { animation-delay: 0.24s; }
+    .hero > *:nth-child(5) { animation-delay: 0.30s; }
+    .hero > *:nth-child(6) { animation-delay: 0.36s; }
+    .hero > *:nth-child(7) { animation-delay: 0.44s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 520px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .icon-wrap { width: 96px; height: 96px; border-radius: 26px; }
+      h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <nav>
+    <div class="nav-logo">MOOD<span>flow</span></div>
+    <div class="nav-links">
+      <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#">Recursos</a>
+      <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#">Como funciona</a>
+      <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#">Blog</a>
+      <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#" class="nav-cta">Começar grátis</a>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="hero">
+
+      <!-- Icon -->
+      <div class="icon-wrap">
+        <svg class="icon-face" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialgradient id="face-g" cx="42%" cy="38%" r="58%">
+              <stop offset="0%" stop-color="#d8ebf9"></stop>
+              <stop offset="100%" stop-color="#8ab8d8"></stop>
+            </radialgradient>
+            <radialgradient id="shine" cx="35%" cy="30%" r="40%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.65)"></stop>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"></stop>
+            </radialgradient>
+          </defs>
+          <!-- sphere -->
+          <circle cx="40" cy="40" r="34" fill="url(#face-g)"></circle>
+          <!-- shine -->
+          <ellipse cx="32" cy="30" rx="14" ry="10" fill="url(#shine)"></ellipse>
+          <!-- eyes -->
+          <ellipse cx="31" cy="36" rx="2.5" ry="3" fill="#3a6080" opacity="0.75"></ellipse>
+          <ellipse cx="49" cy="36" rx="2.5" ry="3" fill="#3a6080" opacity="0.75"></ellipse>
+          <!-- smile -->
+          <path d="M31 48 Q40 56 49 48" stroke="#3a6080" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.65"></path>
+          <!-- subtle cheek blush -->
+          <circle cx="25" cy="47" r="6" fill="#b0d0ea" opacity="0.35"></circle>
+          <circle cx="55" cy="47" r="6" fill="#b0d0ea" opacity="0.35"></circle>
+        </svg>
+      </div>
+
+      <!-- Eyebrow -->
+      <div class="eyebrow">rastrear · entender · crescer</div>
+
+      <!-- Headline -->
+      <h1>Controle<br><em>o agora.</em></h1>
+
+      <!-- Subtitle -->
+      <p class="subtitle">
+        Registre seu humor, identifique padrões e cuide da sua saúde mental com leveza — um dia de cada vez.
+      </p>
+
+      <!-- CTAs -->
+      <div class="cta-group">
+        <a href="{% url 'login' %}" class="btn-primary">Faça seu login</a>
+      </div>
+
+      <!-- Feature pills -->
+      <div class="features">
+        <div class="pill">
+          <span class="pill-dot" style="background:#5a8fa8"></span>
+          Registro diário de humor
+        </div>
+        <div class="pill">
+          <span class="pill-dot" style="background:#7aabba"></span>
+          Análise de padrões
+        </div>
+        <div class="pill">
+          <span class="pill-dot" style="background:#4d7a99"></span>
+          Insights personalizados
+        </div>
+        <div class="pill">
+          <span class="pill-dot" style="background:#8bbfd4"></span>
+          100% privado
+        </div>
+      </div>
+
+      <!-- App mockup card -->
+      <div class="mockup-card">
+        <div class="card-header">
+          <span class="card-title">Hoje</span>
+          <span class="card-date">Qui, 28 mai</span>
+        </div>
+
+        <div class="mood-row">
+          <span class="mood-label">Calmo</span>
+          <div class="mood-score">
+            <span class="score-num">7</span>
+            <span class="score-denom">/10</span>
+          </div>
+        </div>
+
+        <!-- Mini bar chart -->
+        <div class="bars">
+          <div class="bar" style="height:40%"><span class="bar-label">Seg</span></div>
+          <div class="bar" style="height:65%"><span class="bar-label">Ter</span></div>
+          <div class="bar" style="height:50%"><span class="bar-label">Qua</span></div>
+          <div class="bar" style="height:80%"><span class="bar-label">Qui</span></div>
+          <div class="bar active" style="height:70%"><span class="bar-label">Sex</span></div>
+          <div class="bar" style="height:55%"><span class="bar-label">Sáb</span></div>
+          <div class="bar" style="height:45%"><span class="bar-label">Dom</span></div>
+        </div>
+
+        <div style="height:18px"></div>
+
+        <div class="tags">
+          <span class="tag accent">😌 sereno</span>
+          <span class="tag">trabalho</span>
+          <span class="tag">exercício</span>
+          <span class="tag">sono bom</span>
+          <span class="tag">+ adicionar</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#">Privacidade</a>
+    <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#">Termos</a>
+    <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#">Contato</a>
+    <span>© 2026 MOODflow</span>
+  </footer>
+
+
+
+</body></html>

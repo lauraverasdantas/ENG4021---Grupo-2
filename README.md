@@ -30,13 +30,16 @@ O projeto foi estruturado para ser escalável, seguro e responsivo, utilizando a
 
 ---
 
-🗺️ Roadmap de Desenvolvimento (Próximos Passos)
-[ ] Integração de APIs: Conectar serviços externos para enriquecer os dados e a experiência do usuário.
+## 🗺️ Roadmap de Desenvolvimento (Próximos Passos)
 
-[ ] Módulo de Relatórios: Exportação de dados para que os usuários possam compartilhar gráficos com profissionais de saúde.
+* **Integração de APIs:** Conectar serviços externos para enriquecer os dados e a experiência do usuário.
 
-[ ] Modelos de Monetização: Estruturação de planos Freemium/Premium com recursos avançados de análise.
+* **Módulo de Relatórios:** Exportação de dados para que os usuários possam compartilhar gráficos com profissionais de saúde.
 
-[ ] Apresentação (Pitch): Finalização do deck comercial da startup para atração de parceiros e investidores.
+* **Modelos de Monetização:** Estruturação de planos Freemium/Premium com recursos avançados de análise.
+
+* **Apresentação (Pitch):** Finalização do deck comercial da startup para atração de parceiros e investidores.
+
+---
 
 Desenvolvido com ☕ e foco em tecnologia para o bem-estar.
