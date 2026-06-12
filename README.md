@@ -58,30 +58,30 @@ Siga as instruções abaixo para rodar o MOOD Flow localmente na sua máquina.
    cd MoodFlow
 ```
 
-1. **Crie e ative o ambiente virtual:**
+2. **Crie e ative o ambiente virtual:**
 ```bash
 python -m venv venv
 source venv/bin/activate
 ```
 
-1. **Instale as dependências do projeto:**
+3. **Instale as dependências do projeto:**
 ```bash
    pip install -r requirements.txt
 ```
 
-1. **Configure o Banco de Dados (Migrações):**
+4. **Configure o Banco de Dados (Migrações):**
 ```bash
     cd SiteMF
     python manage.py makemigrations
     python manage.py migrate
 ```
 
-1. **Inicie o servidor de desenvolvimento:**
+5. **Inicie o servidor de desenvolvimento:**
 ```bash
     python manage.py runserver
 ```
 
-1.**Acessando o site: Copie e cole o link abaixo direto no seu navegador.**
+6. **Copie e cole o link abaixo direto no seu navegador para acessar o site:**
 ```bash
     https://refactored-space-guide-v6j6rvx47p7p2699q-8000.app.github.dev/
 ```
