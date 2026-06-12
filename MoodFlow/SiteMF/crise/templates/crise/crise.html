@@ -1,0 +1,553 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodFlow — Modo Crise</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #c8daf0;
+    --bg-grid: #b0cce8;
+    --blue-dark: #5a89b5;
+    --blue-mid: #7da8cc;
+    --blue-light: #aed0ee;
+    --blue-glow: #c6e0f5;
+    --red-soft: #d9534f;
+    --red-light: #f4c5c5;
+    --text-blue: #4a7099;
+    --text-mid: #7da0c4;
+    --shadow: #99bbdd;
+    --green-soft: #56c15b;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(var(--bg-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+    background-size: 16px 16px;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    border: 2.5px solid rgba(255,255,255,0.7);
+    border-radius: 22px;
+    padding: 28px 32px 24px;
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Mascot ── */
+  .mascot {
+    position: absolute;
+    top: 22px; right: 28px;
+    width: 50px; height: 50px;
+  }
+
+  /* ── Pill / balão branco ── */
+  .pill {
+    display: inline-block;
+    background: white;
+    border-radius: 14px;
+    padding: 7px 22px;
+    box-shadow: 2px 2px 0 var(--shadow);
+    margin-bottom: 14px;
+  }
+  .pill span {
+    font-family: 'Caveat', cursive;
+    color: var(--text-blue);
+    font-size: 17px;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .pill-title {
+    padding: 9px 36px;
+    border-radius: 16px;
+    margin-bottom: 0;
+  }
+  .pill-title span {
+    font-size: 21px;
+    color: var(--red-soft);
+  }
+
+  .title-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding-top: 4px;
+  }
+
+  /* ── Alert card ── */
+  .alert-card {
+    background: white;
+    border-radius: 16px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    box-shadow: 3px 3px 0 var(--shadow);
+    animation: pulse-card 3s ease-in-out infinite;
+  }
+  @keyframes pulse-card {
+    0%, 100% { box-shadow: 3px 3px 0 var(--shadow); }
+    50%       { box-shadow: 3px 3px 10px #f4c5c5; }
+  }
+  .alert-icon {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--red-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; color: var(--red-soft);
+    flex-shrink: 0;
+  }
+  .alert-text h3 {
+    font-size: 13px; font-weight: 700;
+    color: var(--text-blue);
+    margin-bottom: 2px;
+  }
+  .alert-text p { font-size: 11.5px; color: var(--text-mid); }
+
+  /* ── Layout Empilhado (Separação do Aterramento e Respiração) ── */
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 36px; /* Espaçamento generoso para não ficarem colados */
+    margin-bottom: 36px;
+  }
+
+  .col-left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Bloco de Respiração isolado em um card visual próprio */
+  .col-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.45);
+    border: 2px dashed rgba(255, 255, 255, 0.8);
+    border-radius: 18px;
+    padding: 24px 20px;
+  }
+
+  /* ── Seção 1: Aterramento ── */
+  .grounding-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .grounding-card {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 2px 2px 0 var(--shadow);
+    color: var(--text-blue);
+    font-size: 14.5px;
+    transition: transform 0.2s;
+  }
+  .grounding-card:hover {
+    transform: translateX(4px);
+  }
+  .g-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--blue-mid);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ── Seção 2: Respiração (Botão) ── */
+  .breath-btn {
+    position: relative;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: none; border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+    margin-bottom: 12px;
+  }
+  .breath-btn:hover  { transform: scale(1.06); }
+  .breath-btn:active { transform: scale(0.96); }
+  .breath-btn::before, .breath-btn::after {
+    content: ''; position: absolute; inset: 0; border-radius: 50%;
+    background: rgba(174,208,238,0.28); animation: ring-pulse 4s ease-in-out infinite;
+  }
+  .breath-btn::after { inset: 11px; background: rgba(174,208,238,0.48); animation-delay: 0.4s; }
+  .breath-inner {
+    position: relative; z-index: 2; width: 54px; height: 54px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 36%, var(--blue-light), var(--blue-mid));
+  }
+  @keyframes ring-pulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50%       { opacity: 1;    transform: scale(1.07); }
+  }
+  .breath-pill-label { cursor: pointer; margin-bottom: 6px; }
+  .breath-subtitle { font-size: 11px; color: var(--text-mid); font-style: italic; text-align: center; }
+
+  /* ── Seção 3: Outras Práticas (Inferior) ── */
+  .extra-section {
+    width: 100%;
+    margin-top: 12px;
+  }
+  .extra-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    width: 100%;
+  }
+  .extra-card {
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px dashed white;
+    border-radius: 16px;
+    padding: 16px;
+    color: var(--text-blue);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .extra-card h4 {
+    font-size: 14px;
+    color: var(--blue-dark);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-action {
+    display: inline-block;
+    background: var(--blue-mid);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+  }
+  .btn-action:hover { background: var(--blue-dark); }
+  .btn-danger { background: var(--red-soft); }
+  .btn-danger:hover { background: #b93c39; }
+
+  /* ── Modal de Respiração ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(130,175,210,0.45); backdrop-filter: blur(5px);
+    z-index: 100; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white; border-radius: 24px; padding: 36px 44px;
+    max-width: 400px; width: 90%; text-align: center;
+    box-shadow: 0 8px 36px rgba(90,137,181,0.25); position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 14px; right: 18px; background: var(--blue-glow);
+    border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 16px;
+    cursor: pointer; color: var(--blue-dark); display: flex; align-items: center; justify-content: center;
+  }
+  .modal h2 { font-family: 'Caveat', cursive; font-size: 23px; color: var(--text-blue); margin-bottom: 4px; }
+  .modal p.subtitle { font-size: 11.5px; color: var(--text-mid); margin-bottom: 24px; }
+  .breath-circle-wrap { display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .breath-circle {
+    width: 110px; height: 110px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 36%, var(--blue-light), var(--blue-mid));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Caveat', cursive; font-size: 15px; color: white;
+  }
+  .breath-circle.inhale { animation: bc-inhale 4s ease-in-out forwards; }
+  .breath-circle.hold   { animation: bc-hold   4s linear forwards; }
+  .breath-circle.exhale { animation: bc-exhale 6s ease-in-out forwards; }
+  @keyframes bc-inhale { 0% { transform: scale(0.7); } 100% { transform: scale(1.3); } }
+  @keyframes bc-hold   { 0%, 100% { transform: scale(1.3); } }
+  @keyframes bc-exhale { 0% { transform: scale(1.3); } 100% { transform: scale(0.7); } }
+  .breath-instruction { font-family: 'Caveat', cursive; font-size: 21px; color: var(--text-blue); min-height: 30px; margin-bottom: 6px; }
+  .breath-counter { font-size: 12px; color: var(--text-mid); }
+  .breath-progress { display: flex; gap: 6px; justify-content: center; margin: 16px 0 0; }
+  .breath-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue-light); transition: background 0.3s; }
+  .breath-dot.active { background: var(--blue-dark); }
+  .modal-start-btn {
+    margin-top: 20px; background: var(--blue-mid); color: white; border: none;
+    border-radius: 999px; padding: 9px 34px; font-family: 'Caveat', cursive; font-size: 17px;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .modal-start-btn:hover { background: var(--blue-dark); }
+
+  /* Estilo principal do botão */
+.btn-next {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007BFF; /* Azul moderno, você pode alterar para a cor da sua marca */
+    color: #FFFFFF;
+    text-decoration: none; /* Remove o sublinhado padrão de links */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px; /* Bordas levemente arredondadas */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.btn-next:hover {
+    background-color: #0056b3; /* Um tom mais escuro de azul */
+    transform: translateY(-2px); /* Levanta o botão levemente */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Aumenta a sombra */
+    color: #FFFFFF; /* Garante que a cor do texto continue branca */
+}
+
+/* Efeito ao clicar no botão (Active) */
+.btn-next:active {
+    transform: translateY(0); /* Volta para a posição original */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduz a sombra simulando o clique */
+}
+
+.actions-container {
+    grid-column: 1 / -1; /* Força a div a ocupar todas as colunas do grid */
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    width: 100%;
+    margin-top: 16px; /* Dá um respiro em relação aos cards acima */
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Mascot -->
+  <svg class="mascot" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="28" cy="28" r="26" fill="#b8d4ee"></circle>
+    <circle cx="28" cy="28" r="21" fill="#8ab5d8"></circle>
+    <ellipse cx="21" cy="26" rx="3.5" ry="5.5" fill="#3d6f9e"></ellipse>
+    <ellipse cx="35" cy="26" rx="3.5" ry="5.5" fill="#3d6f9e"></ellipse>
+    <path d="M20 35 Q28 41 36 35" stroke="#3d6f9e" stroke-width="1.8" fill="none" stroke-linecap="round"></path>
+  </svg>
+
+  <!-- Title -->
+  <div class="title-wrap">
+    <div class="pill pill-title">
+      <span>modo crise</span>
+    </div>
+  </div>
+
+  <!-- Alert card -->
+  <div class="alert-card">
+    <div class="alert-icon">!</div>
+    <div class="alert-text">
+      <h3>seu contato de confiança foi acionado</h3>
+      <p>Ele(a) foi notificado(a) e está a caminho &nbsp;♡</p>
+    </div>
+  </div>
+
+  <!-- Layout Principal Totalmente Reformulado e Espaçado -->
+  <div class="main-layout">
+    
+    <!-- Seção de Respiração Guiada (Movida para o topo do fluxo e isolada em um card acolhedor) -->
+    <div class="col-right">
+      <div class="pill breath-pill-label" onclick="openModal()">
+        <span>respiração guiada 4-4-6</span>
+      </div>
+      <button class="breath-btn" onclick="openModal()" aria-label="Métodos de respiração">
+        <div class="breath-inner"></div>
+      </button>
+      <span class="breath-subtitle">toque no botão acima para iniciar o exercício e acalmar o corpo</span>
+    </div>
+    
+    <!-- Seção de Aterramento (Separada logo abaixo com um gap limpo) -->
+    <div class="col-left">
+      <div class="pill" style="align-self: flex-start;">
+        <span>técnica de aterramento 5-4-3-2-1</span>
+      </div>
+      <div class="grounding-list">
+        <div class="grounding-card"><div class="g-num">5</div><div>coisas que você pode <strong>ver</strong> ao seu redor</div></div>
+        <div class="grounding-card"><div class="g-num">4</div><div>coisas que você pode <strong>tocar</strong> e sentir a textura</div></div>
+        <div class="grounding-card"><div class="g-num">3</div><div>coisas que você pode <strong>ouvir</strong> neste momento</div></div>
+        <div class="grounding-card"><div class="g-num">2</div><div>coisas que você pode <strong>cheirar</strong> perto de você</div></div>
+        <div class="grounding-card"><div class="g-num">1</div><div>coisa que você pode <strong>saborear</strong></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Seção Inferior: Outras Práticas Opcionais -->
+  <div class="extra-section">
+    <div class="pill">
+      <span>outras ferramentas de alívio</span>
+    </div>
+    
+    <div class="extra-grid">
+      <!-- Opção A: Estímulo Físico -->
+      <div class="extra-card">
+        <h4>❄️ Choque Térmico</h4>
+        <p>Segure uma pedra de gelo ou lave o rosto com água bem fria para reduzir os batimentos instantaneamente.</p>
+      </div>
+
+      <!-- Opção B: Âncora Sonora -->
+      <div class="extra-card">
+        <h4>🎵 Sons de Âncora</h4>
+        <p>O som constante da chuva ajuda a acalmar pensamentos intrusivos.</p>
+        <button class="btn-action" id="audioBtn" onclick="toggleAudioSim()">Ouvir Chuva 🔇</button>
+      </div>
+
+      <!-- Opção C: Apoio Externo -->
+      <div class="extra-card">
+        <h4>📞 Precisa conversar?</h4>
+        <p>O CVV oferece apoio gratuito, sigiloso e humano por ligação.</p>
+        <a href="tel:188" class="btn-action btn-danger">Ligar para o CVV (188)</a>
+      </div>
+       <div class="actions-container">
+        <a href="{% url 'home' %}" class="btn-next">Página Inicial</a>
+    </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Breathing modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h2>respiração 4-4-6</h2>
+    <p class="subtitle">inspire, segure e expire devagar para acalmar o sistema nervoso</p>
+    <div class="breath-circle-wrap">
+      <div class="breath-circle" id="breathCircle">respire</div>
+    </div>
+    <div class="breath-instruction" id="breathInstruction">pronto para começar?</div>
+    <div class="breath-counter" id="breathCounter"></div>
+    <div class="breath-progress">
+      <div class="breath-dot" id="d0"></div>
+      <div class="breath-dot" id="d1"></div>
+      <div class="breath-dot" id="d2"></div>
+      <div class="breath-dot" id="d3"></div>
+      <div class="breath-dot" id="d4"></div>
+    </div>
+    <button class="modal-start-btn" id="startBtn" onclick="startBreathing()">começar ♡</button>
+  </div>
+  
+</div>
+
+<script>
+  /* --- Funções do Modal de Respiração --- */
+  function openModal()  { document.getElementById('modal').classList.add('open'); }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); stopBreathing(); }
+
+  let breathTimer = null, breathInterval = null;
+  let cycle = 0, totalCycles = 5, running = false;
+
+  const phases = [
+    { label: 'inspire...', duration: 4000, cls: 'inhale' },
+    { label: 'segure...',  duration: 4000, cls: 'hold'   },
+    { label: 'expire...',  duration: 6000, cls: 'exhale'  },
+  ];
+
+  function updateDots(c) {
+    for (let i = 0; i < totalCycles; i++)
+      document.getElementById('d'+i).classList.toggle('active', i < c);
+  }
+
+  function runPhase(idx) {
+    if (!running) return;
+    const p  = phases[idx];
+    const el = document.getElementById('breathCircle');
+    el.className = 'breath-circle';
+    void el.offsetWidth;
+    el.classList.add(p.cls);
+    document.getElementById('breathInstruction').textContent = p.label;
+    let secs = p.duration / 1000;
+    document.getElementById('breathCounter').textContent = secs + 's';
+    clearInterval(breathInterval);
+    breathInterval = setInterval(() => {
+      secs--;
+      document.getElementById('breathCounter').textContent = secs > 0 ? secs + 's' : '';
+    }, 1000);
+    breathTimer = setTimeout(() => {
+      if (idx + 1 < phases.length) {
+        runPhase(idx + 1);
+      } else {
+        cycle++;
+        updateDots(cycle);
+        if (cycle < totalCycles) {
+          runPhase(0);
+        } else {
+          document.getElementById('breathInstruction').textContent = 'muito bem! ♡';
+          document.getElementById('breathCounter').textContent = '';
+          document.getElementById('breathCircle').className = 'breath-circle';
+          document.getElementById('startBtn').style.display = 'inline-block';
+          document.getElementById('startBtn').textContent = 'repetir ♡';
+          running = false; cycle = 0;
+        }
+      }
+    }, p.duration);
+  }
+
+  function startBreathing() {
+    running = true; cycle = 0;
+    updateDots(0);
+    document.getElementById('startBtn').style.display = 'none';
+    runPhase(0);
+  }
+
+  function stopBreathing() {
+    running = false;
+    clearTimeout(breathTimer); clearInterval(breathInterval);
+    cycle = 0; updateDots(0);
+    const el = document.getElementById('breathCircle');
+    el.className = 'breath-circle';
+    el.textContent = 'respire';
+    document.getElementById('breathInstruction').textContent = 'pronto para começar?';
+    document.getElementById('breathCounter').textContent = '';
+    document.getElementById('startBtn').style.display = 'inline-block';
+    document.getElementById('startBtn').textContent = 'começar ♡';
+  }
+
+  /* --- Simulação do Player de Áudio --- */
+  let audioLigado = false;
+  function toggleAudioSim() {
+    const btn = document.getElementById('audioBtn');
+    audioLigado = !audioLigado;
+    if (audioLigado) {
+      btn.textContent = "Tocando Chuva 🔊";
+      btn.style.backgroundColor = "var(--green-soft)";
+    } else {
+      btn.textContent = "Ouvir Chuva 🔇";
+      btn.style.backgroundColor = "var(--blue-mid)";
+    }
+  }
+</script>
+
+</body>
+</html>

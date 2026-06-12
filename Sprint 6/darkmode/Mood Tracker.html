@@ -1,14 +1,13 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0084)https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4872/humor.html -->
+<html lang="pt-br" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mood Tracker</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Mood Tracker_files/css2" rel="stylesheet">
     
     <style>
         /* --- Estilos Globais e Fundo Quadriculado --- */
@@ -272,60 +271,22 @@
                 padding: 15px 20px;
             }
         }
-
-        /* --- Efeito de Seleção das Emoções --- */
-.mood-item.selected {
-    transform: scale(1.1) translateY(-5px); /* Dá um leve zoom e mantém levantado */
-}
-
-.mood-item.selected .face-circle {
-    border: 3px solid #fff; /* Adiciona uma borda branca mais grossa */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Cria um brilho ao redor do rosto */
-}
-
-.mood-item.selected .mood-label {
-    font-weight: bold; /* Destaca o nome da emoção */
-}
-
-/* --- Comportamento do Textarea (Diário) --- */
-/* Faz o "Hoje eu me senti..." sumir imediatamente ao clicar e mostra a barra piscando */
-textarea:focus::placeholder {
-    color: transparent;
-}
-
-
-/* Estilo principal do botão */
-.btn-next {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #007BFF; /* Azul moderno, você pode alterar para a cor da sua marca */
-    color: #FFFFFF;
-    text-decoration: none; /* Remove o sublinhado padrão de links */
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 6px; /* Bordas levemente arredondadas */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Efeito ao passar o mouse (Hover) */
-.btn-next:hover {
-    background-color: #0056b3; /* Um tom mais escuro de azul */
-    transform: translateY(-2px); /* Levanta o botão levemente */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Aumenta a sombra */
-    color: #FFFFFF; /* Garante que a cor do texto continue branca */
-}
-
-/* Efeito ao clicar no botão (Active) */
-.btn-next:active {
-    transform: translateY(0); /* Volta para a posição original */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduz a sombra simulando o clique */
-}
     </style>
+<style>
+/* ===== Toggle de tema (Sprint 6) ===== */
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:9999;width:46px;height:46px;
+border-radius:50%;border:1px solid rgba(120,120,120,.35);background:rgba(255,255,255,.6);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:1.3rem;cursor:pointer;
+display:flex;align-items:center;justify-content:center;transition:transform .2s ease;}
+.theme-toggle:hover{transform:scale(1.1);}
+/* Modo escuro: inverte a pagina e gira o matiz de volta (mantem azuis azuis) */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg);background:#0e1622;}
+html[data-theme="dark"] .theme-toggle{filter:invert(1) hue-rotate(180deg);}
+html{transition:filter .35s ease;}
+</style>
 </head>
 <body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema claro/escuro" aria-label="Alternar tema">🌙</button>
 
     <div class="tracker-container">
         
@@ -398,152 +359,20 @@ textarea:focus::placeholder {
         </div>
 
         <div class="textarea-container">
-            <label>⇨ Escreva sobre seu dia:</label>
+            <label>⇨ Escreva sobre seu dia :</label>
             <textarea placeholder="Hoje eu me senti..."></textarea>
         </div>
-         <div class="actions-container">
-        <a href="{% url 'crise:crise' %}" class="btn-next">Próximo</a>
-    </div>
 
     </div>
 
-</body>
-<!-- ... suas outras divs ... -->
-    <script>
-        // Seleciona todos os rostinhos de humor
-        const moodItems = document.querySelectorAll('.mood-item');
 
-        moodItems.forEach(item => {
-            item.addEventListener('click', () => {
-                // Primeiro, remove a classe 'selected' de todos
-                moodItems.forEach(el => el.classList.remove('selected'));
-                
-                // Em seguida, adiciona a classe 'selected' apenas no item clicado
-                item.classList.add('selected');
-            });
-        });
+<script>
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
+document.querySelector('.theme-toggle').textContent = t==='dark'?'☀️':'🌙';}
+function toggleTheme(){var a=document.documentElement.getAttribute('data-theme');
+applyTheme(a==='dark'?'light':'dark');}
+applyTheme('light');
+</script>
 
-        // ── Pop-up de Crise ──────────────────────────────────────────────────
-        // Contato de confiança vindo do Django (None se não cadastrado)
-        const contatoNome     = "{{ contato.nome_contato|default:'' }}";
-        const contatoTelefone = "{{ contato.telefone|default:'' }}";
-        const contatoRelacao  = "{{ contato.relacao|default:'' }}";
 
-        const slider = document.getElementById('anxiety-slider');
-
-        slider.addEventListener('input', function () {
-            const nivel = parseInt(this.value);
-            if (nivel > 8) {
-                mostrarPopupCrise();
-            }
-        });
-
-        function mostrarPopupCrise() {
-            // Evita abrir duas vezes
-            if (document.getElementById('crise-overlay')) return;
-
-            const temContato = contatoNome !== '';
-
-            const overlay = document.createElement('div');
-            overlay.id = 'crise-overlay';
-            overlay.style.cssText = `
-                position: fixed; inset: 0; z-index: 9999;
-                background: rgba(100, 140, 180, 0.55);
-                backdrop-filter: blur(6px);
-                display: flex; align-items: center; justify-content: center;
-                animation: fadeInOverlay 0.3s ease;
-            `;
-
-            overlay.innerHTML = `
-                <style>
-                    @keyframes fadeInOverlay { from { opacity:0; } to { opacity:1; } }
-                    @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
-                    #crise-card { animation: slideUp 0.35s ease; }
-                </style>
-                <div id="crise-card" style="
-                    background: white;
-                    border-radius: 28px;
-                    padding: 36px 40px 30px;
-                    max-width: 400px; width: 90%;
-                    text-align: center;
-                    box-shadow: 0 12px 48px rgba(80,120,160,0.22);
-                    position: relative;
-                    font-family: 'Patrick Hand', cursive;
-                ">
-                    <!-- Ícone pulsante -->
-                    <div style="
-                        width: 72px; height: 72px; margin: 0 auto 18px;
-                        background: #fde8ec; border-radius: 50%;
-                        display: flex; align-items: center; justify-content: center;
-                        font-size: 2.2rem;
-                        animation: pulse-icon 2s ease-in-out infinite;
-                    ">🫂</div>
-                    <style>
-                        @keyframes pulse-icon {
-                            0%,100% { box-shadow: 0 0 0 0 rgba(244,160,176,0.5); }
-                            50%     { box-shadow: 0 0 0 12px rgba(244,160,176,0); }
-                        }
-                    </style>
-
-                    <h2 style="font-family:'Caveat',cursive; font-size:1.7rem; color:#c0392b; margin-bottom:8px;">
-                        nível de ansiedade alto!
-                    </h2>
-                    <p style="font-size:1rem; color:#666; margin-bottom:22px; line-height:1.5;">
-                        Seu nível de ansiedade está acima de <strong>8</strong>.<br>
-                        Pode ser hora de acionar seu contato de confiança.
-                    </p>
-
-                    ${temContato ? `
-                        <div style="
-                            background: #f0f7ff; border-radius: 14px;
-                            padding: 14px 18px; margin-bottom: 22px; text-align:left;
-                        ">
-                            <div style="font-size:0.78rem; color:#999; margin-bottom:4px; font-family:sans-serif;">SEU CONTATO DE CONFIANÇA</div>
-                            <div style="font-size:1.15rem; color:#2c3e50; font-weight:bold;">${contatoNome}</div>
-                            <div style="font-size:0.9rem; color:#7f8c8d;">${contatoRelacao}</div>
-                            <a href="tel:${contatoTelefone}" style="
-                                display:inline-block; margin-top:12px;
-                                background:#f4a0b0; color:white; text-decoration:none;
-                                padding:9px 22px; border-radius:99px;
-                                font-family:'Caveat',cursive; font-size:1.3rem;
-                                transition: background 0.2s;
-                            ">📞 ligar para ${contatoNome.split(' ')[0]}</a>
-                        </div>
-                    ` : `
-                        <div style="
-                            background: #fff8f0; border-radius: 14px;
-                            padding: 14px 18px; margin-bottom: 22px; color:#c07000;
-                            font-size:0.92rem; font-family:sans-serif;
-                        ">
-                            ⚠️ Você ainda não cadastrou um contato de confiança.<br>
-                            <a href="/contato/" style="color:#B3D4EC; font-weight:bold;">Cadastrar agora →</a>
-                        </div>
-                    `}
-
-                    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                        <a href="{% url 'crise:crise' %}" style="
-                            background:#d9534f; color:white; text-decoration:none;
-                            padding:10px 22px; border-radius:99px;
-                            font-family:'Caveat',cursive; font-size:1.3rem;
-                        ">ir para modo crise</a>
-                        <button onclick="document.getElementById('crise-overlay').remove()" style="
-                            background:#f0f0f0; color:#555; border:none;
-                            padding:10px 22px; border-radius:99px; cursor:pointer;
-                            font-family:'Caveat',cursive; font-size:1.3rem;
-                        ">estou bem, fechar</button>
-                    </div>
-                </div>
-            `;
-
-            document.body.appendChild(overlay);
-
-            // Fechar clicando fora do card
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay) overlay.remove();
-            });
-        }
-        // ── Fim Pop-up de Crise ──────────────────────────────────────────────
-    </script>
-</body>
-</html>
-</html>
+</body></html>
