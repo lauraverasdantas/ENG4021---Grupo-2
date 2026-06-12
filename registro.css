@@ -1,0 +1,160 @@
+/* ── registro.css — MOODflow ── */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #B3D4EC;
+  --bg-grid:   rgba(255,255,255,0.2);
+  --white:     #ffffff;
+  --blue-dark: #4a7099;
+  --blue-mid:  #7da8cc;
+  --blue-light:#aed0ee;
+  --blue-glow: #c6e0f5;
+  --text-dark: #1a2d42;
+  --text-mid:  #4a7099;
+  --text-light:#7da0c4;
+  --shadow:    #99bbdd;
+  --purple:    #A08CD2;
+  --error:     #d9534f;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(var(--bg-grid) 0px, var(--bg-grid) 1px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(90deg, var(--bg-grid) 0px, var(--bg-grid) 1px, transparent 1px, transparent 20px);
+  font-family: 'Nunito', sans-serif;
+  padding: 32px 20px;
+}
+
+.register-container {
+  background: var(--white);
+  width: 100%;
+  max-width: 480px;
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--shadow), 0 16px 40px rgba(74,112,153,0.15);
+  padding: 40px 44px 36px;
+  border: 2px solid rgba(255,255,255,0.8);
+  animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ── */
+.register-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.register-header h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 2.6rem;
+  color: var(--blue-dark);
+  margin-bottom: 4px;
+  letter-spacing: 0.01em;
+}
+
+.register-header p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* ── Form ── */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 11px 16px;
+  border: 1.5px solid var(--blue-light);
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.97rem;
+  color: var(--text-dark);
+  background: var(--blue-glow);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.input-group input::placeholder {
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.input-group input:focus {
+  border-color: var(--blue-mid);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(125,168,204,0.2);
+}
+
+/* ── Submit button ── */
+.submit-button {
+  margin-top: 8px;
+  width: 100%;
+  padding: 13px;
+  background: var(--blue-mid);
+  color: var(--white);
+  border: none;
+  border-radius: 14px;
+  font-family: 'Caveat', cursive;
+  font-size: 1.35rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--shadow);
+  transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+  letter-spacing: 0.02em;
+}
+
+.submit-button:hover {
+  background: var(--blue-dark);
+}
+
+.submit-button:active {
+  transform: translateY(2px);
+  box-shadow: 1px 1px 0 var(--shadow);
+}
+
+/* ── Login link ── */
+.login-link {
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+.login-link a {
+  color: var(--purple);
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.login-link a:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
