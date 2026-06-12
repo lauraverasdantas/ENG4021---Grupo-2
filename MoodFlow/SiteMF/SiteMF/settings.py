@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "humor",
     "calendario",
     "crise",
+    "contatoconfianca",
 ]
 
 MIDDLEWARE = [
@@ -125,14 +126,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-LOGOUT_REDIRECT_URL = '/accounts/login/'  # Para onde vai após logout
-LOGIN_URL = '/accounts/login/'       # URL de login (padrão)
-# ATENÇÃO!!! Troque o valor da variável abaixo para que ela seja uma das rotas
-# válidas no seu arquivo MeuSite/curriculo/urls.py
-LOGIN_REDIRECT_URL = '/home/'   # Para onde vai após login
-
-CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = [
-    'https://localhost:8000', 
-    'http://localhost:8000',
-]
+# Authentication redirects (tarefa 2 - autenticação)
+# LOGIN_URL: para onde @login_required manda quem não está logado.
+# LOGIN_REDIRECT_URL / LOGOUT_REDIRECT_URL: destinos após login/logout.
+LOGIN_URL = "login:login"
+LOGIN_REDIRECT_URL = "contatoconfianca:cadastrar_contato"
+LOGOUT_REDIRECT_URL = "login:login"

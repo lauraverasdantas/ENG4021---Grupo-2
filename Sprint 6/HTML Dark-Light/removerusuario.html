@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remover Usuários - MOOD flow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Estilos Globais --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #B3D4EC; /* Azul base do MOOD flow */
+            /* Fundo quadriculado */
+            background-image: 
+                repeating-linear-gradient(rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 20px);
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        /* --- Container Principal --- */
+        .admin-container {
+            background-color: white;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+
+        /* --- Cabeçalho --- */
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-header h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #4A4A4A;
+            margin-bottom: 5px;
+        }
+
+        .admin-header p {
+            color: #ff6b6b; /* Cor vermelha suave indicando perigo/atenção */
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        /* --- Tabela de Usuários --- */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 30px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        .users-table th, 
+        .users-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .users-table th {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.4rem;
+            color: #4A4A4A;
+            background-color: #f9f9f9;
+        }
+
+        .users-table td {
+            font-size: 1rem;
+            color: #555;
+            vertical-align: middle;
+        }
+
+        .users-table td:nth-child(2) {
+            font-weight: bold;
+            color: #A08CD2; /* Roxo do projeto para o @usuario */
+        }
+
+        /* Efeito ao passar o mouse na linha */
+        .users-table tbody tr:hover {
+            background-color: #fff9f9; /* Fundo levemente avermelhado no hover */
+        }
+
+        /* Linha removida (usado pelo JavaScript) */
+        .linha-removida {
+            display: none;
+        }
+
+        /* --- Botões --- */
+        .btn-remove {
+            background-color: #ff6b6b; /* Vermelho claro */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn-remove:hover {
+            background-color: #e55050;
+        }
+
+        .btn-remove:active {
+            transform: scale(0.95);
+        }
+
+        .actions-footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-back {
+            text-decoration: none;
+            background-color: #f0f0f0;
+            color: #555;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .btn-back:hover {
+            background-color: #e4e4e4;
+        }
+    </style>
+<style>
+/* ===== Toggle de tema (Sprint 6) ===== */
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:9999;width:46px;height:46px;
+border-radius:50%;border:1px solid rgba(120,120,120,.35);background:rgba(255,255,255,.6);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:1.3rem;cursor:pointer;
+display:flex;align-items:center;justify-content:center;transition:transform .2s ease;}
+.theme-toggle:hover{transform:scale(1.1);}
+/* Modo escuro: inverte a pagina e gira o matiz de volta (mantem azuis azuis) */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg);background:#0e1622;}
+html[data-theme="dark"] .theme-toggle{filter:invert(1) hue-rotate(180deg);}
+html{transition:filter .35s ease;}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema claro/escuro" aria-label="Alternar tema">🌙</button>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h2>Remover Usuários</h2>
+            <p>Atenção: Esta ação é permanente e não pode ser desfeita.</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Nome Completo</th>
+                        <th>Usuário</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="user-1">
+                        <td>Maria Silva</td>
+                        <td>@mariasilva123</td>
+                        <td>
+                            <button class="btn-remove" onclick="removerUsuario('user-1', 'Maria Silva')">Remover</button>
+                        </td>
+                    </tr>
+                    <tr id="user-2">
+                        <td>João Pedro Souza</td>
+                        <td>@joaopsouza</td>
+                        <td>
+                            <button class="btn-remove" onclick="removerUsuario('user-2', 'João Pedro Souza')">Remover</button>
+                        </td>
+                    </tr>
+                    <tr id="user-3">
+                        <td>Ana Clara Mendes</td>
+                        <td>@anamendes_</td>
+                        <td>
+                            <button class="btn-remove" onclick="removerUsuario('user-3', 'Ana Clara Mendes')">Remover</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="actions-footer">
+            <a href="lista-usuarios.html" class="btn-back">Voltar para a Lista Geral</a>
+        </div>
+    </div>
+
+    <script>
+        function removerUsuario(idDaLinha, nomeDoUsuario) {
+            // Exibe um alerta de confirmação padrão do navegador
+            let confirmacao = confirm("CUIDADO: Tem certeza que deseja remover o usuário " + nomeDoUsuario + "?");
+            
+            // Se o administrador clicar em "OK", ocultamos a linha da tabela
+            if (confirmacao) {
+                let linha = document.getElementById(idDaLinha);
+                linha.classList.add("linha-removida");
+                
+                // Opcional: Mostra um pequeno aviso que foi removido
+                alert(nomeDoUsuario + " foi removido(a) do sistema com sucesso.");
+            }
+        }
+    </script>
+
+
+<script>
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
+document.querySelector('.theme-toggle').textContent = t==='dark'?'☀️':'🌙';}
+function toggleTheme(){var a=document.documentElement.getAttribute('data-theme');
+applyTheme(a==='dark'?'light':'dark');}
+applyTheme('light');
+</script>
+
+</body>
+</html>
