@@ -33,5 +33,4 @@ urlpatterns = [
     path('calendario/', include('calendario.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('crise/', include('crise.urls')),
-    path('admin/', include('admin.urls')),
 ]

@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "humor",
     "calendario",
     "crise",
-    "admin",
 ]
 
 MIDDLEWARE = [
