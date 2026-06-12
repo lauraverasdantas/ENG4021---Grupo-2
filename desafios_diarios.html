@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOODflow — Desafios Diários</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #B3D4EC;
+      --bg-grid:   rgba(255,255,255,0.2);
+      --white:     #ffffff;
+      --blue-dark: #4a7099;
+      --blue-mid:  #7da8cc;
+      --blue-light:#aed0ee;
+      --blue-glow: #c6e0f5;
+      --text-dark: #1a2d42;
+      --text-mid:  #4a7099;
+      --text-light:#7da0c4;
+      --shadow:    #99bbdd;
+      --purple:    #A08CD2;
+      --green:     #6dbf87;
+      --green-light:#e4f5ea;
+      --yellow:    #f7d87c;
+      --yellow-light:#fdf6dc;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      background-image:
+        repeating-linear-gradient(var(--bg-grid) 0px, var(--bg-grid) 1px, transparent 1px, transparent 20px),
+        repeating-linear-gradient(90deg, var(--bg-grid) 0px, var(--bg-grid) 1px, transparent 1px, transparent 20px);
+      font-family: 'Nunito', sans-serif;
+      padding: 32px 20px 48px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .header h1 {
+      font-family: 'Caveat', cursive;
+      font-size: 2.6rem;
+      color: var(--blue-dark);
+    }
+
+    .mascot-small { width: 50px; height: 50px; }
+
+    .header-sub {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 22px;
+    }
+
+    /* ── Streak bar ── */
+    .streak-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      box-shadow: 3px 3px 0 var(--shadow);
+    }
+
+    .streak-flame {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+
+    .streak-info { flex: 1; }
+
+    .streak-info h3 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--text-dark);
+    }
+
+    .streak-info p {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    .streak-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .streak-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--blue-glow);
+    }
+
+    .streak-dot.done { background: var(--yellow); }
+
+    /* ── Section title ── */
+    .section-title {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: var(--text-light);
+      margin-bottom: 12px;
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Challenge cards ── */
+    .challenges-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .challenge-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 18px 18px 14px;
+      box-shadow: 3px 3px 0 var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .challenge-card:hover { transform: translateY(-3px); }
+
+    .challenge-card.done {
+      background: var(--green-light);
+      border: 1.5px solid var(--green);
+    }
+
+    .challenge-card.done::after {
+      content: '✓';
+      position: absolute;
+      top: 10px; right: 14px;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--green);
+    }
+
+    .challenge-icon { font-size: 1.8rem; }
+
+    .challenge-card h3 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+
+    .challenge-card p {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      line-height: 1.45;
+    }
+
+    .challenge-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .challenge-duration {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      background: var(--blue-glow);
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-weight: 700;
+    }
+
+    .btn-check {
+      background: var(--blue-mid);
+      color: var(--white);
+      border: none;
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-check:hover { background: var(--blue-dark); }
+
+    .btn-check.done-btn {
+      background: var(--green);
+      cursor: default;
+    }
+
+    /* ── Completed section ── */
+    .completed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .completed-item {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 2px 2px 0 var(--shadow);
+      opacity: 0.8;
+    }
+
+    .completed-item span:first-child { font-size: 1.2rem; }
+
+    .completed-item p {
+      flex: 1;
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      text-decoration: line-through;
+    }
+
+    .completed-item .done-badge {
+      background: var(--green-light);
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
+
+    /* ── Back ── */
+    .btn-back {
+      display: inline-block;
+      margin-top: 28px;
+      background: var(--white);
+      border: 1.5px solid var(--blue-light);
+      border-radius: 14px;
+      padding: 10px 26px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      text-decoration: none;
+      box-shadow: 2px 2px 0 var(--shadow);
+      transition: background 0.2s;
+    }
+
+    .btn-back:hover { background: var(--blue-glow); }
+
+    @media (max-width: 500px) {
+      .challenges-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>desafios diários</h1>
+    <svg class="mascot-small" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="26" fill="#b8d4ee"/>
+      <circle cx="28" cy="28" r="21" fill="#8ab5d8"/>
+      <ellipse cx="21" cy="26" rx="3.5" ry="5.5" fill="#3d6f9e"/>
+      <ellipse cx="35" cy="26" rx="3.5" ry="5.5" fill="#3d6f9e"/>
+      <path d="M20 35 Q28 41 36 35" stroke="#3d6f9e" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <p class="header-sub">pequenas ações, grandes mudanças ✦</p>
+
+  <!-- Streak -->
+  <div class="streak-card">
+    <div class="streak-flame">🔥</div>
+    <div class="streak-info">
+      <h3>5 dias seguidos!</h3>
+      <p>continue assim, você está indo muito bem</p>
+    </div>
+    <div class="streak-dots">
+      <div class="streak-dot done"></div>
+      <div class="streak-dot done"></div>
+      <div class="streak-dot done"></div>
+      <div class="streak-dot done"></div>
+      <div class="streak-dot done"></div>
+      <div class="streak-dot"></div>
+      <div class="streak-dot"></div>
+    </div>
+  </div>
+
+  <!-- Today's challenges -->
+  <p class="section-title">desafios de hoje</p>
+  <div class="challenges-grid">
+
+    <div class="challenge-card">
+      <div class="challenge-icon">🌬️</div>
+      <h3>respiração consciente</h3>
+      <p>Faça 3 ciclos de respiração 4-4-6 antes de começar o dia.</p>
+      <div class="challenge-meta">
+        <span class="challenge-duration">5 min</span>
+        <button class="btn-check" onclick="marcarFeito(this, this.closest('.challenge-card'))">marcar feito</button>
+      </div>
+    </div>
+
+    <div class="challenge-card done">
+      <div class="challenge-icon">📵</div>
+      <h3>pausa do celular</h3>
+      <p>Fique 30 minutos sem redes sociais após acordar.</p>
+      <div class="challenge-meta">
+        <span class="challenge-duration">30 min</span>
+        <button class="btn-check done-btn">feito ✓</button>
+      </div>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">🚶</div>
+      <h3>caminhada leve</h3>
+      <p>Dê uma volta curta no quarteirão ou em qualquer espaço ao ar livre.</p>
+      <div class="challenge-meta">
+        <span class="challenge-duration">10 min</span>
+        <button class="btn-check" onclick="marcarFeito(this, this.closest('.challenge-card'))">marcar feito</button>
+      </div>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">📝</div>
+      <h3>escreva um pensamento</h3>
+      <p>Registre uma coisa positiva que aconteceu hoje, por menor que seja.</p>
+      <div class="challenge-meta">
+        <span class="challenge-duration">2 min</span>
+        <button class="btn-check" onclick="marcarFeito(this, this.closest('.challenge-card'))">marcar feito</button>
+      </div>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">💧</div>
+      <h3>hidratação</h3>
+      <p>Beba pelo menos 2 copos de água antes do almoço.</p>
+      <div class="challenge-meta">
+        <span class="challenge-duration">ao longo do dia</span>
+        <button class="btn-check" onclick="marcarFeito(this, this.closest('.challenge-card'))">marcar feito</button>
+      </div>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">🎵</div>
+      <h3>música que acalma</h3>
+      <p>Ouça uma playlist relaxante por alguns minutos antes de dormir.</p>
+      <div class="challenge-meta">
+        <span class="challenge-duration">10 min</span>
+        <button class="btn-check" onclick="marcarFeito(this, this.closest('.challenge-card'))">marcar feito</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Completed yesterday -->
+  <p class="section-title">concluídos ontem</p>
+  <div class="completed-list">
+    <div class="completed-item">
+      <span>🌬️</span>
+      <p>respiração consciente</p>
+      <span class="done-badge">feito</span>
+    </div>
+    <div class="completed-item">
+      <span>📵</span>
+      <p>pausa do celular</p>
+      <span class="done-badge">feito</span>
+    </div>
+    <div class="completed-item">
+      <span>💧</span>
+      <p>hidratação</p>
+      <span class="done-badge">feito</span>
+    </div>
+  </div>
+
+  <a href="#" class="btn-back">← voltar</a>
+
+</div>
+
+<script>
+  function marcarFeito(btn, card) {
+    card.classList.add('done');
+    btn.textContent = 'feito ✓';
+    btn.classList.add('done-btn');
+    btn.onclick = null;
+  }
+</script>
+
+</body>
+</html>

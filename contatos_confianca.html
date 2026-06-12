@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOODflow — Contatos de Confiança</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #B3D4EC;
+      --bg-grid:   rgba(255,255,255,0.2);
+      --white:     #ffffff;
+      --blue-dark: #4a7099;
+      --blue-mid:  #7da8cc;
+      --blue-light:#aed0ee;
+      --blue-glow: #c6e0f5;
+      --text-dark: #1a2d42;
+      --text-mid:  #4a7099;
+      --text-light:#7da0c4;
+      --shadow:    #99bbdd;
+      --purple:    #A08CD2;
+      --green:     #6dbf87;
+      --red-soft:  #d9534f;
+      --red-light: #f4c5c5;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      background-image:
+        repeating-linear-gradient(var(--bg-grid) 0px, var(--bg-grid) 1px, transparent 1px, transparent 20px),
+        repeating-linear-gradient(90deg, var(--bg-grid) 0px, var(--bg-grid) 1px, transparent 1px, transparent 20px);
+      font-family: 'Nunito', sans-serif;
+      padding: 32px 20px 48px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      font-family: 'Caveat', cursive;
+      font-size: 2.6rem;
+      color: var(--blue-dark);
+    }
+
+    .mascot-small { width: 50px; height: 50px; }
+
+    .header-sub {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    /* ── Info banner ── */
+    .info-banner {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      box-shadow: 2px 2px 0 var(--shadow);
+      border-left: 4px solid var(--blue-mid);
+    }
+
+    .info-banner span { font-size: 1.4rem; }
+    .info-banner p {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    /* ── Contact cards ── */
+    .contacts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .contact-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 3px 3px 0 var(--shadow);
+      transition: transform 0.15s;
+    }
+
+    .contact-card:hover { transform: translateY(-2px); }
+
+    .contact-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--blue-glow);
+      border: 2.5px solid var(--blue-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .contact-info { flex: 1; }
+
+    .contact-info h3 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+
+    .contact-info .role {
+      display: inline-block;
+      background: var(--blue-glow);
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      margin-bottom: 4px;
+    }
+
+    .contact-info .phone {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .btn-call {
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      padding: 7px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-call:hover { opacity: 0.85; }
+
+    .btn-remove-contact {
+      background: none;
+      border: 1.5px solid var(--red-light);
+      border-radius: 10px;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      color: var(--red-soft);
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .btn-remove-contact:hover { background: var(--red-light); }
+
+    /* ── Add form ── */
+    .add-section {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 24px 26px;
+      box-shadow: 3px 3px 0 var(--shadow);
+    }
+
+    .add-section h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--text-mid);
+      margin-bottom: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .input-group.full { grid-column: 1 / -1; }
+
+    .input-group label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--blue-light);
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.93rem;
+      color: var(--text-dark);
+      background: var(--blue-glow);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      border-color: var(--blue-mid);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(125,168,204,0.2);
+    }
+
+    .btn-add {
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px;
+      background: var(--blue-mid);
+      color: var(--white);
+      border: none;
+      border-radius: 14px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--shadow);
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-add:hover { background: var(--blue-dark); }
+    .btn-add:active { transform: translateY(2px); }
+
+    /* ── Back ── */
+    .btn-back {
+      display: inline-block;
+      margin-top: 24px;
+      background: var(--white);
+      border: 1.5px solid var(--blue-light);
+      border-radius: 14px;
+      padding: 10px 26px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      text-decoration: none;
+      box-shadow: 2px 2px 0 var(--shadow);
+      transition: background 0.2s;
+    }
+
+    .btn-back:hover { background: var(--blue-glow); }
+
+    @media (max-width: 480px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .input-group.full { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>contatos de confiança</h1>
+    <svg class="mascot-small" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="26" fill="#b8d4ee"/>
+      <circle cx="28" cy="28" r="21" fill="#8ab5d8"/>
+      <ellipse cx="21" cy="26" rx="3.5" ry="5.5" fill="#3d6f9e"/>
+      <ellipse cx="35" cy="26" rx="3.5" ry="5.5" fill="#3d6f9e"/>
+      <path d="M20 35 Q28 41 36 35" stroke="#3d6f9e" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <p class="header-sub">pessoas que estarão lá quando você precisar ♡</p>
+
+  <!-- Info -->
+  <div class="info-banner">
+    <span>💙</span>
+    <p>No modo crise, seu contato principal será notificado automaticamente. Mantenha pelo menos um contato cadastrado.</p>
+  </div>
+
+  <!-- Contacts list -->
+  <div class="contacts-list">
+
+    <div class="contact-card">
+      <div class="contact-avatar">👩</div>
+      <div class="contact-info">
+        <h3>Ana Lima</h3>
+        <span class="role">familiar</span>
+        <div class="phone">📱 (21) 98765-4321</div>
+      </div>
+      <div class="contact-actions">
+        <button class="btn-call">ligar</button>
+        <button class="btn-remove-contact">remover</button>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-avatar">👨‍⚕️</div>
+      <div class="contact-info">
+        <h3>Dr. Carlos Mendes</h3>
+        <span class="role">psicólogo</span>
+        <div class="phone">📱 (21) 99999-0000</div>
+      </div>
+      <div class="contact-actions">
+        <button class="btn-call">ligar</button>
+        <button class="btn-remove-contact">remover</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Add contact form -->
+  <div class="add-section">
+    <h2>+ adicionar contato</h2>
+    <div class="form-grid">
+      <div class="input-group">
+        <label>Nome</label>
+        <input type="text" placeholder="Nome completo">
+      </div>
+      <div class="input-group">
+        <label>Telefone</label>
+        <input type="tel" placeholder="(11) 99999-9999">
+      </div>
+      <div class="input-group">
+        <label>Relação</label>
+        <select>
+          <option value="">Selecione...</option>
+          <option>familiar</option>
+          <option>amigo(a)</option>
+          <option>psicólogo(a)</option>
+          <option>outro</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>E-mail (opcional)</label>
+        <input type="email" placeholder="email@exemplo.com">
+      </div>
+    </div>
+    <button class="btn-add">salvar contato ♡</button>
+  </div>
+
+  <a href="#" class="btn-back">← voltar</a>
+
+</div>
+
+</body>
+</html>
