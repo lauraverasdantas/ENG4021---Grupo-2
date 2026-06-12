@@ -422,6 +422,127 @@ textarea:focus::placeholder {
                 item.classList.add('selected');
             });
         });
+
+        // ── Pop-up de Crise ──────────────────────────────────────────────────
+        // Contato de confiança vindo do Django (None se não cadastrado)
+        const contatoNome     = "{{ contato.nome_contato|default:'' }}";
+        const contatoTelefone = "{{ contato.telefone|default:'' }}";
+        const contatoRelacao  = "{{ contato.relacao|default:'' }}";
+
+        const slider = document.getElementById('anxiety-slider');
+
+        slider.addEventListener('input', function () {
+            const nivel = parseInt(this.value);
+            if (nivel > 8) {
+                mostrarPopupCrise();
+            }
+        });
+
+        function mostrarPopupCrise() {
+            // Evita abrir duas vezes
+            if (document.getElementById('crise-overlay')) return;
+
+            const temContato = contatoNome !== '';
+
+            const overlay = document.createElement('div');
+            overlay.id = 'crise-overlay';
+            overlay.style.cssText = `
+                position: fixed; inset: 0; z-index: 9999;
+                background: rgba(100, 140, 180, 0.55);
+                backdrop-filter: blur(6px);
+                display: flex; align-items: center; justify-content: center;
+                animation: fadeInOverlay 0.3s ease;
+            `;
+
+            overlay.innerHTML = `
+                <style>
+                    @keyframes fadeInOverlay { from { opacity:0; } to { opacity:1; } }
+                    @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+                    #crise-card { animation: slideUp 0.35s ease; }
+                </style>
+                <div id="crise-card" style="
+                    background: white;
+                    border-radius: 28px;
+                    padding: 36px 40px 30px;
+                    max-width: 400px; width: 90%;
+                    text-align: center;
+                    box-shadow: 0 12px 48px rgba(80,120,160,0.22);
+                    position: relative;
+                    font-family: 'Patrick Hand', cursive;
+                ">
+                    <!-- Ícone pulsante -->
+                    <div style="
+                        width: 72px; height: 72px; margin: 0 auto 18px;
+                        background: #fde8ec; border-radius: 50%;
+                        display: flex; align-items: center; justify-content: center;
+                        font-size: 2.2rem;
+                        animation: pulse-icon 2s ease-in-out infinite;
+                    ">🫂</div>
+                    <style>
+                        @keyframes pulse-icon {
+                            0%,100% { box-shadow: 0 0 0 0 rgba(244,160,176,0.5); }
+                            50%     { box-shadow: 0 0 0 12px rgba(244,160,176,0); }
+                        }
+                    </style>
+
+                    <h2 style="font-family:'Caveat',cursive; font-size:1.7rem; color:#c0392b; margin-bottom:8px;">
+                        nível de ansiedade alto!
+                    </h2>
+                    <p style="font-size:1rem; color:#666; margin-bottom:22px; line-height:1.5;">
+                        Seu nível de ansiedade está acima de <strong>8</strong>.<br>
+                        Pode ser hora de acionar seu contato de confiança.
+                    </p>
+
+                    ${temContato ? `
+                        <div style="
+                            background: #f0f7ff; border-radius: 14px;
+                            padding: 14px 18px; margin-bottom: 22px; text-align:left;
+                        ">
+                            <div style="font-size:0.78rem; color:#999; margin-bottom:4px; font-family:sans-serif;">SEU CONTATO DE CONFIANÇA</div>
+                            <div style="font-size:1.15rem; color:#2c3e50; font-weight:bold;">${contatoNome}</div>
+                            <div style="font-size:0.9rem; color:#7f8c8d;">${contatoRelacao}</div>
+                            <a href="tel:${contatoTelefone}" style="
+                                display:inline-block; margin-top:12px;
+                                background:#f4a0b0; color:white; text-decoration:none;
+                                padding:9px 22px; border-radius:99px;
+                                font-family:'Caveat',cursive; font-size:1.3rem;
+                                transition: background 0.2s;
+                            ">📞 ligar para ${contatoNome.split(' ')[0]}</a>
+                        </div>
+                    ` : `
+                        <div style="
+                            background: #fff8f0; border-radius: 14px;
+                            padding: 14px 18px; margin-bottom: 22px; color:#c07000;
+                            font-size:0.92rem; font-family:sans-serif;
+                        ">
+                            ⚠️ Você ainda não cadastrou um contato de confiança.<br>
+                            <a href="/contato/" style="color:#B3D4EC; font-weight:bold;">Cadastrar agora →</a>
+                        </div>
+                    `}
+
+                    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                        <a href="{% url 'crise:crise' %}" style="
+                            background:#d9534f; color:white; text-decoration:none;
+                            padding:10px 22px; border-radius:99px;
+                            font-family:'Caveat',cursive; font-size:1.3rem;
+                        ">ir para modo crise</a>
+                        <button onclick="document.getElementById('crise-overlay').remove()" style="
+                            background:#f0f0f0; color:#555; border:none;
+                            padding:10px 22px; border-radius:99px; cursor:pointer;
+                            font-family:'Caveat',cursive; font-size:1.3rem;
+                        ">estou bem, fechar</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(overlay);
+
+            // Fechar clicando fora do card
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) overlay.remove();
+            });
+        }
+        // ── Fim Pop-up de Crise ──────────────────────────────────────────────
     </script>
 </body>
 </html>

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "humor",
     "calendario",
     "crise",
+    "contatoconfianca",
 ]
 
 MIDDLEWARE = [
@@ -129,5 +130,5 @@ STATIC_URL = "static/"
 # LOGIN_URL: para onde @login_required manda quem não está logado.
 # LOGIN_REDIRECT_URL / LOGOUT_REDIRECT_URL: destinos após login/logout.
 LOGIN_URL = "login:login"
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "contatoconfianca:cadastrar_contato"
 LOGOUT_REDIRECT_URL = "login:login"
