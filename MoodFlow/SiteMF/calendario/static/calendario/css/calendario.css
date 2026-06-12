@@ -167,3 +167,33 @@ body {
         grid-template-columns: repeat(4, 1fr);
     }
 }
+
+/* Estilo principal do botão */
+.btn-next {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007BFF; /* Azul moderno, você pode alterar para a cor da sua marca */
+    color: #FFFFFF;
+    text-decoration: none; /* Remove o sublinhado padrão de links */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px; /* Bordas levemente arredondadas */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.btn-next:hover {
+    background-color: #0056b3; /* Um tom mais escuro de azul */
+    transform: translateY(-2px); /* Levanta o botão levemente */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Aumenta a sombra */
+    color: #FFFFFF; /* Garante que a cor do texto continue branca */
+}
+
+/* Efeito ao clicar no botão (Active) */
+.btn-next:active {
+    transform: translateY(0); /* Volta para a posição original */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduz a sombra simulando o clique */
+}

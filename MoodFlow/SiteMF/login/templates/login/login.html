@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOOD flow - Login</title>
+    <title>MOOD Flow - Login</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -285,15 +285,14 @@
             </div>
             
             <form class="login-form" action="#" method="POST">
+                {% csrf_token %}
                 <input type="text" placeholder="usuário" class="input-field" required>
                 <input type="password" placeholder="senha" class="input-field" required>
                 
                 <a href="#" class="forgot-password">Esqueci minha senha</a>
-                
-                <button type="submit" class="submit-button">Login</button>
-
+                <a href="{% url 'calendario:calendario' %}" class="submit-button">Login</a>
                 <div class="signup-link">
-                    Não tem conta? <a href="registro.html">Crie uma aqui</a>
+                    Não tem conta? <a href="{% url 'registro:registro' %}">Crie uma aqui</a>
                 </div>
             </form>
         </div>

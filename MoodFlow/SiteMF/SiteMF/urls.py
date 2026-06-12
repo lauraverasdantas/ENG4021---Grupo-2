@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from SiteMF import views
 from django.urls import include
+from django.urls.conf import include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -30,4 +31,7 @@ urlpatterns = [
     path('removerusuario/', include('removerusuario.urls')),
     path('humor/', include('humor.urls')),
     path('calendario/', include('calendario.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('crise/', include('crise.urls')),
+    path('admin/', include('admin.urls')),
 ]

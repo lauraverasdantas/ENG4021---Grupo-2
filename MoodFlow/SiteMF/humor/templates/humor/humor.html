@@ -272,6 +272,57 @@
                 padding: 15px 20px;
             }
         }
+
+        /* --- Efeito de Seleção das Emoções --- */
+.mood-item.selected {
+    transform: scale(1.1) translateY(-5px); /* Dá um leve zoom e mantém levantado */
+}
+
+.mood-item.selected .face-circle {
+    border: 3px solid #fff; /* Adiciona uma borda branca mais grossa */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Cria um brilho ao redor do rosto */
+}
+
+.mood-item.selected .mood-label {
+    font-weight: bold; /* Destaca o nome da emoção */
+}
+
+/* --- Comportamento do Textarea (Diário) --- */
+/* Faz o "Hoje eu me senti..." sumir imediatamente ao clicar e mostra a barra piscando */
+textarea:focus::placeholder {
+    color: transparent;
+}
+
+
+/* Estilo principal do botão */
+.btn-next {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007BFF; /* Azul moderno, você pode alterar para a cor da sua marca */
+    color: #FFFFFF;
+    text-decoration: none; /* Remove o sublinhado padrão de links */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px; /* Bordas levemente arredondadas */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.btn-next:hover {
+    background-color: #0056b3; /* Um tom mais escuro de azul */
+    transform: translateY(-2px); /* Levanta o botão levemente */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Aumenta a sombra */
+    color: #FFFFFF; /* Garante que a cor do texto continue branca */
+}
+
+/* Efeito ao clicar no botão (Active) */
+.btn-next:active {
+    transform: translateY(0); /* Volta para a posição original */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduz a sombra simulando o clique */
+}
     </style>
 </head>
 <body>
@@ -347,11 +398,31 @@
         </div>
 
         <div class="textarea-container">
-            <label>⇨ Escreva sobre seu dia :</label>
+            <label>⇨ Escreva sobre seu dia:</label>
             <textarea placeholder="Hoje eu me senti..."></textarea>
         </div>
+         <div class="actions-container">
+        <a href="{% url 'crise:crise' %}" class="btn-next">Próximo</a>
+    </div>
 
     </div>
 
 </body>
+<!-- ... suas outras divs ... -->
+    <script>
+        // Seleciona todos os rostinhos de humor
+        const moodItems = document.querySelectorAll('.mood-item');
+
+        moodItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Primeiro, remove a classe 'selected' de todos
+                moodItems.forEach(el => el.classList.remove('selected'));
+                
+                // Em seguida, adiciona a classe 'selected' apenas no item clicado
+                item.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
 </html>
