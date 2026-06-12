@@ -89,4 +89,6 @@ source venv/bin/activate
 ---
 
 Desenvolvido com ☕ e foco em tecnologia para o bem-estar.
+
+
 MIT © 2026 MoodFlow
