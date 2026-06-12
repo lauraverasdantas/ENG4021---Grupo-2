@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOOD flow - Login</title>
 
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Lilita+One&family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -44,7 +45,7 @@
 
             <form class="login-form" action="{% url 'login:login' %}" method="POST">
                 {% csrf_token %}
-                <input type="text" name="usuario" placeholder="usuario" class="input-field" required>
+                <input type="text" name="usuario" placeholder="usuário" class="input-field" required>
                 <input type="password" name="senha" placeholder="senha" class="input-field" required>
 
                 <a href="#" class="forgot-password">Esqueci minha senha</a>
@@ -52,7 +53,7 @@
                 <button type="submit" class="submit-button">Login</button>
 
                 <div class="signup-link">
-                    Nao tem conta? <a href="{% url 'registro:registro' %}">Crie uma aqui</a>
+                    Não tem conta? <a href="{% url 'registro:registro' %}">Crie uma aqui</a>
                 </div>
             </form>
         </div>

@@ -1,14 +1,13 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0084)https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4872/humor.html -->
+<html lang="pt-br" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mood Tracker</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Mood Tracker_files/css2" rel="stylesheet">
     
     <style>
         /* --- Estilos Globais e Fundo Quadriculado --- */
@@ -272,60 +271,22 @@
                 padding: 15px 20px;
             }
         }
-
-        /* --- Efeito de Seleção das Emoções --- */
-.mood-item.selected {
-    transform: scale(1.1) translateY(-5px); /* Dá um leve zoom e mantém levantado */
-}
-
-.mood-item.selected .face-circle {
-    border: 3px solid #fff; /* Adiciona uma borda branca mais grossa */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Cria um brilho ao redor do rosto */
-}
-
-.mood-item.selected .mood-label {
-    font-weight: bold; /* Destaca o nome da emoção */
-}
-
-/* --- Comportamento do Textarea (Diário) --- */
-/* Faz o "Hoje eu me senti..." sumir imediatamente ao clicar e mostra a barra piscando */
-textarea:focus::placeholder {
-    color: transparent;
-}
-
-
-/* Estilo principal do botão */
-.btn-next {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #007BFF; /* Azul moderno, você pode alterar para a cor da sua marca */
-    color: #FFFFFF;
-    text-decoration: none; /* Remove o sublinhado padrão de links */
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 6px; /* Bordas levemente arredondadas */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Efeito ao passar o mouse (Hover) */
-.btn-next:hover {
-    background-color: #0056b3; /* Um tom mais escuro de azul */
-    transform: translateY(-2px); /* Levanta o botão levemente */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Aumenta a sombra */
-    color: #FFFFFF; /* Garante que a cor do texto continue branca */
-}
-
-/* Efeito ao clicar no botão (Active) */
-.btn-next:active {
-    transform: translateY(0); /* Volta para a posição original */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduz a sombra simulando o clique */
-}
     </style>
+<style>
+/* ===== Toggle de tema (Sprint 6) ===== */
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:9999;width:46px;height:46px;
+border-radius:50%;border:1px solid rgba(120,120,120,.35);background:rgba(255,255,255,.6);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:1.3rem;cursor:pointer;
+display:flex;align-items:center;justify-content:center;transition:transform .2s ease;}
+.theme-toggle:hover{transform:scale(1.1);}
+/* Modo escuro: inverte a pagina e gira o matiz de volta (mantem azuis azuis) */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg);background:#0e1622;}
+html[data-theme="dark"] .theme-toggle{filter:invert(1) hue-rotate(180deg);}
+html{transition:filter .35s ease;}
+</style>
 </head>
 <body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema claro/escuro" aria-label="Alternar tema">🌙</button>
 
     <div class="tracker-container">
         
@@ -398,31 +359,20 @@ textarea:focus::placeholder {
         </div>
 
         <div class="textarea-container">
-            <label>⇨ Escreva sobre seu dia:</label>
+            <label>⇨ Escreva sobre seu dia :</label>
             <textarea placeholder="Hoje eu me senti..."></textarea>
         </div>
-         <div class="actions-container">
-        <a href="{% url 'crise:crise' %}" class="btn-next">Próximo</a>
-    </div>
 
     </div>
 
-</body>
-<!-- ... suas outras divs ... -->
-    <script>
-        // Seleciona todos os rostinhos de humor
-        const moodItems = document.querySelectorAll('.mood-item');
 
-        moodItems.forEach(item => {
-            item.addEventListener('click', () => {
-                // Primeiro, remove a classe 'selected' de todos
-                moodItems.forEach(el => el.classList.remove('selected'));
-                
-                // Em seguida, adiciona a classe 'selected' apenas no item clicado
-                item.classList.add('selected');
-            });
-        });
-    </script>
-</body>
-</html>
-</html>
+<script>
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
+document.querySelector('.theme-toggle').textContent = t==='dark'?'☀️':'🌙';}
+function toggleTheme(){var a=document.documentElement.getAttribute('data-theme');
+applyTheme(a==='dark'?'light':'dark');}
+applyTheme('light');
+</script>
+
+
+</body></html>

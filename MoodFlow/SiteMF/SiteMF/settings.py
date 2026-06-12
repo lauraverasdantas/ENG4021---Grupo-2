@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "removerusuario",
     "humor",
     "calendario",
+    "crise",
 ]
 
 MIDDLEWARE = [
@@ -123,7 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
-
 
 # Authentication redirects (tarefa 2 - autenticação)
 # LOGIN_URL: para onde @login_required manda quem não está logado.

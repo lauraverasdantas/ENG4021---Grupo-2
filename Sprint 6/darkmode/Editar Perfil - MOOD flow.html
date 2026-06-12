@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4872/editarperfil.html -->
+<html lang="pt-br" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - MOOD flow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <style>
+/* --- Estilos Globais --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #B3D4EC; /* Azul base do MOOD flow */
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+/* --- Container Principal --- */
+.profile-container {
+    background-color: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 40px;
+}
+
+/* --- Cabeçalho --- */
+.profile-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.profile-header h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    color: #4A4A4A;
+    margin-bottom: 5px;
+}
+
+.profile-header p {
+    color: #888;
+    font-size: 1rem;
+}
+
+/* --- Divisor visual --- */
+.divider {
+    border: 0;
+    height: 1px;
+    background: #eee;
+    margin: 10px 0 20px 0;
+}
+
+/* --- Formulário e Inputs --- */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+/* Estilo para campos editáveis ao focar */
+.input-group:not(.locked) input:focus {
+    border-color: #A08CD2; /* Roxo */
+    background-color: #fff;
+}
+
+/* --- Estilo para campos bloqueados (readonly) --- */
+.input-group.locked input {
+    background-color: #e9ecef;
+    color: #888;
+    cursor: not-allowed;
+    border-color: #e0e0e0;
+}
+
+.input-group.locked label {
+    color: #999;
+}
+
+/* --- Botões de Ação --- */
+.actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-cancel, 
+.btn-save {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.1s;
+    flex: 1; /* Para os dois botões terem o mesmo tamanho */
+}
+
+/* Botão Cancelar */
+.btn-cancel {
+    background-color: #f0f0f0;
+    color: #555;
+}
+
+.btn-cancel:hover {
+    background-color: #e4e4e4;
+}
+
+/* Botão Salvar */
+.btn-save {
+    background-color: #A08CD2; /* Roxo do projeto */
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: #8b76c4;
+}
+
+.btn-cancel:active, 
+.btn-save:active {
+    transform: scale(0.98);
+}
+</style>
+    
+    <link rel="stylesheet" href="./Editar Perfil - MOOD flow_files/editarperfil.html">
+<style>
+/* ===== Toggle de tema (Sprint 6) ===== */
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:9999;width:46px;height:46px;
+border-radius:50%;border:1px solid rgba(120,120,120,.35);background:rgba(255,255,255,.6);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:1.3rem;cursor:pointer;
+display:flex;align-items:center;justify-content:center;transition:transform .2s ease;}
+.theme-toggle:hover{transform:scale(1.1);}
+/* Modo escuro: inverte a pagina e gira o matiz de volta (mantem azuis azuis) */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg);background:#0e1622;}
+html[data-theme="dark"] .theme-toggle{filter:invert(1) hue-rotate(180deg);}
+html{transition:filter .35s ease;}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema claro/escuro" aria-label="Alternar tema">🌙</button>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>Editar Perfil</h2>
+            <p>Atualize suas informações de contato e segurança</p>
+        </div>
+
+        <form class="profile-form" action="./Editar Perfil - MOOD flow_files/editarperfil.html" method="POST">
+            
+            <div class="input-group locked">
+                <label for="nome">Nome Completo (Não editável)</label>
+                <input type="text" id="nome" name="nome" value="Maria Silva" readonly="">
+            </div>
+
+            <div class="input-group locked">
+                <label for="usuario">Nome de Usuário (Não editável)</label>
+                <input type="text" id="usuario" name="usuario" value="@mariasilva123" readonly="">
+            </div>
+
+            <hr class="divider">
+
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" value="maria@exemplo.com" required="">
+            </div>
+
+            <div class="input-group">
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone" name="telefone" value="(11) 99999-9999" required="">
+            </div>
+
+            <div class="input-group">
+                <label for="senha">Nova Senha</label>
+                <input type="password" id="senha" name="senha" placeholder="Digite apenas se quiser alterar">
+            </div>
+
+            <div class="actions">
+                <a href="./Editar Perfil - MOOD flow_files/editarperfil.html" class="btn-cancel">Cancelar</a>
+                <button type="submit" class="btn-save">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+
+
+<script>
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
+document.querySelector('.theme-toggle').textContent = t==='dark'?'☀️':'🌙';}
+function toggleTheme(){var a=document.documentElement.getAttribute('data-theme');
+applyTheme(a==='dark'?'light':'dark');}
+applyTheme('light');
+</script>
+
+
+</body></html>
