@@ -5,79 +5,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendário - MOOD flow</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="{% static 'calendario/css/calendario.css' %}">
 
+    <style>
+        /* Navegação de mês */
+        .nav-mes {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: white;
+            border: 2px solid #6BA3CE;
+            color: #6BA3CE;
+            border-radius: 50%;
+            width: 36px; height: 36px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-nav:hover {
+            background: #6BA3CE;
+            color: white;
+        }
+
+        .mes-label {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.5rem;
+            color: #6BA3CE;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 2px solid #6BA3CE;
+            min-width: 180px;
+            text-align: center;
+        }
+
+        /* Legenda de humor */
+        .legenda {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
+
+        .legenda-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.82rem;
+            color: #4a7099;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .legenda-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Resumo do mês */
+        .resumo {
+            background: white;
+            border-radius: 16px;
+            padding: 10px 24px;
+            margin-bottom: 28px;
+            font-family: 'Patrick Hand', cursive;
+            color: #6BA3CE;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .resumo span { font-weight: bold; color: #4a7099; }
+
+        /* Tooltip */
+        .day-card { position: relative; }
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 0.78rem;
+            font-family: sans-serif;
+            white-space: nowrap;
+            z-index: 100;
+            pointer-events: none;
+            line-height: 1.5;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%; left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #2c3e50;
+        }
+
+        .day-card:hover .tooltip { display: block; }
+
+        /* Card com humor registrado */
+        .day-card.tem-registro .day-top {
+            background-color: var(--cor-humor);
+        }
+
+        .day-card.tem-registro .day-bottom {
+            background-color: color-mix(in srgb, var(--cor-humor) 18%, white);
+            font-size: 1.6rem;
+            color: var(--cor-humor);
+        }
+
+        /* Hoje */
+        .day-card.hoje .day-top {
+            outline: 3px solid #2c3e50;
+            outline-offset: 2px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Sem registro */
+        .day-card.sem-registro .day-bottom {
+            color: #d0d5da;
+        }
+    </style>
 </head>
 <body>
 
     <div class="header-container">
         <div class="cloud-title">calendário</div>
-        
-        <select id="month-selector" class="month-selector">
-            <option value="31">Janeiro</option>
-            <option value="28">Fevereiro</option>
-            <option value="31">Março</option>
-            <option value="30">Abril</option>
-            <option value="31">Maio</option>
-            <option value="30">Junho</option>
-            <option value="31">Julho</option>
-            <option value="31">Agosto</option>
-            <option value="30">Setembro</option>
-            <option value="31">Outubro</option>
-            <option value="30">Novembro</option>
-            <option value="31">Dezembro</option>
-        </select>
+
+        <!-- Navegação por mês com links reais -->
+        <div class="nav-mes">
+            <a href="?ano={{ ano_anterior }}&mes={{ mes_anterior }}" class="btn-nav" title="Mês anterior">‹</a>
+            <div class="mes-label">{{ mes_nome }} {{ ano }}</div>
+            <a href="?ano={{ ano_proximo }}&mes={{ mes_proximo }}" class="btn-nav" title="Próximo mês">›</a>
+        </div>
     </div>
 
-    <div class="calendar-grid" id="calendar-grid">
-        </div>
+    <!-- Resumo -->
+    <div class="resumo">
+        {% if total_registros == 0 %}
+            Nenhum registro em {{ mes_nome }}. <a href="{% url 'humor:humor' %}" style="color:#6BA3CE;">Registrar agora →</a>
+        {% elif total_registros == 1 %}
+            <span>1</span> dia registrado em {{ mes_nome }}.
+        {% else %}
+            <span>{{ total_registros }}</span> dias registrados em {{ mes_nome }}.
+        {% endif %}
+    </div>
+
+    <!-- Legenda -->
+    <div class="legenda">
+        <div class="legenda-item"><div class="legenda-dot" style="background:#9288e0"></div>Normal</div>
+        <div class="legenda-item"><div class="legenda-dot" style="background:#5da7dd"></div>Triste</div>
+        <div class="legenda-item"><div class="legenda-dot" style="background:#fbce3b"></div>Feliz</div>
+        <div class="legenda-item"><div class="legenda-dot" style="background:#56c15b"></div>Esperançoso</div>
+        <div class="legenda-item"><div class="legenda-dot" style="background:#ed6e5f"></div>Raivoso</div>
+        <div class="legenda-item"><div class="legenda-dot" style="background:#f18ca4"></div>Apaixonado</div>
+        <div class="legenda-item"><div class="legenda-dot" style="background:#7c8d9e"></div>Preocupado</div>
+        <div class="legenda-item"><div class="legenda-dot" style="background:#e78c46"></div>Ansioso</div>
+        <div class="legenda-item"><div class="legenda-dot" style="background:#cf724b"></div>Entediado</div>
+    </div>
+
+    <div class="calendar-grid" id="calendar-grid"></div>
+
+    <div class="actions-container">
+        <a href="{% url 'humor:humor' %}" class="btn-next">+ Registrar Humor</a>
+    </div>
 
     <script>
-        const monthSelector = document.getElementById('month-selector');
-        const calendarGrid = document.getElementById('calendar-grid');
+        // Dados reais vindos do Django (dict dia → {emoji, cor, ansiedade, hora})
+        const dadosMes   = {{ dados_json|safe }};
+        const hojeDay    = {{ hoje_dia|default:"null" }};
+        const diasNoMes  = {{ dias_no_mes }};
 
-        function renderCalendar(days) {
-            calendarGrid.innerHTML = ''; 
-            
-            for (let i = 1; i <= days; i++) {
-                const dayNumber = i < 10 ? '0' + i : i;
-                
-                const dayCard = document.createElement('div');
-                dayCard.className = 'day-card';
-                
-                dayCard.innerHTML = `
-                    <div class="day-top">${dayNumber}</div>
-                    <div class="day-bottom" id="icon-${i}">+</div>
+        const grid = document.getElementById('calendar-grid');
+
+        for (let i = 1; i <= diasNoMes; i++) {
+            const num   = i < 10 ? '0' + i : String(i);
+            const dado  = dadosMes[String(i)];
+            const isHoje = (i === hojeDay);
+
+            const card = document.createElement('div');
+            card.className = 'day-card';
+
+            if (dado) {
+                card.classList.add('tem-registro');
+                card.style.setProperty('--cor-humor', dado.cor);
+
+                const tooltip = `
+                    <div class="tooltip">
+                        ${dado.emoji_char} ${dado.emoji_label}<br>
+                        Ansiedade: ${dado.ansiedade}/10<br>
+                        às ${dado.hora}
+                    </div>
                 `;
 
-                dayCard.addEventListener('click', function() {
-                    this.classList.toggle('selected');
-                    const icon = document.getElementById(`icon-${i}`);
-                    
-                    if (this.classList.contains('selected')) {
-                        icon.innerHTML = '✓';
-                    } else {
-                        icon.innerHTML = '+';
-                    }
-                });
-
-                calendarGrid.appendChild(dayCard);
+                card.innerHTML = `
+                    ${tooltip}
+                    <div class="day-top">${num}</div>
+                    <div class="day-bottom">${dado.emoji_char}</div>
+                `;
+            } else {
+                card.classList.add('sem-registro');
+                card.innerHTML = `
+                    <div class="day-top">${num}</div>
+                    <div class="day-bottom">·</div>
+                `;
             }
+
+            if (isHoje) card.classList.add('hoje');
+
+            grid.appendChild(card);
         }
-
-        // Renderiza Janeiro ao carregar a página
-        renderCalendar(31);
-
-        // Atualiza ao mudar o mês
-        monthSelector.addEventListener('change', function() {
-            const daysInMonth = parseInt(this.value);
-            renderCalendar(daysInMonth);
-        });
     </script>
 
 </body>

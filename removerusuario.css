@@ -1,0 +1,193 @@
+/* ── removerusuario.css — MOODflow ── */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #B3D4EC;
+  --bg-grid:   rgba(255,255,255,0.2);
+  --white:     #ffffff;
+  --blue-dark: #4a7099;
+  --blue-mid:  #7da8cc;
+  --blue-light:#aed0ee;
+  --blue-glow: #c6e0f5;
+  --text-dark: #1a2d42;
+  --text-mid:  #4a7099;
+  --text-light:#7da0c4;
+  --shadow:    #99bbdd;
+  --purple:    #A08CD2;
+  --red:       #d9534f;
+  --red-light: #fff0f0;
+  --red-border:#f4c5c5;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(var(--bg-grid) 0px, var(--bg-grid) 1px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(90deg, var(--bg-grid) 0px, var(--bg-grid) 1px, transparent 1px, transparent 20px);
+  font-family: 'Nunito', sans-serif;
+  padding: 32px 20px;
+}
+
+.admin-container {
+  background: var(--white);
+  width: 100%;
+  max-width: 820px;
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--shadow), 0 16px 40px rgba(74,112,153,0.15);
+  padding: 40px;
+  border: 2px solid rgba(255,255,255,0.8);
+  animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ── */
+.admin-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.admin-header h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 2.8rem;
+  color: var(--blue-dark);
+  margin-bottom: 6px;
+}
+
+.admin-header p {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--red-light);
+  border: 1px solid var(--red-border);
+  color: var(--red);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+
+.admin-header p::before {
+  content: '⚠';
+  font-size: 1rem;
+}
+
+/* ── Table ── */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 24px;
+  border: 1.5px solid var(--blue-light);
+  border-radius: 16px;
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+.users-table th,
+.users-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid var(--blue-glow);
+}
+
+.users-table th {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.1rem;
+  color: var(--text-mid);
+  background: var(--blue-glow);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.users-table th:first-child { border-radius: 14px 0 0 0; }
+.users-table th:last-child  { border-radius: 0 14px 0 0; }
+
+.users-table td {
+  font-size: 0.97rem;
+  color: var(--text-dark);
+  vertical-align: middle;
+}
+
+.users-table td:nth-child(2) {
+  font-weight: 700;
+  color: var(--purple);
+}
+
+.users-table tbody tr:hover {
+  background: var(--red-light);
+  transition: background 0.2s;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.linha-removida {
+  display: none;
+}
+
+/* ── Botão remover ── */
+.btn-remove {
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #b03030;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-remove:hover {
+  background: #c0392b;
+}
+
+.btn-remove:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 #b03030;
+}
+
+/* ── Footer ── */
+.actions-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.btn-back {
+  text-decoration: none;
+  background: var(--blue-glow);
+  color: var(--text-mid);
+  padding: 12px 32px;
+  border-radius: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 1.5px solid var(--blue-light);
+  box-shadow: 2px 2px 0 var(--shadow);
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-back:hover {
+  background: var(--blue-light);
+}
+
+.btn-back:active {
+  transform: translateY(1px);
+}
