@@ -1,9 +1,219 @@
-from django.urls import path
-from . import views
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodFlow — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-app_name = 'admin'
+  :root {
+    --bg: #c8daf0;
+    --bg-grid: #b0cce8;
+    --blue-dark: #5a89b5;
+    --blue-mid: #7da8cc;
+    --blue-light: #aed0ee;
+    --text-blue: #4a7099;
+    --text-mid: #7da0c4;
+    --shadow: #99bbdd;
+    --red-soft: #d9534f;
+    --green-soft: #28a745;
+  }
 
-urlpatterns = [
+  body {
+    min-height: 100vh;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(var(--bg-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+    background-size: 16px 16px;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
 
-    path('admin/', views.admin, name='admin'),
-]
+  .page {
+    width: 100%;
+    max-width: 800px;
+    background: transparent;
+    border: 2.5px solid rgba(255,255,255,0.7);
+    border-radius: 22px;
+    padding: 28px 32px 24px;
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .title-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .pill {
+    display: inline-block;
+    background: white;
+    border-radius: 14px;
+    padding: 9px 36px;
+    box-shadow: 2px 2px 0 var(--shadow);
+  }
+  .pill span {
+    font-family: 'Caveat', cursive;
+    color: var(--text-blue);
+    font-size: 22px;
+  }
+
+  /* Mensagens de Feedback */
+  .messages {
+    margin-bottom: 20px;
+    list-style: none;
+  }
+  .message-item {
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 13.5px;
+    font-weight: bold;
+    color: white;
+  }
+  .message-item.success { background-color: var(--blue-mid); }
+  .message-item.error { background-color: var(--red-soft); }
+
+  /* Tabela de Usuários */
+  .table-container {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 3px 3px 0 var(--shadow);
+    overflow-x: auto;
+    margin-bottom: 24px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+    color: var(--text-blue);
+  }
+
+  th {
+    padding: 12px;
+    border-bottom: 2px solid var(--bg-grid);
+    color: var(--blue-dark);
+    font-weight: bold;
+  }
+
+  td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(176, 204, 232, 0.3);
+    vertical-align: middle;
+  }
+
+  tr:hover td {
+    background-color: rgba(200, 218, 240, 0.15);
+  }
+
+  /* Botões de Ação */
+  .btn-action {
+    display: inline-block;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-danger {
+    background: var(--red-soft);
+    color: white;
+  }
+  .btn-danger:hover { background: #b93c39; transform: scale(1.03); }
+  
+  .btn-back {
+    background: var(--blue-mid);
+    color: white;
+    padding: 10px 20px;
+  }
+  .btn-back:hover { background: var(--blue-dark); }
+
+  .actions-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="title-wrap">
+    <div class="pill">
+      <span>gerenciamento de usuários</span>
+    </div>
+  </div>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="message-item {% if message.tags %}{{ message.tags }}{% endif %}">
+          {{ message }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuário</th>
+          <th>E-mail</th>
+          <th>Data de Cadastro</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+          <td>{{ usuario.id }}</td>
+          <td><strong>{{ usuario.username }}</strong></td>
+          <td>{{ usuario.email|default:"—" }}</td>
+          <td>{{ usuario.date_joined|date:"d/m/Y H:i" }}</td>
+          <td>
+            <form action="{% url 'excluir_usuario' usuario.id %}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir o usuário {{ usuario.username }}?');">
+              {% csrf_token %}
+              <button type="submit" class="btn-action btn-danger">Excluir</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" style="text-align: center; padding: 24px; color: var(--text-mid);">
+            Nenhum usuário cadastrado no sistema.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="actions-container">
+    <a href="{% url 'home' %}" class="btn-action btn-back">Voltar para a Home</a>
+  </div>
+
+</div>
+
+</body>
+</html>

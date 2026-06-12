@@ -42,9 +42,5 @@ O projeto foi estruturado para ser escalável, seguro e responsivo, utilizando a
 
 ---
 
-
-
----
-
 Desenvolvido com ☕ e foco em tecnologia para o bem-estar.
 MIT © 2026 MoodFlow
