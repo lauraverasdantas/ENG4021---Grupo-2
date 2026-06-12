@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre – MOOD flow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Lilita+One&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            background-color: #B3D4EC;
+            background-image:
+                repeating-linear-gradient(rgba(255,255,255,0.2) 0px, rgba(255,255,255,0.2) 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.2) 0px, rgba(255,255,255,0.2) 1px, transparent 1px, transparent 20px);
+            font-family: 'Patrick Hand', cursive;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .titulo-pagina {
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
+            color: white;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 40px;
+            border-radius: 100px;
+            border: 2px solid white;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 36px 44px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+        }
+
+        .card h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: #5B8DB8;
+            margin-bottom: 14px;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            line-height: 1.8;
+        }
+
+        .passos {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .passo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.1rem;
+            color: #4a4a4a;
+        }
+
+        .passo .num {
+            background: #B3D4EC;
+            color: white;
+            font-family: 'Caveat', cursive;
+            font-size: 1.3rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .time-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .membro {
+            background: #f0f7ff;
+            border-radius: 14px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            color: #5B8DB8;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .footer {
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .footer-social { display: flex; gap: 16px; justify-content: center; margin-bottom: 8px; }
+        .footer-social a { color: white; font-size: 1.4rem; text-decoration: none; }
+        .footer-copy { font-size: 0.85rem; color: rgba(255,255,255,0.85); font-family: sans-serif; }
+
+        .tag {
+            font-family: 'Caveat', cursive;
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.85);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="titulo-pagina">sobre o MOOD flow</div>
+
+    <div class="card">
+        <h2>o que é o MoodFlow? 🌊</h2>
+        <p>O MoodFlow é um diário emocional inteligente criado para quem quer se entender melhor. Registre seu humor diário, acompanhe seu nível de ansiedade e escreva sobre o seu dia — tudo em menos de 1 minuto.</p>
+    </div>
+
+    <div class="card">
+        <h2>como funciona? 💙</h2>
+        <div class="passos">
+            <div class="passo"><div class="num">1</div> Crie sua conta gratuitamente</div>
+            <div class="passo"><div class="num">2</div> Registre como você está se sentindo hoje</div>
+            <div class="passo"><div class="num">3</div> Acompanhe seu nível de ansiedade</div>
+            <div class="passo"><div class="num">4</div> Escreva sobre o seu dia</div>
+            <div class="passo"><div class="num">5</div> Veja seus padrões emocionais ao longo do tempo</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>quem somos 👋</h2>
+        <p>O MoodFlow foi desenvolvido por estudantes da PUC-Rio como projeto da disciplina ENG4021.</p>
+        <div class="time-grid" style="margin-top:16px;">
+            <div class="membro">Laura Dantas</div>
+            <div class="membro">Yuri Dias</div>
+            <div class="membro">Maria Clara Alexandre</div>
+            <div class="membro">Enzo Neiva</div>
+            <div class="membro">Guilherme de Melo</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-social">
+            <a href="https://instagram.com/moodflowsite" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://tiktok.com/@moodflow" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+        <div class="footer-copy">&copy; 2025 MoodFlow. Todos os direitos reservados.</div>
+    </div>
+
+    <div class="tag">✦ você está em um espaço seguro ✦</div>
+
+</body>
+</html>
