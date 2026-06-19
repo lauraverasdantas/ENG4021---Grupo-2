@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estatísticas - MoodFlow</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            background-color: #BBD7F3;
+            background-image:
+                repeating-linear-gradient(rgba(255,255,255,0.3) 0px, rgba(255,255,255,0.3) 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.3) 0px, rgba(255,255,255,0.3) 1px, transparent 1px, transparent 20px);
+            font-family: 'Patrick Hand', cursive;
+            color: #669bc0;
+            padding: 30px 20px;
+        }
+
+        .container { max-width: 700px; margin: 0 auto; }
+
+        .titulo {
+            background: white;
+            text-align: center;
+            font-size: 2rem;
+            padding: 14px 30px;
+            border-radius: 40px;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .subtitulo { text-align: center; font-size: 1.1rem; color: #557; margin-bottom: 25px; }
+
+        .cards { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 25px; }
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+        .card .numero { font-size: 2.6rem; color: #2c3e50; }
+        .card .rotulo { font-size: 1.1rem; color: #888; margin-top: 4px; }
+
+        .secao {
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+        .secao h2 { font-size: 1.4rem; color: #557; margin-bottom: 16px; }
+
+        .barra-item { margin-bottom: 14px; }
+        .barra-topo {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 4px;
+        }
+        .barra-fundo {
+            background: #eef3f8;
+            border-radius: 20px;
+            height: 22px;
+            overflow: hidden;
+        }
+        .barra-preenchida {
+            background: linear-gradient(to right, #8cb4d3, #6BA3CE);
+            height: 100%;
+            border-radius: 20px;
+        }
+
+        .vazio {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #999;
+        }
+
+        .voltar { display: inline-block; margin-top: 20px; color: #6BA3CE; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="titulo">📊 Suas Estatísticas</div>
+        <div class="subtitulo">Resumo dos últimos 30 dias</div>
+
+        {% if total %}
+        <div class="cards">
+            <div class="card">
+                <div class="numero">{{ total }}</div>
+                <div class="rotulo">registro{{ total|pluralize }}</div>
+            </div>
+            <div class="card">
+                <div class="numero">{{ ansiedade_media|default:"—" }}</div>
+                <div class="rotulo">ansiedade média</div>
+            </div>
+            {% if humor_frequente %}
+            <div class="card">
+                <div class="numero" style="font-size:1.6rem;">{{ humor_frequente.label }}</div>
+                <div class="rotulo">humor mais frequente</div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="secao">
+            <h2>Distribuição de humores</h2>
+            {% for item in distribuicao %}
+            <div class="barra-item">
+                <div class="barra-topo">
+                    <span>{{ item.label }}</span>
+                    <span>{{ item.qtd }} ({{ item.percentual }}%)</span>
+                </div>
+                <div class="barra-fundo">
+                    <div class="barra-preenchida" style="width: {{ item.percentual }}%;"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="vazio">
+            Você ainda não tem registros nos últimos 30 dias.<br>
+            Registre seu humor para ver suas estatísticas aqui!
+        </div>
+        {% endif %}
+
+        <a href="{% url 'humor:historico' %}" class="voltar">📋 Ver histórico completo →</a>
+    </div>
+</body>
+</html>
