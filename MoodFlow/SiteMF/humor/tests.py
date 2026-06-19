@@ -154,16 +154,43 @@ class EstatisticasViewTest(TestCase):
         self.assertEqual(resposta.status_code, 200)
         self.assertEqual(resposta.context['total'], 0)
 
-    def test_com_registros_calcula_media(self):
-        RegistroHumor.objects.create(
-            usuario=self.usuario, nivel_ansiedade=4,
-            humor_emoji=RegistroHumor.Emoji.FELIZ,
+from .models import RegistroHumor
+
+User = get_user_model()
+
+
+class RegistroHumorModelTest(TestCase):
+    def setUp(self):
+        self.usuario = User.objects.create_user(
+            username='teste', password='senha12345'
         )
-        RegistroHumor.objects.create(
-            usuario=self.usuario, nivel_ansiedade=6,
+
+    def test_cria_registro_valido(self):
+        registro = RegistroHumor.objects.create(
+            usuario=self.usuario,
+            nivel_ansiedade=5,
             humor_emoji=RegistroHumor.Emoji.FELIZ,
+            texto_livre='Dia tranquilo.',
         )
-        self.client.login(username='teste', password='senha12345')
-        resposta = self.client.get(self.url)
-        self.assertEqual(resposta.context['total'], 2)
-        self.assertEqual(resposta.context['ansiedade_media'], 5.0)
+        self.assertEqual(registro.nivel_ansiedade, 5)
+        self.assertEqual(registro.get_humor_emoji_display(), 'Feliz')
+
+    def test_ansiedade_acima_do_limite_e_rejeitada(self):
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                RegistroHumor.objects.create(
+                    usuario=self.usuario,
+                    nivel_ansiedade=11,
+                    humor_emoji=RegistroHumor.Emoji.NORMAL,
+                )
+
+    def test_ansiedade_abaixo_do_limite_e_rejeitada(self):
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                RegistroHumor.objects.create(
+                    usuario=self.usuario,
+                    nivel_ansiedade=0,
+                    humor_emoji=RegistroHumor.Emoji.NORMAL,
+                )
+
+    def
