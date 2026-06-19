@@ -323,6 +323,12 @@ textarea:focus::placeholder {
     transform: translateY(0); /* Volta para a posição original */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduz a sombra simulando o clique */
 }
+
+        /* --- Mensagens de feedback --- */
+        .mensagens { width:100%; max-width:600px; display:flex; flex-direction:column; gap:8px; }
+        .msg { padding:12px 18px; border-radius:10px; font-size:1.2rem; text-align:center; }
+        .msg-success { background:#d8f3dc; color:#1b4332; border:2px solid #95d5b2; }
+        .msg-error   { background:#ffe5e5; color:#9b2226; border:2px solid #ffb3b3; }
     </style>
 </head>
 <body>
@@ -330,7 +336,19 @@ textarea:focus::placeholder {
     <div class="tracker-container">
         
         <div class="cloud-title">como você está se sentindo ?</div>
-        
+
+        {% if messages %}
+        <div class="mensagens">
+            {% for message in messages %}
+            <div class="msg msg-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post" action="" id="form-humor" style="width:100%; display:flex; flex-direction:column; align-items:center; gap:30px;">
+            {% csrf_token %}
+            <input type="hidden" name="humor_emoji" id="humor_emoji_input">
+
         <div class="mood-row">
             <div class="mood-item">
                 <span class="mood-num">1</span>
@@ -390,7 +408,7 @@ textarea:focus::placeholder {
         <div class="cloud-title">como está seu nivel de ansiedade ?</div>
 
         <div class="slider-container">
-            <input type="range" min="1" max="10" value="5" id="anxiety-slider">
+            <input type="range" min="1" max="10" value="5" id="anxiety-slider" name="nivel_ansiedade">
             <div class="slider-labels">
                 <span class="min">1</span>
                 <span class="max">10</span>
@@ -399,11 +417,12 @@ textarea:focus::placeholder {
 
         <div class="textarea-container">
             <label>⇨ Escreva sobre seu dia:</label>
-            <textarea placeholder="Hoje eu me senti..."></textarea>
+            <textarea name="texto_livre" placeholder="Hoje eu me senti..."></textarea>
         </div>
          <div class="actions-container">
-        <a href="{% url 'crise:crise' %}" class="btn-next">Próximo</a>
-    </div>
+            <button type="submit" class="btn-next">Salvar humor</button>
+        </div>
+        </form>
 
     </div>
 
@@ -432,6 +451,10 @@ textarea:focus::placeholder {
                 
                 // Em seguida, adiciona a classe 'selected' apenas no item clicado
                 item.classList.add('selected');
+
+                // Grava o numero do humor (1 a 9) no input escondido do formulario
+                const num = item.querySelector('.mood-num').textContent.trim();
+                document.getElementById('humor_emoji_input').value = num;
             });
         });
 
