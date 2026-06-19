@@ -103,4 +103,10 @@ def calendario(request):
         'dados_json':    json.dumps(dados_por_dia),
         'total_registros': len(dados_por_dia),
     }
-    return render(request, 'calendario/calendario.html', context)
+    return render(request, 'SiteMF/calendario.html', context)
+
+@login_required
+def crise(request):
+    return render(request, 'crise/crise.html')
+
+
