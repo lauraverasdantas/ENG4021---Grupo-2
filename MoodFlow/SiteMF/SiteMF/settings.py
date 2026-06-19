@@ -25,8 +25,12 @@ SECRET_KEY = "django-insecure-thbxo9!tvgifnbq6+y-yvyry%6dsl(3-hbcx7f2@0fon&r5me4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:8000', 
+    'http://localhost:8000',
+]
 
 # Application definition
 
@@ -38,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "SiteMF",
-    "login",
     "registro",
     "editarperfil",
     "listarusuario",
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     "calendario",
     "crise",
     "contatoconfianca",
+    #"sobre",
 ]
 
 MIDDLEWARE = [
@@ -129,6 +133,6 @@ STATIC_URL = "static/"
 # Authentication redirects (tarefa 2 - autenticação)
 # LOGIN_URL: para onde @login_required manda quem não está logado.
 # LOGIN_REDIRECT_URL / LOGOUT_REDIRECT_URL: destinos após login/logout.
-LOGIN_URL = "login:login"
-LOGIN_REDIRECT_URL = "contatoconfianca:cadastrar_contato"
-LOGOUT_REDIRECT_URL = "login:login"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "calendario:calendario"
+LOGOUT_REDIRECT_URL = ""

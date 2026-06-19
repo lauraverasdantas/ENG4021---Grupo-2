@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class RegistroHumor(models.Model):
@@ -23,7 +24,7 @@ class RegistroHumor(models.Model):
         ENTEDIADO = 9, "Entediado"
 
     usuario = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.CASCADE,
         related_name="registros_humor",
     )

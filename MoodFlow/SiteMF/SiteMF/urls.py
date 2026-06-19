@@ -24,7 +24,6 @@ from django.urls.conf import include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home, name='home'),
-    path('login/', include('login.urls')),
     path('registro/', include('registro.urls')),
     path('editarperfil/', include('editarperfil.urls')),
     path('listarusuario/', include('listarusuario.urls')),
@@ -34,4 +33,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('crise/', include('crise.urls')),
     path('contato/', include('contatoconfianca.urls')),
+    #path('sobre/', include('sobre.urls')), 
 ]

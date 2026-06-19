@@ -32,7 +32,7 @@ MESES_PT = [
 ]
 
 
-@login_required
+#@login_required
 def calendario(request):
     hoje = date.today()
 
