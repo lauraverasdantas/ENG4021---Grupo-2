@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "listarusuario",
     "removerusuario",
     "humor",
-    "calendario",
+    #"calendario",
     "crise",
     "contatoconfianca",
     #"sobre",
