@@ -1,0 +1,89 @@
+/* ── erro404.css — MOODflow · Página de erro 404 ── */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #B3D4EC;
+  --bg-grid:    rgba(255,255,255,0.22);
+  --white:      #ffffff;
+  --blue-dark:  #4a7099;
+  --blue-mid:   #7da8cc;
+  --blue-light: #aed0ee;
+  --text-mid:   #4a7099;
+  --text-light: #7da0c4;
+  --shadow:     #99bbdd;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+  background-size: 16px 16px;
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 22px;
+  box-shadow: 4px 4px 0 var(--shadow);
+  padding: 40px 36px 34px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mascot { width: 64px; height: 64px; margin-bottom: 10px; }
+
+.code {
+  font-family: 'Caveat', cursive;
+  font-size: 84px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--blue-mid);
+}
+
+.pill {
+  display: inline-block;
+  background: var(--bg);
+  border-radius: 14px;
+  padding: 6px 20px;
+  margin: 6px 0 16px;
+}
+.pill span {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  color: var(--blue-dark);
+}
+
+.msg {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+
+.home-btn {
+  display: inline-block;
+  background: var(--blue-mid);
+  color: var(--white);
+  border-radius: 999px;
+  padding: 10px 30px;
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  text-decoration: none;
+  box-shadow: 2px 2px 0 var(--shadow);
+  transition: background 0.2s;
+}
+.home-btn:hover { background: var(--blue-dark); }
