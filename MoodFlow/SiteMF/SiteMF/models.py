@@ -1,6 +1,23 @@
 from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
+
+
+class PerfilUsuario(models.Model):
+    usuario = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="perfil",
+    )
+    data_nasc = models.DateField()
+    telefone = models.CharField(max_length=20)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Perfil de Usuário"
+        verbose_name_plural = "Perfis de Usuários"
+
+    def __str__(self):
+        return f"Perfil de {self.usuario}"
 
 
 class RegistroHumor(models.Model):
@@ -24,7 +41,7 @@ class RegistroHumor(models.Model):
         ENTEDIADO = 9, "Entediado"
 
     usuario = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="registros_humor",
     )

@@ -24,9 +24,8 @@ from django.urls.conf import include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home, name='home'),
-    path('editarperfil/', include('editarperfil.urls')),
-    path('listarusuario/', include('listarusuario.urls')),
-    path('removerusuario/', include('removerusuario.urls')),
+    path('sobre/', views.sobre, name='sobre'),
+    path('accounts/login/', views.CustomLoginView.as_view(), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('contato/', include('contatoconfianca.urls')), 
     
@@ -35,4 +34,9 @@ urlpatterns = [
     path('crise/', views.crise, name='crise'),
     path('registro/', views.registro, name='registro'),
     path('humor/', views.humor, name='humor'),
+    path('painel_superuser/', views.painel_superuser, name='painel_superuser'),
+    path('removerusuario/', views.removerusuario, name='removerusuario'),
+    path('listarusuario/', views.listarusuario, name='listarusuario'),
+    path('editarperfil/', views.editarperfil, name='editarperfil'),
 ]
+

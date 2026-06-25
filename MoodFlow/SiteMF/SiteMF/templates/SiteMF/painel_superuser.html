@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Superuser - MOOD Flow</title>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Patrick Hand', cursive;
+            background:
+                radial-gradient(circle at top left, rgba(255,255,255,0.55), transparent 34%),
+                radial-gradient(circle at bottom right, rgba(255,255,255,0.35), transparent 30%),
+                linear-gradient(160deg, #b8d4ee 0%, #8fb8d8 45%, #7da8cc 100%);
+            color: #2c3e50;
+            padding: 28px 18px 36px;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.9);
+            color: #4a7099;
+            padding: 10px 16px;
+            border-radius: 999px;
+            box-shadow: 0 8px 24px rgba(44,62,80,0.12);
+        }
+
+        .badge-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #56c15b;
+            box-shadow: 0 0 0 5px rgba(86,193,91,0.16);
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(2.5rem, 5vw, 4.3rem);
+            line-height: 0.95;
+            margin: 12px 0 10px;
+            color: #ffffff;
+            text-shadow: 0 6px 18px rgba(44,62,80,0.18);
+        }
+
+        .subtitle {
+            max-width: 680px;
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.5;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255,255,255,0.82);
+            border: 1px solid rgba(255,255,255,0.9);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 18px 40px rgba(44,62,80,0.16);
+            backdrop-filter: blur(10px);
+            min-height: 210px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: -60px auto auto -60px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: rgba(141, 192, 224, 0.25);
+            filter: blur(4px);
+        }
+
+        .card.list::before {
+            background: rgba(86,193,91,0.18);
+        }
+
+        .card.remove::before {
+            background: rgba(217,83,79,0.18);
+        }
+
+        .card h2 {
+            position: relative;
+            z-index: 1;
+            font-family: 'Caveat', cursive;
+            font-size: 2.1rem;
+            color: #3a5570;
+        }
+
+        .card p {
+            position: relative;
+            z-index: 1;
+            color: #4a7099;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .btn-row {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            box-shadow: 0 8px 18px rgba(44,62,80,0.14);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-list {
+            background: #56c15b;
+            color: #fff;
+        }
+
+        .btn-list:hover {
+            background: #3fa345;
+        }
+
+        .btn-remove {
+            background: #d9534f;
+            color: #fff;
+        }
+
+        .btn-remove:hover {
+            background: #b93c39;
+        }
+
+        .footer-note {
+            margin-top: 22px;
+            text-align: center;
+            color: rgba(255,255,255,0.92);
+            font-size: 0.95rem;
+        }
+
+        .top-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .top-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 18px 14px 28px;
+            }
+
+            .card {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="hero">
+            <div>
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    acesso exclusivo para superuser
+                </div>
+                <h1>painel de administração</h1>
+                <p class="subtitle">
+                    Use este espaço para acessar rapidamente as páginas de listagem e remoção de usuários cadastrados.
+                    As ações abaixo levam diretamente para as telas já existentes do sistema.
+                </p>
+            </div>
+            <div>
+                <a class="top-link" href="{% url 'home' %}">voltar para a home</a>
+            </div>
+        </div>
+
+        <div class="cards">
+            <section class="card list">
+                <div>
+                    <h2>listar usuários</h2>
+                    <p>Abra a página com todos os usuários cadastrados para consultar os registros disponíveis no sistema.</p>
+                </div>
+                <div class="btn-row">
+                    <a class="btn btn-list" href="{% url 'listarusuario' %}">Ir para listar usuários</a>
+                </div>
+            </section>
+
+            <section class="card remove">
+                <div>
+                    <h2>remover usuários</h2>
+                    <p>Acesse a página de exclusão para remover usuários cadastrados quando necessário.</p>
+                </div>
+                <div class="btn-row">
+                    <a class="btn btn-remove" href="{% url 'removerusuario' %}">Ir para remover usuários</a>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer-note">
+            Somente superusers conseguem acessar esta página.
+        </div>
+    </div>
+</body>
+</html>

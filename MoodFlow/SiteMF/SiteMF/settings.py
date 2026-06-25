@@ -42,9 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "SiteMF",
-    "editarperfil",
-    "listarusuario",
-    "removerusuario",
     "contatoconfianca",
 ]
 
@@ -123,7 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Authentication redirects (tarefa 2 - autenticação)
 # LOGIN_URL: para onde @login_required manda quem não está logado.

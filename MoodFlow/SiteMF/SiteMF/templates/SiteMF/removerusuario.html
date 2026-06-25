@@ -171,51 +171,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id="user-1">
-                        <td>Maria Silva</td>
-                        <td>@mariasilva123</td>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.get_full_name|default:usuario.username }}</td>
+                        <td>@{{ usuario.username }}</td>
                         <td>
-                            <button class="btn-remove" onclick="removerUsuario('user-1', 'Maria Silva')">Remover</button>
+                            <form method="post" onsubmit="return confirm('CUIDADO: Tem certeza que deseja remover o usuário {{ usuario.get_full_name|default:usuario.username }}?');">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_id" value="{{ usuario.id }}">
+                                <button type="submit" class="btn-remove">Remover</button>
+                            </form>
                         </td>
                     </tr>
-                    <tr id="user-2">
-                        <td>João Pedro Souza</td>
-                        <td>@joaopsouza</td>
-                        <td>
-                            <button class="btn-remove" onclick="removerUsuario('user-2', 'João Pedro Souza')">Remover</button>
-                        </td>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">Nenhum usuário cadastrado.</td>
                     </tr>
-                    <tr id="user-3">
-                        <td>Ana Clara Mendes</td>
-                        <td>@anamendes_</td>
-                        <td>
-                            <button class="btn-remove" onclick="removerUsuario('user-3', 'Ana Clara Mendes')">Remover</button>
-                        </td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
 
         <div class="actions-footer">
-            <a href="lista-usuarios.html" class="btn-back">Voltar para a Lista Geral</a>
+            <a href="{% url 'painel_superuser' %}" class="btn-back">Voltar para o painel de administração</a>
         </div>
     </div>
-
-    <script>
-        function removerUsuario(idDaLinha, nomeDoUsuario) {
-            // Exibe um alerta de confirmação padrão do navegador
-            let confirmacao = confirm("CUIDADO: Tem certeza que deseja remover o usuário " + nomeDoUsuario + "?");
-            
-            // Se o administrador clicar em "OK", ocultamos a linha da tabela
-            if (confirmacao) {
-                let linha = document.getElementById(idDaLinha);
-                linha.classList.add("linha-removida");
-                
-                // Opcional: Mostra um pequeno aviso que foi removido
-                alert(nomeDoUsuario + " foi removido(a) do sistema com sucesso.");
-            }
-        }
-    </script>
 
 </body>
 </html>

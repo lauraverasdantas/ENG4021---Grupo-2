@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendário - MOOD Flow</title>
@@ -191,9 +192,9 @@
         <a href="{% url 'humor' %}" class="btn-next">Registrar Humor</a>
     </div>
 
+    {{ dados_por_dia|json_script:"dados-template" }}
+
     <script>
-        // Dados reais vindos do Django (dict dia → {emoji, cor, ansiedade, hora})
-        // O editor não vai dar nenhum erro aqui!
         const dadosMes = JSON.parse(document.getElementById('dados-template').textContent);
         const hojeDay = parseInt("{{ hoje_dia|default:'0' }}") || null;
         const diasNoMes = parseInt("{{ dias_no_mes }}");
