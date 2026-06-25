@@ -364,7 +364,7 @@ def contatoconfianca(request):
     )
 
     if request.method != 'POST':
-        return render(request, 'contatoconfianca/cadastrar_contato.html', {
+        return render(request, 'SiteMF/contatoconfianca.html', {
             'contato': contato_existente,
             'opcoes_relacao': ContatoConfianca.Relacao.choices,
         })
@@ -375,7 +375,7 @@ def contatoconfianca(request):
 
     if not nome or not telefone or not relacao:
         messages.error(request, 'Preencha todos os campos.')
-        return render(request, 'contatoconfianca/cadastrar_contato.html', {
+        return render(request, 'SiteMF/contatoconfianca.html', {
             'contato': contato_existente,
             'opcoes_relacao': ContatoConfianca.Relacao.choices,
         })
@@ -392,6 +392,5 @@ def contatoconfianca(request):
 
     messages.success(request, f'Contato "{nome}" salvo com sucesso!')
     return redirect('humor')
-
 
 
