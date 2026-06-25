@@ -1,7 +1,6 @@
 from datetime import date
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
-from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -22,7 +21,11 @@ class CustomLoginView(LoginView):
         if self.request.user.is_superuser:
             return reverse("painel_superuser")
 
-        return reverse("pos_login")
+        redirect_to = self.get_redirect_url()
+        if redirect_to:
+            return redirect_to
+
+        return reverse("calendario")
 
 
 def home(request):
@@ -34,12 +37,7 @@ def home(request):
 
 
 def sobre(request):
-    return render(request, 'SiteMF/sobre.html')
-
-
-@login_required
-def pos_login(request):
-    return render(request, 'SiteMF/pos_login.html')
+    return render(request, 'sobre.html')
     
 
 def registro(request):
@@ -333,41 +331,7 @@ def listarusuario(request):
 
 @login_required
 def editarperfil(request):
-    user = request.user
-    perfil = getattr(user, 'perfil', None)
-
-    if request.method == "POST":
-        email = (request.POST.get("email") or "").strip()
-        telefone = (request.POST.get("telefone") or "").strip()
-        senha = request.POST.get("senha") or ""
-
-        if not email or not telefone:
-            messages.error(request, "Preencha e-mail e telefone.")
-            return render(request, 'SiteMF/editarperfil.html', {'perfil': perfil})
-
-        if User.objects.filter(email=email).exclude(pk=user.pk).exists():
-            messages.error(request, "Já existe uma conta com esse e-mail.")
-            return render(request, 'SiteMF/editarperfil.html', {'perfil': perfil})
-
-        if perfil is None:
-            messages.error(request, "Perfil não encontrado para este usuário.")
-            return render(request, 'SiteMF/editarperfil.html', {'perfil': perfil})
-
-        user.email = email
-        if senha:
-            user.set_password(senha)
-        user.save()
-
-        perfil.telefone = telefone
-        perfil.save()
-
-        if senha:
-            update_session_auth_hash(request, user)
-
-        messages.success(request, "Perfil atualizado com sucesso.")
-        return redirect('editarperfil')
-
-    return render(request, 'SiteMF/editarperfil.html', {'perfil': perfil})
+    return render(request, 'SiteMF/editarperfil.html')
 
 
 @login_required
@@ -376,3 +340,58 @@ def painel_superuser(request):
         return redirect('home')
 
     return render(request, 'SiteMF/painel_superuser.html')
+
+
+def sobre(request):
+    return render(request, 'SiteMF/sobre.html')
+
+
+
+@login_required
+def contatoconfianca(request):
+    """
+    GET  → exibe o formulário de cadastro de contato de confiança.
+    POST → valida e salva o contato no banco, depois redireciona para o humor.
+
+    Aparece logo após o login (LOGIN_REDIRECT_URL aponta para cá).
+    O usuário pode pular clicando em 'Fazer depois'.
+    """
+    # Carrega contato existente (se houver) para exibir na tela
+    contato_existente = (
+        ContatoConfianca.objects
+        .filter(usuario=request.user)
+        .first()
+    )
+
+    if request.method != 'POST':
+        return render(request, 'contatoconfianca/cadastrar_contato.html', {
+            'contato': contato_existente,
+            'opcoes_relacao': ContatoConfianca.Relacao.choices,
+        })
+
+    nome    = (request.POST.get('nome_contato') or '').strip()
+    telefone = (request.POST.get('telefone') or '').strip()
+    relacao  = (request.POST.get('relacao') or '').strip()
+
+    if not nome or not telefone or not relacao:
+        messages.error(request, 'Preencha todos os campos.')
+        return render(request, 'contatoconfianca/cadastrar_contato.html', {
+            'contato': contato_existente,
+            'opcoes_relacao': ContatoConfianca.Relacao.choices,
+        })
+
+    # Upsert: atualiza se já existe, cria se não existe
+    ContatoConfianca.objects.update_or_create(
+        usuario=request.user,
+        defaults={
+            'nome_contato': nome,
+            'telefone':     telefone,
+            'relacao':      relacao,
+        },
+    )
+
+    messages.success(request, f'Contato "{nome}" salvo com sucesso!')
+    return redirect('humor')
+
+
+
