@@ -25,6 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home, name='home'),
     path('sobre/', views.sobre, name='sobre'),
+    path('pos-login/', views.pos_login, name='pos_login'),
     path('accounts/login/', views.CustomLoginView.as_view(), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('contato/', include('contatoconfianca.urls')), 
@@ -39,4 +40,3 @@ urlpatterns = [
     path('listarusuario/', views.listarusuario, name='listarusuario'),
     path('editarperfil/', views.editarperfil, name='editarperfil'),
 ]
-

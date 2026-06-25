@@ -1,6 +1,7 @@
 from datetime import date
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -21,11 +22,7 @@ class CustomLoginView(LoginView):
         if self.request.user.is_superuser:
             return reverse("painel_superuser")
 
-        redirect_to = self.get_redirect_url()
-        if redirect_to:
-            return redirect_to
-
-        return reverse("calendario")
+        return reverse("pos_login")
 
 
 def home(request):
@@ -37,7 +34,12 @@ def home(request):
 
 
 def sobre(request):
-    return render(request, 'sobre.html')
+    return render(request, 'SiteMF/sobre.html')
+
+
+@login_required
+def pos_login(request):
+    return render(request, 'SiteMF/pos_login.html')
     
 
 def registro(request):
@@ -331,7 +333,41 @@ def listarusuario(request):
 
 @login_required
 def editarperfil(request):
-    return render(request, 'SiteMF/editarperfil.html')
+    user = request.user
+    perfil = getattr(user, 'perfil', None)
+
+    if request.method == "POST":
+        email = (request.POST.get("email") or "").strip()
+        telefone = (request.POST.get("telefone") or "").strip()
+        senha = request.POST.get("senha") or ""
+
+        if not email or not telefone:
+            messages.error(request, "Preencha e-mail e telefone.")
+            return render(request, 'SiteMF/editarperfil.html', {'perfil': perfil})
+
+        if User.objects.filter(email=email).exclude(pk=user.pk).exists():
+            messages.error(request, "Já existe uma conta com esse e-mail.")
+            return render(request, 'SiteMF/editarperfil.html', {'perfil': perfil})
+
+        if perfil is None:
+            messages.error(request, "Perfil não encontrado para este usuário.")
+            return render(request, 'SiteMF/editarperfil.html', {'perfil': perfil})
+
+        user.email = email
+        if senha:
+            user.set_password(senha)
+        user.save()
+
+        perfil.telefone = telefone
+        perfil.save()
+
+        if senha:
+            update_session_auth_hash(request, user)
+
+        messages.success(request, "Perfil atualizado com sucesso.")
+        return redirect('editarperfil')
+
+    return render(request, 'SiteMF/editarperfil.html', {'perfil': perfil})
 
 
 @login_required
@@ -340,5 +376,3 @@ def painel_superuser(request):
         return redirect('home')
 
     return render(request, 'SiteMF/painel_superuser.html')
-
-

@@ -8,11 +8,12 @@
 body {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #B3D4EC; /* Azul base do MOOD flow */
     font-family: sans-serif;
-    padding: 20px;
+    padding: 20px 20px 0;
 }
 
 /* --- Container Principal --- */
@@ -23,6 +24,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     padding: 40px;
+    margin: auto 0 30px;
 }
 
 /* --- Cabeçalho --- */
@@ -41,6 +43,34 @@ body {
 .profile-header p {
     color: #888;
     font-size: 1rem;
+}
+
+/* --- Mensagens de feedback --- */
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.message {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.message-success {
+    background: #d8f3dc;
+    color: #1b4332;
+    border: 1px solid #95d5b2;
+}
+
+.message-error {
+    background: #ffe5e5;
+    color: #9b2226;
+    border: 1px solid #ffb3b3;
 }
 
 /* --- Divisor visual --- */
@@ -147,4 +177,45 @@ body {
 .btn-cancel:active, 
 .btn-save:active {
     transform: scale(0.98);
+}
+
+.back-link {
+    display: block;
+    margin-top: 18px;
+    color: #5B8DB8;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.1rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.profile-footer {
+    width: calc(100% + 40px);
+    text-align: center;
+    padding: 20px;
+    background: rgba(255,255,255,0.25);
+    border-top: 2px solid rgba(255,255,255,0.5);
+}
+
+.instagram-link {
+    color: white;
+    font-size: 1.8rem;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.instagram-link:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.profile-footer p {
+    color: white;
+    font-family: 'Patrick Hand', cursive;
+    margin-top: 8px;
+    font-size: 0.9rem;
 }

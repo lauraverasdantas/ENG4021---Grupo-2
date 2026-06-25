@@ -342,7 +342,9 @@ textarea:focus::placeholder {
         {% if messages %}
         <div class="mensagens">
             {% for message in messages %}
+            {% if 'error' in message.tags %}
             <div class="msg msg-{{ message.tags }}">{{ message }}</div>
+            {% endif %}
             {% endfor %}
         </div>
         {% endif %}

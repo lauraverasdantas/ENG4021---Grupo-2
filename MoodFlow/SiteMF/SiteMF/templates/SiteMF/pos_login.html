@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha seu caminho - MOOD Flow</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #B3D4EC;
+            background-image:
+                repeating-linear-gradient(rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px);
+            font-family: 'Patrick Hand', cursive;
+            padding: 24px;
+            color: #5B8DB8;
+        }
+
+        .choice-container {
+            width: 100%;
+            max-width: 620px;
+            background: rgba(255,255,255,0.88);
+            border: 2px solid rgba(255,255,255,0.75);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 12px 34px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
+            color: #5B8DB8;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 1.25rem;
+            color: #6a8aa6;
+            margin-bottom: 30px;
+        }
+
+        .choice-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .choice-button {
+            min-width: 190px;
+            display: inline-block;
+            padding: 14px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        .choice-button.primary {
+            background: #5B8DB8;
+            color: white;
+            box-shadow: 0 8px 20px rgba(91,141,184,0.24);
+        }
+
+        .choice-button.secondary {
+            background: white;
+            color: #5B8DB8;
+            border: 2px solid #B3D4EC;
+        }
+
+        .choice-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+        }
+
+        @media (max-width: 520px) {
+            .choice-container {
+                padding: 32px 22px;
+            }
+
+            h1 {
+                font-size: 2.4rem;
+            }
+
+            .choice-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="choice-container">
+        <h1>Bem-vindo ao MoodFlow</h1>
+        <p>Escolha para onde você quer ir agora.</p>
+
+        <div class="choice-actions">
+            <a class="choice-button secondary" href="{% url 'editarperfil' %}">Editar perfil</a>
+            <a class="choice-button primary" href="{% url 'calendario' %}">Ir para calendário</a>
+        </div>
+    </main>
+</body>
+</html>

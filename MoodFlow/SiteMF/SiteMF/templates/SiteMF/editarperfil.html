@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <link rel="stylesheet" href="{% static 'editarperfil/css/editarperfil.css' %}">
 </head>
@@ -20,28 +21,37 @@
             <p>Atualize suas informações de contato e segurança</p>
         </div>
 
-        <form class="profile-form" action="#" method="POST">
-            
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message message-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form class="profile-form" action="{% url 'editarperfil' %}" method="POST">
+            {% csrf_token %}
+
             <div class="input-group locked">
                 <label for="nome">Nome Completo (Não editável)</label>
-                <input type="text" id="nome" name="nome" value="Maria Silva" readonly>
+                <input type="text" id="nome" name="nome" value="{{ request.user.get_full_name|default:request.user.username }}" readonly>
             </div>
 
             <div class="input-group locked">
                 <label for="usuario">Nome de Usuário (Não editável)</label>
-                <input type="text" id="usuario" name="usuario" value="@mariasilva123" readonly>
+                <input type="text" id="usuario" name="usuario" value="{{ request.user.username }}" readonly>
             </div>
 
             <hr class="divider">
 
             <div class="input-group">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" value="maria@exemplo.com" required>
+                <input type="email" id="email" name="email" value="{{ request.user.email }}" required>
             </div>
 
             <div class="input-group">
                 <label for="telefone">Telefone</label>
-                <input type="tel" id="telefone" name="telefone" value="(11) 99999-9999" required>
+                <input type="tel" id="telefone" name="telefone" value="{{ perfil.telefone|default:'' }}" placeholder="(11) 99999-9999" maxlength="15" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}" inputmode="numeric" required>
             </div>
 
             <div class="input-group">
@@ -50,21 +60,38 @@
             </div>
 
             <div class="actions">
-                <a href="{% url 'login:login' %}" class="btn-cancel">Cancelar</a>
+                <a href="{% url 'pos_login' %}" class="btn-cancel">Cancelar</a>
                 <button type="submit" class="btn-save">Salvar Alterações</button>
             </div>
         </form>
-    </div>
-<!-- Footer com redes sociais -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<footer style="width:100%; text-align:center; padding:20px; background:rgba(255,255,255,0.25); border-top:2px solid rgba(255,255,255,0.5); margin-top:30px;">
-    <a href="https://instagram.com/moodflowsite" target="_blank" style="color:white; font-size:1.8rem; margin:0 10px; text-decoration:none;">
+        <a href="{% url 'pos_login' %}" class="back-link">Voltar para escolhas</a>
+    </div>
+
+<footer class="profile-footer">
+    <a href="https://instagram.com/moodflowsite" target="_blank" class="instagram-link" aria-label="Instagram do MoodFlow">
         <i class="fa-brands fa-instagram"></i>
     </a>
-    <p style="color:white; font-family:'Patrick Hand',cursive; margin-top:8px; font-size:0.9rem;">
+    <p>
         &copy; 2025 MoodFlow. Todos os direitos reservados.
     </p>
 </footer>
+<script>
+    const telefoneInput = document.getElementById('telefone');
+
+    telefoneInput.addEventListener('input', function () {
+        let numeros = telefoneInput.value.replace(/\D/g, '').slice(0, 11);
+
+        if (numeros.length > 6) {
+            telefoneInput.value = `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7)}`;
+        } else if (numeros.length > 2) {
+            telefoneInput.value = `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
+        } else if (numeros.length > 0) {
+            telefoneInput.value = `(${numeros}`;
+        } else {
+            telefoneInput.value = '';
+        }
+    });
+</script>
 </body>
 </html>
