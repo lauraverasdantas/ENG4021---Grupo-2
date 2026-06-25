@@ -6,13 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOOD flow - Login</title>
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Lilita+One&family=Patrick+Hand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+
+    <style>
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background-color: #f8fafc;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #b794f4; /* Cor roxa parecida com o seu botão */
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(183, 148, 244, 0.2);
+        }
+    </style>
 </head>
-<body>
+<body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">    
     <div class="main-container">
         <div class="left-panel">
             <div class="brand-text">
@@ -45,28 +79,37 @@
 
             <form class="login-form" method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Nome de Usuário</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Senha</label>
+                    {{ form.password }}
+                </div>
 
                 <a href="#" class="forgot-password">Esqueci minha senha</a>
 
                 <button type="submit" class="submit-button">Login</button>
 
                 <div class="signup-link">
-                    Não tem conta? <a href="{% url 'registro:registro' %}">Crie uma aqui</a>
+                    Não tem conta? <a href="{% url 'registro' %}">Crie uma aqui</a>
                 </div>
             </form>
         </div>
     </div>
-    <!-- Footer com redes sociais -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<footer style="width:100%; text-align:center; padding:20px; background:rgba(255,255,255,0.25); border-top:2px solid rgba(255,255,255,0.5); margin-top:30px;">
-    <a href="https://instagram.com/moodflowsite" target="_blank" style="color:white; font-size:1.8rem; margin:0 10px; text-decoration:none;">
-        <i class="fa-brands fa-instagram"></i>
-    </a>
-    <p style="color:white; font-family:'Patrick Hand',cursive; margin-top:8px; font-size:0.9rem;">
-        &copy; 2025 MoodFlow. Todos os direitos reservados.
-    </p>
-</footer>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <footer style="margin-top: auto; width: 100%; text-align:center; padding:20px; background:rgba(255,255,255,0.25);">    
+        <a href="https://instagram.com/moodflowsite" target="_blank" style="color:white; font-size:1.8rem; margin:0 10px; text-decoration:none;">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <p style="color:white; font-family:'Patrick Hand',cursive; margin-top:8px; font-size:0.9rem;">
+            &copy; 2026 MoodFlow. Todos os direitos reservados.
+        </p>
+    </footer>
 </body>
 </html>

@@ -24,16 +24,15 @@ from django.urls.conf import include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home, name='home'),
-    path('registro/', include('registro.urls')),
     path('editarperfil/', include('editarperfil.urls')),
     path('listarusuario/', include('listarusuario.urls')),
     path('removerusuario/', include('removerusuario.urls')),
-    path('humor/', include('humor.urls')),
-    #path('calendario/', include('calendario.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    #path('crise/', include('crise.urls')),
-    path('contato/', include('contatoconfianca.urls')),
-    #path('sobre/', include('sobre.urls')), 
-    path('calendario/calendario/', views.calendario, name='calendario'),
+    path('contato/', include('contatoconfianca.urls')), 
+    
+    # Rotas corrigidas e individualizadas:
+    path('calendario/', views.calendario, name='calendario'),
     path('crise/', views.crise, name='crise'),
+    path('registro/', views.registro, name='registro'),
+    path('humor/', views.humor, name='humor'),
 ]

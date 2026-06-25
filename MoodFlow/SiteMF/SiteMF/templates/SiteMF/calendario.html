@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendário - MOOD flow</title>
+    <title>Calendário - MOOD Flow</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -164,7 +164,7 @@
     <!-- Resumo -->
     <div class="resumo">
         {% if total_registros == 0 %}
-            Nenhum registro em {{ mes_nome }}. <a href="{% url 'humor:humor' %}" style="color:#6BA3CE;">Registrar agora →</a>
+            Nenhum registro em {{ mes_nome }}. <a href="{% url 'humor' %}" style="color:#6BA3CE;">Registrar agora →</a>
         {% elif total_registros == 1 %}
             <span>1</span> dia registrado em {{ mes_nome }}.
         {% else %}
@@ -188,14 +188,15 @@
     <div class="calendar-grid" id="calendar-grid"></div>
 
     <div class="actions-container">
-        <a href="{% url 'humor:humor' %}" class="btn-next">+ Registrar Humor</a>
+        <a href="{% url 'humor' %}" class="btn-next">Registrar Humor</a>
     </div>
 
     <script>
         // Dados reais vindos do Django (dict dia → {emoji, cor, ansiedade, hora})
-        const dadosMes   = {{ dados_json|safe }};
-        const hojeDay    = {{ hoje_dia|default:"null" }};
-        const diasNoMes  = {{ dias_no_mes }};
+        // O editor não vai dar nenhum erro aqui!
+        const dadosMes = JSON.parse(document.getElementById('dados-template').textContent);
+        const hojeDay = parseInt("{{ hoje_dia|default:'0' }}") || null;
+        const diasNoMes = parseInt("{{ dias_no_mes }}");
 
         const grid = document.getElementById('calendar-grid');
 
@@ -237,6 +238,21 @@
             grid.appendChild(card);
         }
     </script>
+<div style="padding: 20px; color: white;">
+</div>
 
+ <!-- Footer com redes sociais -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<div style="padding: 20px; color: white;">
+</div>
+
+ <footer style="margin-top: auto; width: 100%; text-align:center; padding:20px; background:rgba(255,255,255,0.25);">    
+        <a href="https://instagram.com/moodflowsite" target="_blank" style="color:white; font-size:1.8rem; margin:0 10px; text-decoration:none;">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <p style="color:white; font-family:'Patrick Hand',cursive; margin-top:8px; font-size:0.9rem;">
+            &copy; 2026 MoodFlow. Todos os direitos reservados.
+        </p>
+    </footer>
 </body>
 </html>

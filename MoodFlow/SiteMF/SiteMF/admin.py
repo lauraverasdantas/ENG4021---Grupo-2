@@ -1,9 +1,6 @@
 from django.contrib import admin
 from .models import RegistroHumor
-from humor.models import RegistroHumor
-#admin.site.register(RegistroHumor)
 
-@admin.register(RegistroHumor)
 class RegistroHumorAdmin(admin.ModelAdmin):
     list_display = ('usuario', 'get_humor_emoji_display', 'nivel_ansiedade', 'data_hora')
     list_filter = ('humor_emoji', 'data_hora')

@@ -42,15 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "SiteMF",
-    "registro",
     "editarperfil",
     "listarusuario",
     "removerusuario",
-    "humor",
-    #"calendario",
-    #"crise",
     "contatoconfianca",
-    #"sobre",
 ]
 
 MIDDLEWARE = [
@@ -135,4 +130,4 @@ STATIC_URL = "static/"
 # LOGIN_REDIRECT_URL / LOGOUT_REDIRECT_URL: destinos após login/logout.
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "calendario"
-LOGOUT_REDIRECT_URL = ""
+LOGOUT_REDIRECT_URL = "home"
