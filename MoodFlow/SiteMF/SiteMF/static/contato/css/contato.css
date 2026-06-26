@@ -1,0 +1,155 @@
+/* ===== Contato - MoodFlow =====
+   Mantém a estética "caderno" usada nas demais telas:
+   fontes Caveat / Patrick Hand, fundo azul claro quadriculado. */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #B3D4EC;
+    background-image:
+        repeating-linear-gradient(rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px);
+    font-family: 'Patrick Hand', cursive;
+    color: #5B8DB8;
+    padding: 24px;
+}
+
+.contato-container {
+    width: 100%;
+    max-width: 560px;
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(255,255,255,0.75);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 12px 34px rgba(0,0,0,0.08);
+}
+
+.contato-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contato-header h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    color: #5B8DB8;
+    margin-bottom: 8px;
+}
+
+.contato-header p {
+    font-size: 1.2rem;
+    color: #6a8aa6;
+}
+
+.contato-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contato-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 2px solid #e3eef7;
+    border-radius: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contato-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(91,141,184,0.16);
+}
+
+.contato-icone {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    color: #ffffff;
+}
+
+.contato-icone.instagram { background: #e1306c; }
+.contato-icone.email     { background: #5B8DB8; }
+.contato-icone.telefone  { background: #56c15b; }
+.contato-icone.whatsapp  { background: #25d366; }
+.contato-icone.local     { background: #e78c46; }
+
+.contato-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.contato-rotulo {
+    font-size: 0.95rem;
+    color: #9bb3c7;
+}
+
+.contato-valor {
+    font-size: 1.2rem;
+    color: #4a6f93;
+    text-decoration: none;
+}
+
+.contato-valor:hover {
+    text-decoration: underline;
+}
+
+.voltar-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 30px auto 0;
+    padding: 12px 24px;
+    background: #5B8DB8;
+    color: #ffffff;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 1.15rem;
+    box-shadow: 0 8px 20px rgba(91,141,184,0.24);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.voltar-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+.contato-footer {
+    margin-top: 24px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 520px) {
+    .contato-container {
+        padding: 32px 22px;
+    }
+
+    .contato-header h1 {
+        font-size: 2.4rem;
+    }
+
+    .contato-valor {
+        font-size: 1.05rem;
+        word-break: break-word;
+    }
+}
