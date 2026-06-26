@@ -38,5 +38,6 @@ urlpatterns = [
     path('editarperfil/', views.editarperfil, name='editarperfil'),
     path('sobre/', views.sobre, name='sobre'),
     path('contatoconfianca/', views.contatoconfianca, name='contatoconfianca'),
+    path('pos_login/', views.pos_login, name='pos_login'),
 ]
 

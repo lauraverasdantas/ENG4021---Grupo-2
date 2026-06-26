@@ -20,6 +20,33 @@ class PerfilUsuario(models.Model):
         return f"Perfil de {self.usuario}"
 
 
+class ContatoConfianca(models.Model):
+    class Relacao(models.TextChoices):
+        FAMILIA = "familia", "Família"
+        AMIGO = "amigo", "Amigo(a)"
+        PARCEIRO = "parceiro", "Parceiro(a)"
+        PROFISSIONAL = "profissional", "Profissional"
+        OUTRO = "outro", "Outro"
+
+    usuario = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="contato_confianca",
+    )
+    nome_contato = models.CharField(max_length=120)
+    telefone = models.CharField(max_length=20)
+    relacao = models.CharField(max_length=20, choices=Relacao.choices)
+    criado_em = models.DateTimeField(auto_now_add=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Contato de Confiança"
+        verbose_name_plural = "Contatos de Confiança"
+
+    def __str__(self):
+        return f"{self.nome_contato} ({self.usuario})"
+
+
 class RegistroHumor(models.Model):
     """
     Uma entrada do diário de humor do usuário.

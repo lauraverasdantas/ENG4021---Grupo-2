@@ -7,8 +7,8 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.dateparse import parse_date
-from contatoconfianca.models import ContatoConfianca
 from SiteMF.models import PerfilUsuario, RegistroHumor
+from SiteMF.models import ContatoConfianca
 import json
 import calendar
 
@@ -393,4 +393,6 @@ def contatoconfianca(request):
     messages.success(request, f'Contato "{nome}" salvo com sucesso!')
     return redirect('humor')
 
-
+@login_required
+def pos_login(request):
+    return render(request, 'SiteMF/pos_login.html')
