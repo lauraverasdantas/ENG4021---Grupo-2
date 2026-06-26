@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - MOOD Flow</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'contato/css/contato.css' %}">
+</head>
+<body>
+    <main class="contato-container">
+        <header class="contato-header">
+            <h1>Fale com a gente</h1>
+            <p>Tem dúvidas, sugestões ou precisa de ajuda? Use um dos canais abaixo.</p>
+        </header>
+
+        <ul class="contato-lista">
+            <li class="contato-item">
+                <span class="contato-icone instagram"><i class="fa-brands fa-instagram"></i></span>
+                <div class="contato-info">
+                    <span class="contato-rotulo">Instagram</span>
+                    <a class="contato-valor" href="https://instagram.com/moodflowsite" target="_blank" rel="noopener">@moodflowsite</a>
+                </div>
+            </li>
+
+            <li class="contato-item">
+                <span class="contato-icone email"><i class="fa-solid fa-envelope"></i></span>
+                <div class="contato-info">
+                    <span class="contato-rotulo">E-mail</span>
+                    <a class="contato-valor" href="mailto:contato@moodflow.com.br">contato@moodflow.com.br</a>
+                </div>
+            </li>
+
+            <li class="contato-item">
+                <span class="contato-icone telefone"><i class="fa-solid fa-phone"></i></span>
+                <div class="contato-info">
+                    <span class="contato-rotulo">Telefone</span>
+                    <a class="contato-valor" href="tel:+551140028922">(11) 4002-8922</a>
+                </div>
+            </li>
+
+            <li class="contato-item">
+                <span class="contato-icone whatsapp"><i class="fa-brands fa-whatsapp"></i></span>
+                <div class="contato-info">
+                    <span class="contato-rotulo">WhatsApp</span>
+                    <a class="contato-valor" href="https://wa.me/5511998887766" target="_blank" rel="noopener">(11) 99888-7766</a>
+                </div>
+            </li>
+
+            <li class="contato-item">
+                <span class="contato-icone local"><i class="fa-solid fa-location-dot"></i></span>
+                <div class="contato-info">
+                    <span class="contato-rotulo">Endereço</span>
+                    <span class="contato-valor">Rua das Flores, 123 — São Paulo, SP</span>
+                </div>
+            </li>
+        </ul>
+
+        <a class="voltar-button" href="{% url 'login' %}">
+            <i class="fa-solid fa-arrow-left"></i> Voltar ao login
+        </a>
+    </main>
+
+    <footer class="contato-footer">
+        <p>&copy; 2026 MoodFlow. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
