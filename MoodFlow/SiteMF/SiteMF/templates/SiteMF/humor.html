@@ -445,6 +445,7 @@ textarea:focus::placeholder {
     </footer>
     <script>
         const crisisUrl = "{% url 'crise' %}";
+        const contatoConfiancaUrl = "{% url 'contatoconfianca' %}";
 
         // Seleciona todos os rostinhos de humor
         const moodItems = document.querySelectorAll('.mood-item');
@@ -563,7 +564,7 @@ textarea:focus::placeholder {
                             font-size:0.92rem; font-family:sans-serif;
                         ">
                             ⚠️ Você ainda não cadastrou um contato de confiança.<br>
-                            <a href="/contato/" style="color:#B3D4EC; font-weight:bold;">Cadastrar agora →</a>
+                            <a href="${contatoConfiancaUrl}" style="color:#B3D4EC; font-weight:bold;">Cadastrar agora →</a>
                         </div>
                     `}
 

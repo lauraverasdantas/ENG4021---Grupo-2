@@ -85,6 +85,12 @@
             border: 2px solid #B3D4EC;
         }
 
+        .choice-button.tertiary {
+            background: #f4a0b0;
+            color: white;
+            box-shadow: 0 8px 20px rgba(244,160,176,0.24);
+        }
+
         .choice-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 24px rgba(0,0,0,0.12);
@@ -113,6 +119,7 @@
         <div class="choice-actions">
             <a class="choice-button secondary" href="{% url 'editarperfil' %}">Editar perfil</a>
             <a class="choice-button primary" href="{% url 'calendario' %}">Ir para calendário</a>
+            <a class="choice-button tertiary" href="{% url 'listarcontatosconfianca' %}">Contatos de confiança</a>
         </div>
     </main>
 </body>

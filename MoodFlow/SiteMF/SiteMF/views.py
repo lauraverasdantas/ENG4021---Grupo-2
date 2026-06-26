@@ -25,7 +25,7 @@ class CustomLoginView(LoginView):
         if redirect_to:
             return redirect_to
 
-        return reverse("calendario")
+        return reverse("pos_login")
 
 
 def home(request):
@@ -392,6 +392,20 @@ def contatoconfianca(request):
 
     messages.success(request, f'Contato "{nome}" salvo com sucesso!')
     return redirect('humor')
+
+
+@login_required
+def listarcontatosconfianca(request):
+    contatos = (
+        ContatoConfianca.objects
+        .filter(usuario=request.user)
+        .order_by('nome_contato')
+    )
+
+    return render(request, 'SiteMF/listarcontatosconfianca.html', {
+        'contatos': contatos,
+    })
+
 
 @login_required
 def pos_login(request):

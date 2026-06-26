@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatos de Confiança - MOOD Flow</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #B3D4EC;
+            background-image:
+                repeating-linear-gradient(rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px);
+            font-family: 'Patrick Hand', cursive;
+            padding: 24px;
+            color: #5B8DB8;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 760px;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid rgba(255,255,255,0.75);
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 12px 34px rgba(0,0,0,0.08);
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
+            color: #5B8DB8;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .button.primary {
+            background: #f4a0b0;
+            color: white;
+            box-shadow: 0 8px 20px rgba(244,160,176,0.24);
+        }
+
+        .button.secondary {
+            background: white;
+            color: #5B8DB8;
+            border: 2px solid #B3D4EC;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .contact-card {
+            background: white;
+            border: 2px solid #e6f1fb;
+            border-radius: 16px;
+            padding: 18px 20px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .contact-name {
+            font-size: 1.6rem;
+            color: #3f6f99;
+        }
+
+        .contact-detail {
+            font-family: Arial, sans-serif;
+            font-size: 0.95rem;
+            color: #6a8aa6;
+        }
+
+        .empty-state {
+            background: white;
+            border: 2px dashed #B3D4EC;
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            color: #6a8aa6;
+            font-size: 1.25rem;
+        }
+
+        @media (max-width: 520px) {
+            .page-container {
+                padding: 28px 20px;
+            }
+
+            h1 {
+                font-size: 2.4rem;
+            }
+
+            .button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page-container">
+        <div class="page-header">
+            <h1>Contatos de confiança</h1>
+            <div class="actions">
+                <a class="button secondary" href="{% url 'pos_login' %}">Voltar</a>
+                <a class="button primary" href="{% url 'contatoconfianca' %}">Adicionar contato</a>
+            </div>
+        </div>
+
+        {% if contatos %}
+            <div class="contact-list">
+                {% for contato in contatos %}
+                    <article class="contact-card">
+                        <div class="contact-name">{{ contato.nome_contato }}</div>
+                        <div class="contact-detail">Telefone: {{ contato.telefone }}</div>
+                        <div class="contact-detail">Relação: {{ contato.get_relacao_display }}</div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                Nenhum contato de confiança cadastrado ainda.
+            </div>
+        {% endif %}
+    </main>
+</body>
+</html>

@@ -125,5 +125,5 @@ STATIC_URL = "/static/"
 # LOGIN_URL: para onde @login_required manda quem não está logado.
 # LOGIN_REDIRECT_URL / LOGOUT_REDIRECT_URL: destinos após login/logout.
 LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "calendario"
+LOGIN_REDIRECT_URL = "pos_login"
 LOGOUT_REDIRECT_URL = "home"
