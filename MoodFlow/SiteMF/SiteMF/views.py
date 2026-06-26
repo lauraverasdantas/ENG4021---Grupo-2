@@ -410,3 +410,5 @@ def listarcontatosconfianca(request):
 @login_required
 def pos_login(request):
     return render(request, 'SiteMF/pos_login.html')
+    def contato(request):
+    return render(request, 'SiteMF/contato.html')
