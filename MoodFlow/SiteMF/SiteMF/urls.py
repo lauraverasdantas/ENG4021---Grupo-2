@@ -40,4 +40,5 @@ urlpatterns = [
     path('contatoconfianca/', views.contatoconfianca, name='contatoconfianca'),
     path('listarcontatosconfianca/', views.listarcontatosconfianca, name='listarcontatosconfianca'),
     path('pos_login/', views.pos_login, name='pos_login'),
+    path('manual/', views.manual, name='manual'),
 ]
