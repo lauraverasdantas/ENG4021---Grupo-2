@@ -11,6 +11,7 @@ from SiteMF.models import PerfilUsuario, RegistroHumor
 from SiteMF.models import ContatoConfianca
 import json
 import calendar
+from urllib.parse import urlparse
 
 
 class CustomLoginView(LoginView):
@@ -346,16 +347,52 @@ def sobre(request):
     return render(request, 'SiteMF/sobre.html')
 
 
+def _url_fazer_depois_contato(request):
+    skip_url = request.POST.get('skip_url')
+    urls_permitidas = {
+        reverse('pos_login'),
+        reverse('humor'),
+    }
+
+    if skip_url in urls_permitidas:
+        return skip_url
+
+    destino = request.GET.get('next') or request.POST.get('next')
+    destinos_permitidos = {
+        'pos_login': reverse('pos_login'),
+        'humor': reverse('humor'),
+    }
+
+    if destino in destinos_permitidos:
+        return destinos_permitidos[destino]
+
+    pagina_anterior = request.META.get('HTTP_REFERER', '')
+    caminho_anterior = urlparse(pagina_anterior).path
+
+    if caminho_anterior == reverse('pos_login'):
+        return reverse('pos_login')
+
+    if caminho_anterior == reverse('humor'):
+        return reverse('humor')
+
+    if caminho_anterior == reverse('listarcontatosconfianca'):
+        return reverse('pos_login')
+
+    return reverse('humor')
+
+
 
 @login_required
 def contatoconfianca(request):
     """
     GET  → exibe o formulário de cadastro de contato de confiança.
-    POST → valida e salva o contato no banco, depois redireciona para o humor.
+    POST → valida e salva o contato no banco, depois redireciona para o pos_login.
 
     Aparece logo após o login (LOGIN_REDIRECT_URL aponta para cá).
     O usuário pode pular clicando em 'Fazer depois'.
     """
+    skip_url = _url_fazer_depois_contato(request)
+
     # Carrega contato existente (se houver) para exibir na tela
     contato_existente = (
         ContatoConfianca.objects
@@ -367,6 +404,7 @@ def contatoconfianca(request):
         return render(request, 'SiteMF/contatoconfianca.html', {
             'contato': contato_existente,
             'opcoes_relacao': ContatoConfianca.Relacao.choices,
+            'skip_url': skip_url,
         })
 
     nome    = (request.POST.get('nome_contato') or '').strip()
@@ -378,6 +416,7 @@ def contatoconfianca(request):
         return render(request, 'SiteMF/contatoconfianca.html', {
             'contato': contato_existente,
             'opcoes_relacao': ContatoConfianca.Relacao.choices,
+            'skip_url': skip_url,
         })
 
     # Upsert: atualiza se já existe, cria se não existe
@@ -390,8 +429,7 @@ def contatoconfianca(request):
         },
     )
 
-    messages.success(request, f'Contato "{nome}" salvo com sucesso!')
-    return redirect('humor')
+    return redirect('pos_login')
 
 
 @login_required
