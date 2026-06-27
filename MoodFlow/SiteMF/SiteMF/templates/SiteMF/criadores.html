@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre os criadores - MOOD Flow</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'criadores/css/criadores.css' %}">
+</head>
+<body>
+    <main class="criadores-container">
+        <header class="criadores-header">
+            <h1>Sobre os criadores</h1>
+            <p>Conheça o Grupo 2, responsável pelo MoodFlow na disciplina ENG4021.</p>
+        </header>
+
+        <section class="criadores-grade">
+
+            <article class="criador-card">
+                <img class="criador-foto" src="{% static 'criadores/img/laura.jpg' %}" alt="Foto de Laura Dantas">
+                <h2 class="criador-nome">Laura Dantas</h2>
+                <span class="criador-papel">Engenharia de Produção</span>
+                <p class="criador-texto">
+                    Sou estudante de Engenharia de Produção e uma das criadoras do MoodFlow,
+                    um aplicativo de monitoramento de humor e apoio à saúde mental. Contribuí
+                    trazendo um olhar voltado para a experiência do usuário, a organização dos
+                    processos e a construção de uma solução pensada com cuidado, empatia e
+                    atenção a quem vai utilizá-la.
+                </p>
+            </article>
+
+            <article class="criador-card">
+                <img class="criador-foto" src="{% static 'criadores/img/guilherme.jpg' %}" alt="Foto de Guilherme Melo">
+                <h2 class="criador-nome">Guilherme Melo</h2>
+                <span class="criador-papel">Engenharia da Computação</span>
+                <p class="criador-texto">
+                    Sou estudante de Engenharia da Computação e ajudei a transformar a ideia do
+                    projeto em um aplicativo funcional. Meu foco esteve no desenvolvimento técnico,
+                    na lógica de programação e na integração das funcionalidades — do registro de
+                    humor ao Modo Crise — sempre unindo tecnologia e propósito.
+                </p>
+            </article>
+
+            <article class="criador-card">
+                <img class="criador-foto" src="{% static 'criadores/img/maria.jpg' %}" alt="Foto de Maria Clara Alexandre Sgarbi">
+                <h2 class="criador-nome">Maria Clara Alexandre Sgarbi</h2>
+                <span class="criador-papel">Grupo 2 — MoodFlow</span>
+                <p class="criador-texto">
+                    Também sou uma das criadoras do MoodFlow. Participei do projeto ao longo das
+                    sprints, ajudando a pensar a experiência das pessoas que utilizam o app, sempre
+                    com atenção, cuidado e empatia, para que cada funcionalidade fizesse sentido e
+                    oferecesse apoio verdadeiro nos momentos mais necessários.
+                </p>
+            </article>
+
+            <article class="criador-card">
+                <img class="criador-foto" src="{% static 'criadores/img/enzo.jpg' %}" alt="Foto de Enzo Grillo">
+                <h2 class="criador-nome">Enzo Grillo</h2>
+                <span class="criador-papel">Engenharia de Produção</span>
+                <p class="criador-texto">
+                    Sou estudante de Engenharia de Produção e um dos criadores do MoodFlow.
+                    Contribuí com um olhar voltado para a organização do projeto, a eficiência
+                    dos processos e a experiência de quem usa o aplicativo, unindo planejamento
+                    e propósito para oferecer um apoio cuidadoso e acessível.
+                </p>
+            </article>
+
+            <article class="criador-card">
+                <img class="criador-foto" src="{% static 'criadores/img/yuri.jpg' %}" alt="Foto de Yuri de Sousa Dias">
+                <h2 class="criador-nome">Yuri de Sousa Dias</h2>
+                <span class="criador-papel">Programador</span>
+                <p class="criador-texto">
+                    Atuei como programador do MoodFlow, responsável pela codagem geral das páginas
+                    em HTML, CSS, JavaScript e Python. Utilizei o GitHub Codespaces e o VS Code como
+                    principais ferramentas, cuidando para que cada página funcionasse de forma
+                    integrada, confiável e acessível.
+                </p>
+            </article>
+
+        </section>
+
+        <a class="voltar-button" href="{% url 'login' %}">
+            <i class="fa-solid fa-arrow-left"></i> Voltar ao login
+        </a>
+    </main>
+
+    <footer class="criadores-footer">
+        <p>&copy; 2026 MoodFlow · Grupo 2 · ENG4021. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
