@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,15 +7,17 @@
   <title>MOODflow — Termos de Uso</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="termosdeuso.css">
+  <!-- Link da fonte Inter atualizado -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'termosdeuso/css/termosdeuso.css' %}">
 </head>
 <body>
 
   <div class="doc">
 
     <div class="doc-header">
-      <div class="doc-title">Termos de Uso</div>
       <div class="doc-sub">Aplicativo MoodFlow</div>
+      <div class="doc-title">Termos de Uso</div>
       <div class="doc-date">Última atualização: junho de 2026</div>
     </div>
 
@@ -70,11 +73,11 @@
     <p>
       O usuário pode solicitar o encerramento da sua conta e a exclusão dos seus dados a qualquer
       momento. O uso continuado do aplicativo após eventuais atualizações destes Termos implica a
-      concordância com a versão mais recente.
+      concorrância com a versão mais recente.
     </p>
 
     <div class="doc-footer">
-      <a href="/" class="home-btn">voltar ao início</a>
+      <a href="/" class="home-btn">Voltar ao início</a>
     </div>
 
   </div>

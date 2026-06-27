@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOODflow — Contato</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-main: #1a2d42;
+      --text-muted: #6a8aa6;
+      --accent-color: #6c5ce7;
+      --accent-light: #f0edff;
+      --radius: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .doc {
+      background-color: var(--card-bg);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+      text-align: center;
+    }
+
+    .doc-header {
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .doc-sub {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .contact-container {
+      margin: 32px 0;
+    }
+
+    .contact-label {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      text-decoration: none;
+      background-color: var(--accent-light);
+      padding: 12px 24px;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .contact-email:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15);
+    }
+
+    .doc-footer {
+      margin-top: 32px;
+      border-top: 2px solid #edf2f7;
+      padding-top: 24px;
+    }
+
+    .home-btn {
+      display: inline-block;
+      text-decoration: none;
+      background-color: #edf2f7;
+      color: var(--text-main);
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .home-btn:hover {
+      background-color: var(--text-main);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="doc">
+
+    <div class="doc-header">
+      <div class="doc-sub">Aplicativo MoodFlow</div>
+      <div class="doc-title">Fale Conosco</div>
+    </div>
+
+    <p>Tem alguma dúvida, sugestão ou precisa de suporte técnico? Entre em contato com a nossa equipe especializada.</p>
+
+    <div class="contact-container">
+      <div class="contact-label">E-mail para suporte de usuários:</div>
+      <a href="mailto:moodflow@gmail.com" class="contact-email">moodflow@gmail.com</a>
+    </div>
+
+    <div class="doc-footer">
+      <a href="/" class="home-btn">Voltar ao início</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

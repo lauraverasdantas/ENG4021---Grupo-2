@@ -45,6 +45,23 @@
             background-color: #ffffff;
             box-shadow: 0 0 0 3px rgba(183, 148, 244, 0.2);
         }
+
+        /* Estilo para o link de voltar à página inicial */
+        .btn-back-home {
+            display: inline-block;
+            margin-top: 15px;
+            color: #888; /* Um cinza discreto */
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-family: 'Patrick Hand', cursive;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .btn-back-home:hover {
+            color: #b794f4; /* Cor roxa no hover */
+            text-decoration: underline;
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">    
@@ -97,6 +114,10 @@
 
                 <div class="signup-link">
                     Não tem conta? <a href="{% url 'registro' %}">Crie uma aqui</a>
+                </div>
+
+                <div style="text-align: center;">
+                    <a href="{% url 'home' %}" class="btn-back-home">← Voltar para a página inicial</a>
                 </div>
             </form>
         </div>

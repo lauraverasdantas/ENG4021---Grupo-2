@@ -61,6 +61,7 @@
             justify-content: center;
             gap: 16px;
             flex-wrap: wrap;
+            margin-bottom: 24px; /* Espaço para separar do botão de voltar */
         }
 
         .choice-button {
@@ -91,9 +92,30 @@
             box-shadow: 0 8px 20px rgba(244,160,176,0.24);
         }
 
+        .choice-button.quaternary {
+            background: #8ecae6;
+            color: white;
+            box-shadow: 0 8px 20px rgba(142,202,230,0.24);
+        }
+
         .choice-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+        }
+
+        /* Estilo para o link de Voltar à Página Inicial */
+        .btn-back {
+            display: inline-block;
+            color: #6a8aa6;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-back:hover {
+            color: #5B8DB8;
+            text-decoration: underline;
         }
 
         @media (max-width: 520px) {
@@ -120,7 +142,13 @@
             <a class="choice-button secondary" href="{% url 'editarperfil' %}">Editar perfil</a>
             <a class="choice-button primary" href="{% url 'calendario' %}">Ir para calendário</a>
             <a class="choice-button tertiary" href="{% url 'listarcontatosconfianca' %}">Contato de confiança</a>
+            <a class="choice-button quaternary" href="{% url 'meus_registros' %}">Ver meus registros</a>
         </div>
+
+        <hr style="border: 0; border-top: 1px dashed #B3D4EC; margin: 20px 0;">
+        
+        <!-- Opção para retornar à Página Inicial -->
+        <a class="btn-back" href="{% url 'home' %}">← Voltar para a página inicial</a>
     </main>
 </body>
 </html>

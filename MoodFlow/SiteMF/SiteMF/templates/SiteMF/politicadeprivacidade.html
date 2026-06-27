@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,15 +7,17 @@
   <title>MOODflow — Política de Privacidade</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="politicaprivacidade.css">
+  <!-- Link da fonte Inter adicionado para consistência -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'politicadeprivacidade/css/politicadeprivacidade.css' %}">
 </head>
 <body>
 
   <div class="doc">
 
     <div class="doc-header">
-      <div class="doc-title">Política de Privacidade</div>
       <div class="doc-sub">Aplicativo MoodFlow</div>
+      <div class="doc-title">Política de Privacidade</div>
       <div class="doc-date">Última atualização: junho de 2026</div>
     </div>
 
@@ -61,7 +64,7 @@
 
     <h2>5. Consentimento</h2>
     <p>
-      Ao criar uma conta e utilizar o MoodFlow, você declara estar ciente e de acordo com esta
+      Ao criar uma conta and utilizar o MoodFlow, você declara estar ciente e de acordo com esta
       Política de Privacidade. O consentimento é solicitado de forma explícita no momento do cadastro.
     </p>
 
@@ -73,7 +76,7 @@
     </p>
 
     <div class="doc-footer">
-      <a href="/" class="home-btn">voltar ao início</a>
+      <a href="/" class="home-btn">Voltar ao início</a>
     </div>
 
   </div>

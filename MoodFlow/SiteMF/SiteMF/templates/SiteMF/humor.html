@@ -276,61 +276,55 @@
         }
 
         /* --- Efeito de Seleção das Emoções --- */
-.mood-item.selected {
-    transform: scale(1.1) translateY(-5px); /* Dá um leve zoom e mantém levantado */
-}
+        .mood-item.selected {
+            transform: scale(1.1) translateY(-5px); /* Dá um leve zoom e mantém levantado */
+        }
 
-.mood-item.selected .face-circle {
-    border: 3px solid #fff; /* Adiciona uma borda branca mais grossa */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Cria um brilho ao redor do rosto */
-}
+        .mood-item.selected .face-circle {
+            border: 3px solid #fff; /* Adiciona uma borda branca mais grossa */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Cria um brilho ao redor do rosto */
+        }
 
-.mood-item.selected .mood-label {
-    font-weight: bold; /* Destaca o nome da emoção */
-}
+        .mood-item.selected .mood-label {
+            font-weight: bold; /* Destaca o nome da emoção */
+        }
 
-/* --- Comportamento do Textarea (Diário) --- */
-/* Faz o "Hoje eu me senti..." sumir imediatamente ao clicar e mostra a barra piscando */
-textarea:focus::placeholder {
-    color: transparent;
-}
+        /* --- Comportamento do Textarea (Diário) --- */
+        /* Faz o "Hoje eu me senti..." sumir imediatamente ao clicar e mostra a barra piscando */
+        textarea:focus::placeholder {
+            color: transparent;
+        }
 
 
-/* Estilo principal do botão */
-.btn-next {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #007BFF; /* Azul moderno, você pode alterar para a cor da sua marca */
-    color: #FFFFFF;
-    text-decoration: none; /* Remove o sublinhado padrão de links */
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 6px; /* Bordas levemente arredondadas */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
+        /* Estilo principal do botão */
+        .btn-next {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007BFF; /* Azul moderno, você pode alterar para a cor da sua marca */
+            color: #FFFFFF;
+            text-decoration: none; /* Remove o sublinhado padrão de links */
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 6px; /* Bordas levemente arredondadas */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-/* Efeito ao passar o mouse (Hover) */
-.btn-next:hover {
-    background-color: #0056b3; /* Um tom mais escuro de azul */
-    transform: translateY(-2px); /* Levanta o botão levemente */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Aumenta a sombra */
-    color: #FFFFFF; /* Garante que a cor do texto continue branca */
-}
+        /* Efeito ao passar o mouse (Hover) */
+        .btn-next:hover {
+            background-color: #0056b3; /* Um tom mais escuro de azul */
+            transform: translateY(-2px); /* Levanta o botão levemente */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Aumenta a sombra */
+            color: #FFFFFF; /* Garante que a cor do texto continue branca */
+        }
 
-/* Efeito ao clicar no botão (Active) */
-.btn-next:active {
-    transform: translateY(0); /* Volta para a posição original */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduz a sombra simulando o clique */
-}
-
-        /* --- Mensagens de feedback --- */
-        .mensagens { width:100%; max-width:600px; display:flex; flex-direction:column; gap:8px; }
-        .msg { padding:12px 18px; border-radius:10px; font-size:1.2rem; text-align:center; }
-        .msg-success { background:#d8f3dc; color:#1b4332; border:2px solid #95d5b2; }
-        .msg-error   { background:#ffe5e5; color:#9b2226; border:2px solid #ffb3b3; }
+        /* Efeito ao clicar no botão (Active) */
+        .btn-next:active {
+            transform: translateY(0); /* Volta para a posição original */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduz a sombra simulando o clique */
+        }
     </style>
 </head>
 <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;"> 
@@ -338,16 +332,6 @@ textarea:focus::placeholder {
     <div class="tracker-container">
         
         <div class="cloud-title">como você está se sentindo ?</div>
-
-        {% if messages %}
-        <div class="mensagens">
-            {% for message in messages %}
-            {% if 'error' in message.tags %}
-            <div class="msg msg-{{ message.tags }}">{{ message }}</div>
-            {% endif %}
-            {% endfor %}
-        </div>
-        {% endif %}
 
         <form method="post" action="{% url 'humor' %}" id="form-humor" style="width:100%; display:flex; flex-direction:column; align-items:center; gap:30px;">
             {% csrf_token %}
@@ -430,8 +414,7 @@ textarea:focus::placeholder {
 
     </div>
 
-    <!-- Footer com redes sociais -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <div style="padding: 20px; color: white;">
 </div>
 
@@ -443,7 +426,7 @@ textarea:focus::placeholder {
             &copy; 2026 MoodFlow. Todos os direitos reservados.
         </p>
     </footer>
-    <script>
+   <script>
         const crisisUrl = "{% url 'crise' %}";
 
         // Seleciona todos os rostinhos de humor
@@ -517,7 +500,6 @@ textarea:focus::placeholder {
                     position: relative;
                     font-family: 'Patrick Hand', cursive;
                 ">
-                    <!-- Ícone pulsante -->
                     <div style="
                         width: 72px; height: 72px; margin: 0 auto 18px;
                         background: #fde8ec; border-radius: 50%;
@@ -548,13 +530,15 @@ textarea:focus::placeholder {
                             <div style="font-size:0.78rem; color:#999; margin-bottom:4px; font-family:sans-serif;">SEU CONTATO DE CONFIANÇA</div>
                             <div style="font-size:1.15rem; color:#2c3e50; font-weight:bold;">${contatoNome}</div>
                             <div style="font-size:0.9rem; color:#7f8c8d;">${contatoRelacao}</div>
-                            <a href="tel:${contatoTelefone}" style="
-                                display:inline-block; margin-top:12px;
-                                background:#f4a0b0; color:white; text-decoration:none;
-                                padding:9px 22px; border-radius:99px;
-                                font-family:'Caveat',cursive; font-size:1.3rem;
-                                transition: background 0.2s;
-                            ">📞 ligar para ${contatoNome.split(' ')[0]}</a>
+                            
+                            <a href="#" onclick="mostrarAlertaEnviado(event); return false;" style="
+                            display:inline-block; margin-top:12px;
+                            background:#f4a0b0; color:white; text-decoration:none;
+                            padding:9px 22px; border-radius:99px;
+                            font-family:'Caveat',cursive; font-size:1.3rem;
+                            transition: background 0.2s;
+                            ">⚠️ enviar alerta para ${contatoNome.split(' ')[0]}
+                            </a>
                         </div>
                     ` : `
                         <div style="
@@ -563,7 +547,7 @@ textarea:focus::placeholder {
                             font-size:0.92rem; font-family:sans-serif;
                         ">
                             ⚠️ Você ainda não cadastrou um contato de confiança.<br>
-                            <a href="{% url 'contatoconfianca' %}?next=humor" style="color:#B3D4EC; font-weight:bold;">Cadastrar agora →</a>
+                            <a href="{% url 'contatoconfianca' %}?next=humor" onclick="salvarEstado(event, this.href)" style="color:#B3D4EC; font-weight:bold;">Cadastrar agora →</a>
                         </div>
                     `}
 
@@ -590,6 +574,104 @@ textarea:focus::placeholder {
             });
         }
         // ── Fim Pop-up de Crise ──────────────────────────────────────────────
+
+        // ── Restauração de Estado (SessionStorage) ──────────────────────────
+
+// Função ativada ao clicar no "Cadastrar agora"
+function salvarEstado(event, url) {
+    event.preventDefault(); // Impede o link de abrir na mesma hora
+    
+    // Salva os valores atuais no armazenamento temporário do navegador
+    sessionStorage.setItem('salvo_emoji', document.getElementById('humor_emoji_input').value);
+    sessionStorage.setItem('salvo_nivel', document.getElementById('anxiety-slider').value);
+    sessionStorage.setItem('salvo_texto', document.querySelector('textarea[name="texto_livre"]').value);
+    
+    // Agora sim, redireciona para a página de contato
+    window.location.href = url;
+}
+
+// Quando a página carrega, verifica se estava aguardando retorno
+document.addEventListener('DOMContentLoaded', () => {
+    const emoji = sessionStorage.getItem('salvo_emoji');
+    const nivel = sessionStorage.getItem('salvo_nivel');
+    const texto = sessionStorage.getItem('salvo_texto');
+
+    // Se existe nível salvo, aplica na barra e puxa o pop-up
+    if (nivel) {
+        document.getElementById('anxiety-slider').value = nivel;
+        if (parseInt(nivel) > 8) {
+            mostrarPopupCrise();
+        }
+    }
+
+    // Se existe emoji salvo, reconstrói o clique visual
+    if (emoji) {
+        document.getElementById('humor_emoji_input').value = emoji;
+        document.querySelectorAll('.mood-item').forEach(item => {
+            if (item.querySelector('.mood-num').textContent.trim() === emoji) {
+                item.classList.add('selected');
+            }
+        });
+    }
+
+    // Preenche o que havia sido escrito no diário
+    if (texto) {
+        document.querySelector('textarea[name="texto_livre"]').value = texto;
+    }
+
+    // Limpa a memória para não restaurar novamente por acidente no futuro
+    sessionStorage.removeItem('salvo_emoji');
+    sessionStorage.removeItem('salvo_nivel');
+    sessionStorage.removeItem('salvo_texto');
+});
+
+// ── Pop-up Bonito de Alerta Enviado ───────────────────────────────────
+function mostrarAlertaEnviado(event) {
+    if (event) event.preventDefault();
+
+    // Se já houver um alerta na tela, remove para não acumular
+    const alertaExistente = document.getElementById('toast-alerta');
+    if (alertaExistente) alertaExistente.remove();
+
+    // Cria a div do pop-up
+    const toast = document.createElement('div');
+    toast.id = 'toast-alerta';
+    
+    // Estilização do pop-up combinando com o tema do site
+    toast.innerHTML = `
+        <div style="
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            background: #ffffff; border: 2px solid #56c15b; border-radius: 16px;
+            color: #669bc0; font-family: 'Patrick Hand', cursive; font-size: 1.5rem;
+            padding: 15px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        ">
+            <span style="font-size: 1.8rem;">✅</span>
+            <span>Alerta enviado!</span>
+        </div>
+    `;
+    
+    // Posição inicial (escondido um pouco mais para cima e transparente)
+    toast.style.cssText = `
+        position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+        z-index: 10000; opacity: 0; transition: opacity 0.4s ease, top 0.4s ease;
+        pointer-events: none;
+    `;
+
+    document.body.appendChild(toast);
+
+    // Animação para deslizar para baixo e aparecer (delay mínimo para o CSS registrar)
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.top = '40px';
+    }, 10);
+
+    // Some e é deletado após 3 segundos
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.top = '10px';
+        setTimeout(() => toast.remove(), 400); // Espera a animação de sumir terminar para deletar o HTML
+    }, 3000);
+}
     </script>
 </body>
 </html>

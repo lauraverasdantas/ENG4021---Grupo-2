@@ -94,7 +94,7 @@ def registro(request):
     # Já loga o usuário recém-criado e leva para a home
     auth_login(request, user)
     messages.success(request, "Conta criada com sucesso!")
-    return redirect("home")
+    return redirect("login")
 
 
 # Mapeamento emoji → cor de fundo do card (mesmas cores do humor.html)
@@ -429,7 +429,9 @@ def contatoconfianca(request):
         },
     )
 
-    return redirect('pos_login')
+    return redirect(skip_url)
+
+    
 
 
 @login_required
@@ -448,3 +450,65 @@ def listarcontatosconfianca(request):
 @login_required
 def pos_login(request):
     return render(request, 'SiteMF/pos_login.html')
+
+
+    path('termosdeuso/', views.termosdeuso, name='termosdeuso'),
+
+
+def termosdeuso(request):
+    return render(request, 'SiteMF/termosdeuso.html')
+
+
+def politicadeprivacidade(request):
+    return render(request, 'SiteMF/politicadeprivacidade.html')
+
+def contato(request):
+    return render(request, 'SiteMF/contato.html')
+
+
+def meus_registros(request):
+    registros = (
+        RegistroHumor.objects
+        .filter(usuario=request.user)
+        .order_by('-data_hora')
+    )
+
+    return render(request, 'SiteMF/meus_registros.html', {
+        'registros': registros,
+    })
+
+
+def _url_fazer_depois_contato(request):
+    skip_url = request.POST.get('skip_url')
+    urls_permitidas = {
+        reverse('pos_login'),
+        reverse('humor'),
+        reverse('listarcontatosconfianca'), # Rota permitida adicionada
+    }
+
+    if skip_url in urls_permitidas:
+        return skip_url
+
+    destino = request.GET.get('next') or request.POST.get('next')
+    destinos_permitidos = {
+        'pos_login': reverse('pos_login'),
+        'humor': reverse('humor'),
+        'listarcontatosconfianca': reverse('listarcontatosconfianca'), # Destino adicionado
+    }
+
+    if destino in destinos_permitidos:
+        return destinos_permitidos[destino]
+
+    pagina_anterior = request.META.get('HTTP_REFERER', '')
+    caminho_anterior = urlparse(pagina_anterior).path
+
+    if caminho_anterior == reverse('pos_login'):
+        return reverse('pos_login')
+
+    if caminho_anterior == reverse('humor'):
+        return reverse('humor')
+
+    if caminho_anterior == reverse('listarcontatosconfianca'):
+        return reverse('listarcontatosconfianca') # Retorno corrigido (antes era pos_login)
+
+    return reverse('humor')

@@ -115,18 +115,6 @@
             font-family: sans-serif;
         }
 
-        /* Mensagens Django */
-        .msg-error, .msg-success {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            margin-bottom: 14px;
-            font-family: sans-serif;
-        }
-        .msg-error   { background: #fde8ec; color: #c0392b; }
-        .msg-success { background: #e8fdf0; color: #1a7a42; }
-
         /* Form */
         .contact-form {
             width: 100%;
@@ -248,7 +236,6 @@
 
 <div class="main-container">
 
-    <!-- Painel esquerdo -->
     <div class="left-panel">
         <div class="brand-text">
             <span class="mood-part">MOOD</span><span class="flow-part">flow</span>
@@ -262,21 +249,12 @@
         </div>
     </div>
 
-    <!-- Painel direito -->
     <div class="device-frame">
 
         <div class="icon-top">🫂</div>
 
         <h2 class="card-title">contato de confiança</h2>
         <p class="card-subtitle">quem te apoia nos momentos difíceis?</p>
-
-        {% if messages %}
-            {% for msg in messages %}
-                <div class="{% if msg.tags == 'error' %}msg-error{% else %}msg-success{% endif %}">
-                    {{ msg }}
-                </div>
-            {% endfor %}
-        {% endif %}
 
         {% if contato %}
             <div class="badge-saved">

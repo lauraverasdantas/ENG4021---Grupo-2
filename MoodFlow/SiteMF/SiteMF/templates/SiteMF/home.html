@@ -415,6 +415,30 @@
       .icon-wrap { width: 96px; height: 96px; border-radius: 26px; }
       h1 { font-size: 36px; }
     }
+    footer {
+  position: relative; /* Garante que o z-index funcione */
+  z-index: 10;        /* Coloca o footer na camada da frente */
+  
+  /* Mantém as tuas propriedades atuais abaixo (exemplo baseado no padrão do MoodFlow) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  background: var(--white);
+  border-top: 1px solid var(--sky-l);
+}
+
+footer a {
+  color: var(--ink-l);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: var(--accent-color); /* Ou var(--ink) */
+}
   </style>
 </head>
 <body>
@@ -539,9 +563,9 @@
   </div>
 
   <footer>
-    <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#">Privacidade</a>
-    <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#">Termos</a>
-    <a href="https://ead.puc-rio.br/pluginfile.php/2632205/mod_kanban/attachments/4854/pagina_inicial.html.html#">Contato</a>
+    <a href="{% url 'politicadeprivacidade' %}">Privacidade</a>
+    <a href="{% url 'termosdeuso' %}">Termos</a>
+    <a href="{% url 'contato' %}">Contato</a>
     <span>© 2026 MOODFlow</span>
   </footer>
 

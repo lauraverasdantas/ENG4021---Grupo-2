@@ -1,0 +1,172 @@
+/* Importação da fonte Inter para um visual moderno e limpo */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-color: #f4f6f9;
+  --card-bg: #ffffff;
+  --text-main: #2d3748;
+  --text-muted: #718096;
+  --accent-color: #6c5ce7; /* Roxo suave, comum em apps de bem-estar */
+  --accent-light: #f0edff;
+  --warning-bg: #fff5f5;
+  --warning-border: #feb2b2;
+  --warning-text: #c53030;
+  --radius: 16px;
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container do Documento */
+.doc {
+  background-color: var(--card-bg);
+  max-width: 720px;
+  width: 100%;
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+}
+
+/* Cabeçalho */
+.doc-header {
+  border-bottom: 2px solid #edf2f7;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.doc-sub {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-color);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.doc-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.doc-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Introdução e Parágrafos */
+.doc-intro {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+p {
+  margin-bottom: 16px;
+  color: #4a5568;
+}
+
+/* Títulos das Seções */
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 32px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* Caixa de Alerta / Aviso de Saúde */
+.aviso {
+  background-color: var(--warning-bg);
+  border-left: 4px solid var(--warning-border);
+  color: var(--warning-text);
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+/* Listas */
+ul {
+  list-style: none; /* Remove as bolinhas padrão */
+  margin-bottom: 24px;
+  padding-left: 4px;
+}
+
+ul li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 12px;
+  color: #4a5568;
+}
+
+/* Custom bullet pontudo e suave */
+ul li::before {
+  content: "•";
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+  position: absolute;
+  left: 4px;
+  top: -2px;
+}
+
+/* Rodapé e Botão */
+.doc-footer {
+  margin-top: 48px;
+  border-top: 2px solid #edf2f7;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.home-btn {
+  display: inline-block;
+  text-decoration: none;
+  background-color: var(--accent-light);
+  color: var(--accent-color);
+  padding: 12px 24px;
+  border-radius: 100px; /* Botão totalmente arredondado, estilo app moderno */
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.home-btn:hover {
+  background-color: var(--accent-color);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 600px) {
+  body {
+    padding: 16px;
+  }
+  .doc {
+    padding: 24px;
+  }
+  .doc-title {
+    font-size: 1.6rem;
+  }
+}
