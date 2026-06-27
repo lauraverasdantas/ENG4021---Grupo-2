@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de uso - MOOD Flow</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'manual/css/manual.css' %}">
+</head>
+<body>
+    <main class="manual-container">
+        <header class="manual-header">
+            <h1>Manual de uso do MoodFlow</h1>
+            <p>Guia completo, tela por tela, para você usar o aplicativo do início ao fim.</p>
+        </header>
+
+        <!-- Índice -->
+        <nav class="manual-indice" aria-label="Índice">
+            <h2>Neste guia</h2>
+            <ul>
+                <li><a href="#cadastro">1. Cadastro de conta</a></li>
+                <li><a href="#login">2. Login e recuperação</a></li>
+                <li><a href="#inicio">3. Tela inicial (pós-login)</a></li>
+                <li><a href="#contato-confianca">4. Contato de confiança</a></li>
+                <li><a href="#registro-humor">5. Registro de humor</a></li>
+                <li><a href="#calendario">6. Calendário de humor</a></li>
+                <li><a href="#crise">7. Modo Crise</a></li>
+                <li><a href="#perfil">8. Editar perfil</a></li>
+                <li><a href="#duvidas">9. Perguntas frequentes</a></li>
+            </ul>
+        </nav>
+
+        <!-- 1. Cadastro -->
+        <section class="manual-secao" id="cadastro">
+            <h2><span class="num">1</span> Cadastro de conta</h2>
+            <p>Para começar, você precisa criar uma conta. Na tela de login, clique em
+               <strong>"Crie uma aqui"</strong>. O formulário de cadastro pede os seguintes dados,
+               todos obrigatórios:</p>
+            <ul class="campos">
+                <li><strong>Nome:</strong> seu nome completo.</li>
+                <li><strong>Data de nascimento:</strong> selecione no calendário do campo.</li>
+                <li><strong>Telefone:</strong> número com DDD.</li>
+                <li><strong>E-mail:</strong> um e-mail válido e ainda não cadastrado.</li>
+                <li><strong>Usuário:</strong> o nome que você usará para entrar (precisa ser único).</li>
+                <li><strong>Senha:</strong> evite senhas muito curtas, só números ou óbvias —
+                    o sistema recusa senhas fracas.</li>
+            </ul>
+            <p class="obs"><i class="fa-solid fa-circle-info"></i>
+               Se o usuário ou o e-mail já estiverem em uso, aparece uma mensagem em vermelho.
+               Após o cadastro, você já entra automaticamente no app.</p>
+        </section>
+
+        <!-- 2. Login -->
+        <section class="manual-secao" id="login">
+            <h2><span class="num">2</span> Login e recuperação</h2>
+            <p>Na tela de login, informe seu <strong>nome de usuário</strong> e a <strong>senha</strong>
+               e clique em <strong>Login</strong>. Usuários comuns vão para a tela inicial;
+               administradores são levados ao painel de gestão.</p>
+            <p>O link <strong>"Esqueci minha senha"</strong> está disponível na tela. Os botões
+               <strong>Contato</strong> e <strong>Help</strong> ficam logo abaixo do formulário,
+               caso você precise falar com a equipe ou rever este guia.</p>
+        </section>
+
+        <!-- 3. Início -->
+        <section class="manual-secao" id="inicio">
+            <h2><span class="num">3</span> Tela inicial (pós-login)</h2>
+            <p>Assim que entra, você chega a uma tela de escolha com os principais caminhos do app:
+               <strong>editar perfil</strong>, ir para o <strong>calendário</strong> e ver seus
+               <strong>contatos de confiança</strong>. A partir dela você navega para todo o resto.</p>
+        </section>
+
+        <!-- 4. Contato de confiança -->
+        <section class="manual-secao" id="contato-confianca">
+            <h2><span class="num">4</span> Contato de confiança</h2>
+            <p>É a pessoa que poderá ser acionada nos seus momentos mais difíceis. Para cadastrar,
+               preencha:</p>
+            <ul class="campos">
+                <li><strong>Nome do contato</strong></li>
+                <li><strong>Telefone</strong></li>
+                <li><strong>Relação:</strong> família, amigo(a), parceiro(a), profissional ou outro.</li>
+            </ul>
+            <p class="obs"><i class="fa-solid fa-circle-info"></i>
+               Você pode ter um contato de confiança salvo. Ao cadastrar de novo, os dados são
+               atualizados. Esse contato aparece para você no Modo Crise.</p>
+        </section>
+
+        <!-- 5. Registro de humor -->
+        <section class="manual-secao" id="registro-humor">
+            <h2><span class="num">5</span> Registro de humor</h2>
+            <p>O coração do app. Aqui você registra como está se sentindo:</p>
+            <ol class="passos-num">
+                <li><strong>Escolha um emoji</strong> que represente seu humor (são 9 opções:
+                    normal, triste, feliz, esperançoso, raivoso, apaixonado, preocupado,
+                    ansioso e entediado).</li>
+                <li><strong>Ajuste o nível de ansiedade</strong> na barra deslizante, de
+                    <strong>1 a 10</strong>.</li>
+                <li><strong>Escreva sobre o seu dia</strong> no campo de texto (opcional).</li>
+                <li>Clique em <strong>Registrar Humor</strong>.</li>
+            </ol>
+            <p class="alerta"><i class="fa-solid fa-triangle-exclamation"></i>
+               <span>Se o nível de ansiedade for maior que <strong>8</strong>, o app exibe um aviso
+               automático e oferece apoio imediato. Depois de registrar, você é levado ao calendário.</span></p>
+
+        <!-- 6. Calendário -->
+        <section class="manual-secao" id="calendario">
+            <h2><span class="num">6</span> Calendário de humor</h2>
+            <p>Mostra seus registros organizados por dia, em formato de calendário mensal.
+               Cada dia com registro aparece colorido conforme o humor escolhido e exibe o emoji
+               correspondente.</p>
+            <ul class="campos">
+                <li>Use as setas para navegar entre os <strong>meses</strong>.</li>
+                <li>O dia atual fica destacado.</li>
+                <li>Quando há mais de um registro no mesmo dia, o calendário mostra o
+                    <strong>mais recente</strong>.</li>
+            </ul>
+            <p class="obs"><i class="fa-solid fa-circle-info"></i>
+               Acompanhar o calendário ao longo das semanas ajuda você a perceber padrões nas
+               suas emoções e no seu nível de ansiedade.</p>
+        </section>
+
+        <!-- 7. Modo Crise -->
+        <section class="manual-secao" id="crise">
+            <h2><span class="num">7</span> Modo Crise</h2>
+            <p>Pensado para os momentos de maior dificuldade. Nele você encontra apoio rápido,
+               técnicas de respiração e o acesso à sua rede de confiança. Ele pode aparecer
+               automaticamente quando seu nível de ansiedade está muito alto, ou ser acessado
+               quando você sentir necessidade.</p>
+            <p class="alerta"><i class="fa-solid fa-heart-pulse"></i>
+               <span>O MoodFlow é uma ferramenta de apoio e <strong>não substitui</strong> atendimento
+               profissional. Em emergências, procure ajuda médica ou ligue para o CVV (188).</span></p>
+        </section>
+
+        <!-- 8. Editar perfil -->
+        <section class="manual-secao" id="perfil">
+            <h2><span class="num">8</span> Editar perfil</h2>
+            <p>Permite atualizar seus dados pessoais. Acesse pela tela inicial, no botão
+               <strong>Editar perfil</strong>.</p>
+        </section>
+
+        <!-- 9. FAQ -->
+        <section class="manual-secao" id="duvidas">
+            <h2><span class="num">9</span> Perguntas frequentes</h2>
+            <div class="faq-item">
+                <strong>Preciso registrar o humor todo dia?</strong>
+                <p>Não é obrigatório, mas registrar com frequência deixa o acompanhamento muito
+                   mais útil para perceber padrões.</p>
+            </div>
+            <div class="faq-item">
+                <strong>Posso mudar meu contato de confiança?</strong>
+                <p>Sim. Basta preencher o formulário novamente; os dados anteriores são substituídos.</p>
+            </div>
+            <div class="faq-item">
+                <strong>Quem vê os meus registros?</strong>
+                <p>Os registros de humor são pessoais e ficam vinculados à sua conta.</p>
+            </div>
+        </section>
+
+        <a class="voltar-button" href="{% url 'home' %}">
+            <i class="fa-solid fa-arrow-left"></i> Voltar 
+        </a>
+    </main>
+
+    <footer class="manual-footer">
+        <p>&copy; 2026 MoodFlow. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

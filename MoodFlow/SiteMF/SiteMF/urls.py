@@ -44,4 +44,5 @@ urlpatterns = [
     path('politicadeprivacidade/', views.politicadeprivacidade, name='politicadeprivacidade'),
     path('contato/', views.contato, name='contato'),
     path('meus_registros/', views.meus_registros, name='meus_registros'),
+    path('manual/', views.manuak, name='manual'),  
 ]

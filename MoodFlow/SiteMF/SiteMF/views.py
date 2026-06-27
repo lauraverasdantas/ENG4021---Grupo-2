@@ -512,3 +512,7 @@ def _url_fazer_depois_contato(request):
         return reverse('listarcontatosconfianca') # Retorno corrigido (antes era pos_login)
 
     return reverse('humor')
+
+
+def manuak(request):
+    return render(request, 'SiteMF/manual.html')

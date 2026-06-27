@@ -1,0 +1,239 @@
+/* ===== Manual de uso - MoodFlow =====
+   Mesma estética "caderno" das demais telas, com layout de
+   documento/seções para conteúdo mais longo e técnico. */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #B3D4EC;
+    background-image:
+        repeating-linear-gradient(rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px);
+    font-family: 'Patrick Hand', cursive;
+    color: #4a6f93;
+    padding: 40px 24px;
+}
+
+.manual-container {
+    width: 100%;
+    max-width: 760px;
+    background: rgba(255,255,255,0.92);
+    border: 2px solid rgba(255,255,255,0.75);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 0 12px 34px rgba(0,0,0,0.08);
+}
+
+.manual-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.manual-header h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    color: #5B8DB8;
+    margin-bottom: 8px;
+}
+
+.manual-header p {
+    font-size: 1.2rem;
+    color: #6a8aa6;
+}
+
+/* Índice */
+.manual-indice {
+    background: #eef5fb;
+    border: 2px solid #d9e8f5;
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 36px;
+}
+
+.manual-indice h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    color: #5B8DB8;
+    margin-bottom: 10px;
+}
+
+.manual-indice ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 24px;
+}
+
+.manual-indice a {
+    color: #4a6f93;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.manual-indice a:hover {
+    text-decoration: underline;
+    color: #2f5876;
+}
+
+/* Seções */
+.manual-secao {
+    margin-bottom: 34px;
+    scroll-margin-top: 20px;
+}
+
+.manual-secao h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: #5B8DB8;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e3eef7;
+}
+
+.manual-secao h2 .num {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #5B8DB8;
+    color: #ffffff;
+    font-size: 1.3rem;
+}
+
+.manual-secao p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.manual-secao strong {
+    color: #2f5876;
+}
+
+/* Listas de campos e passos */
+.campos,
+.passos-num {
+    margin: 0 0 12px 4px;
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campos li,
+.passos-num li {
+    font-size: 1.12rem;
+    line-height: 1.45;
+}
+
+.passos-num {
+    list-style: decimal;
+}
+
+/* Caixas de observação / alerta */
+.obs,
+.alerta {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 1.08rem;
+    line-height: 1.45;
+    margin-top: 6px;
+}
+
+.obs {
+    background: #eef5fb;
+    border: 2px solid #d9e8f5;
+    color: #4a6f93;
+}
+
+.alerta {
+    background: #fdecea;
+    border: 2px solid #f5c6c0;
+    color: #99362c;
+}
+
+.obs i,
+.alerta i {
+    margin-top: 3px;
+    font-size: 1.1rem;
+}
+
+/* FAQ */
+.faq-item {
+    background: #ffffff;
+    border: 2px solid #e3eef7;
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+}
+
+.faq-item strong {
+    display: block;
+    font-size: 1.18rem;
+    color: #2f5876;
+    margin-bottom: 4px;
+}
+
+.faq-item p {
+    font-size: 1.08rem;
+    margin-bottom: 0;
+}
+
+/* Botão voltar */
+.voltar-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px auto 0;
+    padding: 12px 24px;
+    background: #5B8DB8;
+    color: #ffffff;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 1.15rem;
+    box-shadow: 0 8px 20px rgba(91,141,184,0.24);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.voltar-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+.manual-footer {
+    margin-top: 24px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 560px) {
+    .manual-container {
+        padding: 32px 22px;
+    }
+
+    .manual-header h1 {
+        font-size: 2.4rem;
+    }
+
+    .manual-indice ul {
+        grid-template-columns: 1fr;
+    }
+}
