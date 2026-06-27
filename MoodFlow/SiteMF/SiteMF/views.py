@@ -516,3 +516,7 @@ def _url_fazer_depois_contato(request):
 
 def manuak(request):
     return render(request, 'SiteMF/manual.html')
+
+
+def equipe(request):
+    return render(request, 'SiteMF/equipe.html')

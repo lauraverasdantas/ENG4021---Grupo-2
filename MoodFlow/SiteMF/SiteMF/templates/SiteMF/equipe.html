@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre a Equipe - MoodFlow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            min-height: 100vh;
+            background-color: #B3D4EC;
+            background-image:
+                repeating-linear-gradient(rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 20px);
+            font-family: 'Patrick Hand', cursive;
+            color: #4a6f93;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            background: rgba(255,255,255,0.92);
+            border: 2px solid rgba(255,255,255,0.75);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 12px 34px rgba(0,0,0,0.08);
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .header { text-align: center; margin-bottom: 45px; }
+        .header h1 { font-family: 'Caveat', cursive; font-size: 3.5rem; color: #5B8DB8; margin-bottom: 8px; }
+        .header p { font-size: 1.3rem; color: #6a8aa6; }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .member-card {
+            background: #ffffff;
+            border: 2px solid #e3eef7;
+            border-radius: 20px;
+            padding: 28px 20px;
+            text-align: center;
+            box-shadow: 0 6px 16px rgba(91,141,184,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(91,141,184,0.2);
+        }
+
+        .photo {
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #B3D4EC;
+            margin-bottom: 18px;
+            background-color: #f0f7ff;
+        }
+
+        .name { font-family: 'Caveat', cursive; font-size: 2.2rem; color: #5B8DB8; margin-bottom: 6px; }
+        
+        .role { 
+            display: inline-block; 
+            background: #eef5fb; color: #2f5876; 
+            padding: 6px 14px; border-radius: 99px; 
+            font-size: 1.05rem; margin-bottom: 18px; 
+            font-weight: bold; font-family: 'Nunito', sans-serif;
+        }
+
+        .desc { font-size: 1.15rem; line-height: 1.45; color: #4a6f93; text-align: center; }
+
+        /* Estilo sutilmente destacado para o Desenvolvedor */
+        .dev-card { border-color: #c6e0f5; background: #fafcff; }
+        .dev-card .photo { border-color: #8ab5d8; }
+
+        .btn-voltar {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 45px; padding: 12px 28px;
+            background: #5B8DB8; color: #ffffff; border-radius: 99px;
+            text-decoration: none; font-size: 1.25rem;
+            box-shadow: 0 8px 20px rgba(91,141,184,0.24);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-voltar:hover { transform: translateY(-2px); background: #4a7aa1; }
+        
+        @media (max-width: 600px) {
+            .container { padding: 32px 20px; }
+            .header h1 { font-size: 2.8rem; }
+            .team-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Criadores do MoodFlow</h1>
+            <p>Conheça a equipe do Grupo 2 (ENG4021) por trás do projeto</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="member-card">
+                <img src="{% static 'images/equipe/laura.png' %}" alt="Laura Dantas" class="photo" onerror="this.src='https://ui-avatars.com/api/?name=Laura+Dantas&background=eef5fb&color=5B8DB8&size=130&font-size=0.4'">
+                <h2 class="name">Laura Dantas</h2>
+                <span class="role">Engenharia de Produção</span>
+                <p class="desc">Trouxe um olhar voltado para a experiência do usuário, organização dos processos e construção de uma solução pensada com cuidado, empatia e atenção.</p>
+            </div>
+
+            <div class="member-card">
+                <img src="{% static 'images/equipe/guilherme.png' %}" alt="Guilherme Melo" class="photo" onerror="this.src='https://ui-avatars.com/api/?name=Guilherme+Melo&background=eef5fb&color=5B8DB8&size=130&font-size=0.4'">
+                <h2 class="name">Guilherme Melo</h2>
+                <span class="role">Engenharia da Computação</span>
+                <p class="desc">Focou no desenvolvimento técnico da solução, contribuindo com a lógica de programação, integração e garantindo uma base sólida, segura e confiável para os usuários.</p>
+            </div>
+
+            <div class="member-card">
+                <img src="{% static 'images/equipe/maria.png' %}" alt="Maria Clara Sgarbi" class="photo" onerror="this.src='https://ui-avatars.com/api/?name=Maria+Clara&background=eef5fb&color=5B8DB8&size=130&font-size=0.4'">
+                <h2 class="name">Maria Clara Sgarbi</h2>
+                <span class="role">Engenharia da Computação</span>
+                <p class="desc">Ajudou a pensar a experiência de quem utiliza o app, sempre com cuidado e empatia, buscando que cada funcionalidade fizesse sentido e oferecesse apoio verdadeiro.</p>
+            </div>
+
+            <div class="member-card">
+                <img src="{% static 'images/equipe/enzo.png' %}" alt="Enzo Grillo" class="photo" onerror="this.src='https://ui-avatars.com/api/?name=Enzo+Grillo&background=eef5fb&color=5B8DB8&size=130&font-size=0.4'">
+                <h2 class="name">Enzo Grillo</h2>
+                <span class="role">Engenharia de Produção</span>
+                <p class="desc">Atuou na organização do projeto e eficiência dos processos, unindo planejamento e propósito para oferecer um suporte cuidadoso e acessível a quem convive com a ansiedade.</p>
+            </div>
+
+            <div class="member-card dev-card">
+                <img src="{% static 'images/equipe/yuri.png' %}" alt="Yuri de Sousa Dias" class="photo" onerror="this.src='https://ui-avatars.com/api/?name=Yuri+Dias&background=c6e0f5&color=2f5876&size=130&font-size=0.4'">
+                <h2 class="name">Yuri Dias</h2>
+                <span class="role">Engenharia da Computação</span>
+                <p class="desc">Responsável pela codagem geral (HTML, CSS, JS e Python). Utilizou GitHub Codespaces e VS Code para transformar a ideia numa aplicação funcional e totalmente integrada.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; width: 100%;">
+            <a href="{% url 'home' %}" class="btn-voltar"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+        </div>
+    </div>
+</body>
+</html>
